@@ -1,0 +1,198 @@
+syntax = "proto3";
+import "google/api/annotations.proto";
+package pb;
+// load from file
+message PutObjectRequest {
+    //origin file that need to put
+    string   object_name=1;
+    //extra info for origin file
+    map<string,string> extra=2;
+    string    bucket_name=3;
+    //origin file legnth
+    uint64    object_length=4;
+    //object content type
+    string content_type = 5;
+    //object content mds
+    string  object_md5=6;
+}
+
+// {file-meta|file-data}
+message PutObjectResponse{
+    //volume info such raw device/gluster volume/filesystem
+    string  backend_volume=1;
+    //target file for origin file to write
+    ///bucket/{target_path}/{target_file}
+    //target_object_path = {target_path}/{target_file}
+    string  target_object_file=4;
+    //target file offset
+    string target_object_offset=5;
+}
+
+message VolumeInfo{
+    //voluem name
+    string name = 1;
+    //storage_type:ec/hash/replica/raw disk
+    string storage_type = 2;
+    //backend volume server address
+    string source = 3;
+    //volume status:err=-1;full=0;normal=1
+    int32 status = 4;
+    //total capcacity for volume
+    int64 capacity = 5;
+    //used capcity
+    int64 used = 6;
+    //tps for op files with volume
+    float limit = 7;
+    //is shared volume for all
+    int32 is_share = 8;
+}
+
+
+
+message CreateBucketRequest{
+    //request bucket name
+    string name = 1;
+    //storage_type:ec/hash/replica/raw disk
+    string storage_type = 2;
+    //access privileges
+    string key = 3;
+    //request storage capacity
+    uint64 capacity = 6;
+    //obejcts limits
+    uint64 obj_limit = 8;
+    map<string, string> extra = 11;
+}
+
+message CreateBucketResponse{
+    //bucket name
+    string name = 1;
+    //storage_type:ec/hash/replica/raw disk
+    string storage_type = 2;
+    //access privileges
+    string key = 3;
+    //bucket status
+    int32 status = 4;
+    //bucket capacity
+    uint64 capacity = 5;
+    //max objects for buckets,this value can't limit
+    uint64 obj_limit = 6;
+    //bucket create time
+    int64 creation_time = 7;
+    //expire time,base uint is hour,if this value equals to -1,never expire
+    int32 expire_time = 8;
+    //volume that owned to bucket,format:127.0.0.1:24007:volume
+    repeated string volume_source = 9;
+    //extra  info to describle this bucket
+    map<string, string> extra = 10;
+
+}
+
+message ListBucketsRequest{
+}
+
+message ListBucketsResponse{
+}
+
+message DeleteBucketRequest{
+    //bucket name
+    string bucket_name = 1;
+    //option force delete flag
+    bool force = 2;
+}
+
+message DeleteBucketResponse{
+}
+
+message UpdateBucketRequest{
+    string bucket_name = 1;
+    int32 capacity = 2;
+    int32 expire_time = 3;
+    map<string, string> extra = 4;
+}
+
+message UpdateBucketResponse {
+   string bucket_name = 1;
+   int32 capacity = 2;
+   int32 save_days = 3;
+   map<string, string> extra = 4;
+}
+
+message AddVolumeRequest {
+    VolumeInfo volume = 1;
+}
+
+message AddVolumeResponse {
+    VolumeInfo volume = 1;
+}
+
+message ListVolumesRequest {
+}
+
+message ListVolumesResponse {
+    repeated VolumeInfo volumes = 1;
+}
+
+message DeleteVolumeRequest {
+    string volume_name = 1;
+    bool force = 2;
+}
+
+message DeleteVolumeResponse {
+}
+
+service  FusionStorageGateway {
+    //上传对象
+    rpc Put(PutObjectRequest)  returns (PutObjectResponse) {
+        option (google.api.http) = {
+            post: "/v1/put"
+            body: "*"
+        };
+    }
+
+    rpc CreateBucket(CreateBucketRequest) returns (CreateBucketResponse){
+        option (google.api.http) = {
+            post: "/v1/createBucket"
+            body: "*"
+        };
+    }
+
+    rpc DeleteBucket(DeleteBucketRequest) returns (DeleteBucketResponse) {
+        option (google.api.http) = {
+            post: "/v1/deleteBucket"
+            body: "*"
+        };
+    }
+
+    rpc ListBuckets(ListBucketsRequest) returns (ListBucketsResponse) {
+        option (google.api.http) = {
+            get: "/v1/listBuckets"
+        };
+    }
+
+    rpc UpdateBucket(UpdateBucketRequest) returns (UpdateBucketResponse) {
+        option (google.api.http) = {
+            post: "/v1/updateBucket"
+            body: "*"
+        };
+    }
+
+    rpc AddVolume(AddVolumeRequest) returns(AddVolumeResponse){
+        option (google.api.http) = {
+            post: "/v1/addVolume"
+            body: "*"
+        };
+    }
+
+    rpc DeleteVolume(DeleteVolumeRequest) returns(DeleteVolumeResponse){
+        option (google.api.http) = {
+            post: "/v1/deleteVolume"
+            body: "*"
+        };
+    }
+
+    rpc ListVolumes(ListVolumesRequest) returns(ListVolumesResponse){
+        option (google.api.http) = {
+            get: "/v1/listVolumes"
+        };
+    }
+}
