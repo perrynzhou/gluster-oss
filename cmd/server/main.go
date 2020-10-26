@@ -2,10 +2,10 @@ package main
 
 import (
 	"flag"
-	"fusion-storage-gateway/conf"
-	fs_api "fusion-storage-gateway/fs-api"
-	ser "fusion-storage-gateway/grpc-service"
-	"fusion-storage-gateway/utils"
+	"gluster-oss/conf"
+	fs_api "gluster-oss/fs-api"
+	ser "gluster-oss/grpc-service"
+	"gluster-oss/utils"
 	"os"
 	"os/signal"
 	"strings"
@@ -16,8 +16,8 @@ import (
 )
 
 var (
-	confFile    = flag.String("c", "conf.yaml", "fusion-storage-gateway conf file")
-	serviceName = flag.String("n", "fusion-storage-gateway-service", "fusion-storage-gateway name")
+	confFile    = flag.String("c", "conf.yaml", "gluster-oss conf file")
+	serviceName = flag.String("n", "gluster-oss-service", "gluster-oss name")
 )
 
 func init() {

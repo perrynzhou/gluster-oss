@@ -2,9 +2,9 @@ package put_service
 
 import (
 	"fmt"
-	"fusion-storage-gateway/bucket"
-	"fusion-storage-gateway/conf"
-	fs_api "fusion-storage-gateway/fs-api"
+	"gluster-oss/bucket"
+	"gluster-oss/conf"
+	fs_api "gluster-oss/fs-api"
 	"net"
 	"net/http"
 	"sync"
@@ -14,7 +14,7 @@ import (
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 
-	"fusion-storage-gateway/protocol/pb"
+	"gluster-oss/protocol/pb"
 )
 
 type GrpcService struct {

@@ -4,8 +4,8 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	fs_api "fusion-storage-gateway/fs-api"
-	"fusion-storage-gateway/utils"
+	fs_api "gluster-oss/fs-api"
+	"gluster-oss/utils"
 	"go.mongodb.org/mongo-driver/bson"
 	"sync/atomic"
 )

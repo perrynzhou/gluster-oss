@@ -3,8 +3,8 @@ package main
 import (
 	"context"
 	"fmt"
-	"fusion-storage-gateway/conf"
-	"fusion-storage-gateway/protocol/pb"
+	"gluster-oss/conf"
+	"gluster-oss/protocol/pb"
 	"time"
 
 	log "github.com/sirupsen/logrus"

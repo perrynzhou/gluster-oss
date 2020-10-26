@@ -3,7 +3,7 @@ package bucket
 import (
 	"context"
 	"errors"
-	"fusion-storage-gateway/utils"
+	"gluster-oss/utils"
 
 	"go.mongodb.org/mongo-driver/bson"
 )
