@@ -28,8 +28,8 @@ import (
 	"sort"
 	"time"
 
-	"glusterfs-object-storage/minio-go/v7/pkg/encrypt"
-	"glusterfs-object-storage/minio-go/v7/pkg/s3utils"
+	"gluster-oss/minio-go/v7/pkg/encrypt"
+	"gluster-oss/minio-go/v7/pkg/s3utils"
 	"golang.org/x/net/http/httpguts"
 )
 

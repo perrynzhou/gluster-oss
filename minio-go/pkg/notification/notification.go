@@ -22,7 +22,7 @@ import (
 	"errors"
 	"fmt"
 
-	"glusterfs-object-storage/minio-go/v7/pkg/set"
+	"gluster-oss/minio-go/v7/pkg/set"
 )
 
 // EventType is a S3 notification event associated to the bucket notification configuration

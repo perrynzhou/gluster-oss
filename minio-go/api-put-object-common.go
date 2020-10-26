@@ -23,7 +23,7 @@ import (
 	"math"
 	"os"
 
-	"glusterfs-object-storage/minio-go/v7/pkg/s3utils"
+	"gluster-oss/minio-go/v7/pkg/s3utils"
 )
 
 // Verify if reader is *minio.Object

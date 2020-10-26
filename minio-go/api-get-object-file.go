@@ -23,7 +23,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"glusterfs-object-storage/minio-go/v7/pkg/s3utils"
+	"gluster-oss/minio-go/v7/pkg/s3utils"
 )
 
 // FGetObject - download contents of an object to a local file.

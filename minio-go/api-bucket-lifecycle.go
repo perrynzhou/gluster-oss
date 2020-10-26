@@ -25,8 +25,8 @@ import (
 	"net/http"
 	"net/url"
 
-	"glusterfs-object-storage/minio-go/v7/pkg/lifecycle"
-	"glusterfs-object-storage/minio-go/v7/pkg/s3utils"
+	"gluster-oss/minio-go/v7/pkg/lifecycle"
+	"gluster-oss/minio-go/v7/pkg/s3utils"
 )
 
 // SetBucketLifecycle set the lifecycle on an existing bucket.

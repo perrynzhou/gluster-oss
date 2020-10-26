@@ -24,8 +24,8 @@ import (
 	"net/http"
 	"net/url"
 
-	"glusterfs-object-storage/minio-go/v7/pkg/replication"
-	"glusterfs-object-storage/minio-go/v7/pkg/s3utils"
+	"gluster-oss/minio-go/v7/pkg/replication"
+	"gluster-oss/minio-go/v7/pkg/s3utils"
 )
 
 // RemoveBucketReplication removes a replication config on an existing bucket.

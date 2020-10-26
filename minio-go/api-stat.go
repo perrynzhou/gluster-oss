@@ -22,7 +22,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"glusterfs-object-storage/minio-go/v7/pkg/s3utils"
+	"gluster-oss/minio-go/v7/pkg/s3utils"
 )
 
 // BucketExists verifies if bucket exists and you have permission to access it. Allows for a Context to

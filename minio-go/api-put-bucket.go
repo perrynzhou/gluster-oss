@@ -23,7 +23,7 @@ import (
 	"encoding/xml"
 	"net/http"
 
-	"glusterfs-object-storage/minio-go/v7/pkg/s3utils"
+	"gluster-oss/minio-go/v7/pkg/s3utils"
 )
 
 /// Bucket operations

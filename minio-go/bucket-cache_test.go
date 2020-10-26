@@ -27,8 +27,8 @@ import (
 	"reflect"
 	"testing"
 
-	"glusterfs-object-storage/minio-go/v7/pkg/credentials"
-	"glusterfs-object-storage/minio-go/v7/pkg/signer"
+	"gluster-oss/minio-go/v7/pkg/credentials"
+	"gluster-oss/minio-go/v7/pkg/signer"
 )
 
 // Test validates `newBucketLocationCache`.

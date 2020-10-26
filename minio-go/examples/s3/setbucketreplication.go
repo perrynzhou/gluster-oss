@@ -24,9 +24,9 @@ import (
 	"encoding/xml"
 	"log"
 
-	"glusterfs-object-storage/minio-go/v7"
-	"glusterfs-object-storage/minio-go/v7/pkg/credentials"
-	"glusterfs-object-storage/minio-go/v7/pkg/replication"
+	"gluster-oss/minio-go/v7"
+	"gluster-oss/minio-go/v7/pkg/credentials"
+	"gluster-oss/minio-go/v7/pkg/replication"
 )
 
 func main() {

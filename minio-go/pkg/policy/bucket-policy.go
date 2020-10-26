@@ -23,7 +23,7 @@ import (
 	"strings"
 
 	jsoniter "github.com/json-iterator/go"
-	"glusterfs-object-storage/minio-go/v7/pkg/set"
+	"gluster-oss/minio-go/v7/pkg/set"
 )
 
 // BucketPolicy - Bucket level policy.

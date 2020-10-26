@@ -25,9 +25,9 @@ import (
 	"os"
 	"path"
 
-	"glusterfs-object-storage/minio-go/v7"
-	"glusterfs-object-storage/minio-go/v7/pkg/credentials"
-	"glusterfs-object-storage/sio"
+	"gluster-oss/minio-go/v7"
+	"gluster-oss/minio-go/v7/pkg/credentials"
+	"gluster-oss/sio"
 	"golang.org/x/crypto/argon2"
 )
 

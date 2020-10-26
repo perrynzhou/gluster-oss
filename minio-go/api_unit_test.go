@@ -21,8 +21,8 @@ import (
 	"net/url"
 	"testing"
 
-	"glusterfs-object-storage/minio-go/v7/pkg/credentials"
-	"glusterfs-object-storage/minio-go/v7/pkg/policy"
+	"gluster-oss/minio-go/v7/pkg/credentials"
+	"gluster-oss/minio-go/v7/pkg/policy"
 )
 
 // Tests valid hosts for location.

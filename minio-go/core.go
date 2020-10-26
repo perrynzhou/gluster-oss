@@ -22,7 +22,7 @@ import (
 	"io"
 	"net/http"
 
-	"glusterfs-object-storage/minio-go/v7/pkg/encrypt"
+	"gluster-oss/minio-go/v7/pkg/encrypt"
 )
 
 // Core - Inherits Client and adds new methods to expose the low level S3 APIs.

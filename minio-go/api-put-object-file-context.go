@@ -23,7 +23,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"glusterfs-object-storage/minio-go/v7/pkg/s3utils"
+	"gluster-oss/minio-go/v7/pkg/s3utils"
 )
 
 // FPutObject - Create an object in a bucket, with contents from file at filePath. Allows request cancellation.

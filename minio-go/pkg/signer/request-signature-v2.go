@@ -30,7 +30,7 @@ import (
 	"strings"
 	"time"
 
-	"glusterfs-object-storage/minio-go/v7/pkg/s3utils"
+	"gluster-oss/minio-go/v7/pkg/s3utils"
 )
 
 // Signature and API related constants.

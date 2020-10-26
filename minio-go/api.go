@@ -37,9 +37,9 @@ import (
 	"time"
 
 	md5simd "github.com/minio/md5-simd"
-	"glusterfs-object-storage/minio-go/v7/pkg/credentials"
-	"glusterfs-object-storage/minio-go/v7/pkg/s3utils"
-	"glusterfs-object-storage/minio-go/v7/pkg/signer"
+	"gluster-oss/minio-go/v7/pkg/credentials"
+	"gluster-oss/minio-go/v7/pkg/s3utils"
+	"gluster-oss/minio-go/v7/pkg/signer"
 	"golang.org/x/net/publicsuffix"
 )
 

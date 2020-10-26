@@ -25,7 +25,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"glusterfs-object-storage/minio-go/v7/pkg/s3utils"
+	"gluster-oss/minio-go/v7/pkg/s3utils"
 )
 
 // objectLegalHold - object legal hold specified in

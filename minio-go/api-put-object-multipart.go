@@ -32,8 +32,8 @@ import (
 	"strconv"
 	"strings"
 
-	"glusterfs-object-storage/minio-go/v7/pkg/encrypt"
-	"glusterfs-object-storage/minio-go/v7/pkg/s3utils"
+	"gluster-oss/minio-go/v7/pkg/encrypt"
+	"gluster-oss/minio-go/v7/pkg/s3utils"
 )
 
 func (c Client) putObjectMultipart(ctx context.Context, bucketName, objectName string, reader io.Reader, size int64,

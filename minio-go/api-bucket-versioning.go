@@ -23,7 +23,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"glusterfs-object-storage/minio-go/v7/pkg/s3utils"
+	"gluster-oss/minio-go/v7/pkg/s3utils"
 )
 
 // SetBucketVersioning sets a bucket versioning configuration

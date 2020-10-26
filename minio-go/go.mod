@@ -1,4 +1,4 @@
-module glusterfs-object-storage/minio-go/v7
+module gluster-oss/minio-go/v7
 
 go 1.12
 

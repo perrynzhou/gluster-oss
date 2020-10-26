@@ -43,11 +43,11 @@ import (
 	jsoniter "github.com/json-iterator/go"
 	log "github.com/sirupsen/logrus"
 
-	"glusterfs-object-storage/minio-go/v7"
-	"glusterfs-object-storage/minio-go/v7/pkg/credentials"
-	"glusterfs-object-storage/minio-go/v7/pkg/encrypt"
-	"glusterfs-object-storage/minio-go/v7/pkg/notification"
-	"glusterfs-object-storage/minio-go/v7/pkg/tags"
+	"gluster-oss/minio-go/v7"
+	"gluster-oss/minio-go/v7/pkg/credentials"
+	"gluster-oss/minio-go/v7/pkg/encrypt"
+	"gluster-oss/minio-go/v7/pkg/notification"
+	"gluster-oss/minio-go/v7/pkg/tags"
 )
 
 const letterBytes = "abcdefghijklmnopqrstuvwxyz01234569"
@@ -3178,7 +3178,7 @@ func testGetObjectReadAtFunctional() {
 	successLogger(testName, function, args, startTime).Info()
 }
 
-// Reproduces issue https://glusterfs-object-storage/minio-go/issues/1137
+// Reproduces issue https://gluster-oss/minio-go/issues/1137
 func testGetObjectReadAtWhenEOFWasReached() {
 	// initialize logging params
 	startTime := time.Now()

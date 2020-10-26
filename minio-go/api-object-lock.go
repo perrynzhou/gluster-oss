@@ -26,7 +26,7 @@ import (
 	"net/url"
 	"time"
 
-	"glusterfs-object-storage/minio-go/v7/pkg/s3utils"
+	"gluster-oss/minio-go/v7/pkg/s3utils"
 )
 
 // RetentionMode - object retention mode.

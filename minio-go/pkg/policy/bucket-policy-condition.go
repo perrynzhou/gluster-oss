@@ -17,7 +17,7 @@
 
 package policy
 
-import "glusterfs-object-storage/minio-go/v7/pkg/set"
+import "gluster-oss/minio-go/v7/pkg/set"
 
 // ConditionKeyMap - map of policy condition key and value.
 type ConditionKeyMap map[string]set.StringSet

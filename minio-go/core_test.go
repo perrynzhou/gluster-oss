@@ -29,7 +29,7 @@ import (
 
 	"math/rand"
 
-	"glusterfs-object-storage/minio-go/v7/pkg/credentials"
+	"gluster-oss/minio-go/v7/pkg/credentials"
 )
 
 const (

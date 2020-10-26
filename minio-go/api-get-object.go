@@ -26,7 +26,7 @@ import (
 	"net/url"
 	"sync"
 
-	"glusterfs-object-storage/minio-go/v7/pkg/s3utils"
+	"gluster-oss/minio-go/v7/pkg/s3utils"
 )
 
 // GetObject wrapper function that accepts a request context

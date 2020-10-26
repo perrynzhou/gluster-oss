@@ -22,7 +22,7 @@ import (
 	"reflect"
 	"testing"
 
-	"glusterfs-object-storage/minio-go/v7/pkg/set"
+	"gluster-oss/minio-go/v7/pkg/set"
 )
 
 // TestUnmarshalBucketPolicy tests unmarsheling various examples

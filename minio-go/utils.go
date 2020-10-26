@@ -36,7 +36,7 @@ import (
 	"time"
 
 	md5simd "github.com/minio/md5-simd"
-	"glusterfs-object-storage/minio-go/v7/pkg/s3utils"
+	"gluster-oss/minio-go/v7/pkg/s3utils"
 	"github.com/minio/sha256-simd"
 )
 

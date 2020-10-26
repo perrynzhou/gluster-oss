@@ -26,8 +26,8 @@ import (
 	"net/http"
 	"net/url"
 
-	"glusterfs-object-storage/minio-go/v7/pkg/s3utils"
-	"glusterfs-object-storage/minio-go/v7/pkg/tags"
+	"gluster-oss/minio-go/v7/pkg/s3utils"
+	"gluster-oss/minio-go/v7/pkg/tags"
 )
 
 // GetBucketTagging fetch tagging configuration for a bucket with a

@@ -63,7 +63,7 @@ type ErrorResponse struct {
 //
 // For example:
 //
-//   import s3 "glusterfs-object-storage/minio-go/v7"
+//   import s3 "gluster-oss/minio-go/v7"
 //   ...
 //   ...
 //   reader, stat, err := s3.GetObject(...)
@@ -95,7 +95,7 @@ func (e ErrorResponse) Error() string {
 // Common string for errors to report issue location in unexpected
 // cases.
 const (
-	reportIssue = "Please report this issue at https://glusterfs-object-storage/minio-go/issues."
+	reportIssue = "Please report this issue at https://gluster-oss/minio-go/issues."
 )
 
 // httpRespToErrorResponse returns a new encoded ErrorResponse

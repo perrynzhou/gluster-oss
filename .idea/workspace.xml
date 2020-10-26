@@ -19,18 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f7c65245-82c2-4aca-bf98-994a2346074b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/.github/workflows/codeql.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/.github/workflows/go-windows.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/.github/workflows/go.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/minio-go/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/minio-go/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/pkg/credentials/assume_role.go" beforeDir="false" afterPath="$PROJECT_DIR$/minio-go/pkg/credentials/assume_role.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/pkg/signer/utils.go" beforeDir="false" afterPath="$PROJECT_DIR$/minio-go/pkg/signer/utils.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/utils.go" beforeDir="false" afterPath="$PROJECT_DIR$/minio-go/utils.go" afterDir="false" />
-    </list>
+    <list default="true" id="f7c65245-82c2-4aca-bf98-994a2346074b" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -38,7 +27,7 @@
   </component>
   <component name="GOROOT" path="$USER_HOME$/App/go" />
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../gluster-oss" />
   </component>
   <component name="GoLibraries">
     <option name="indexEntireGoPath" value="false" />
@@ -86,9 +75,9 @@
     <integration-enabled>true</integration-enabled>
   </component>
   <component name="WindowStateProjectService">
-    <state x="664" y="191" width="589" height="560" key="find.popup" timestamp="1603689875205">
+    <state x="664" y="191" width="589" height="560" key="find.popup" timestamp="1603690299737">
       <screen x="0" y="0" width="1918" height="886" />
     </state>
-    <state x="664" y="191" width="589" height="560" key="find.popup/0.0.1918.886@0.0.1918.886" timestamp="1603689875205" />
+    <state x="664" y="191" width="589" height="560" key="find.popup/0.0.1918.886@0.0.1918.886" timestamp="1603690299737" />
   </component>
 </project>

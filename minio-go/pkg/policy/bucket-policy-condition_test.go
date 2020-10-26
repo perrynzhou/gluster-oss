@@ -21,7 +21,7 @@ import (
 	"testing"
 
 	jsoniter "github.com/json-iterator/go"
-	"glusterfs-object-storage/minio-go/v7/pkg/set"
+	"gluster-oss/minio-go/v7/pkg/set"
 )
 
 var json = jsoniter.ConfigCompatibleWithStandardLibrary

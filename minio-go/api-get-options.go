@@ -22,7 +22,7 @@ import (
 	"net/http"
 	"time"
 
-	"glusterfs-object-storage/minio-go/v7/pkg/encrypt"
+	"gluster-oss/minio-go/v7/pkg/encrypt"
 )
 
 // GetObjectOptions are used to specify additional headers or options

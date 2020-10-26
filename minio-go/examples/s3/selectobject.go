@@ -25,8 +25,8 @@ import (
 	"log"
 	"os"
 
-	minio "glusterfs-object-storage/minio-go/v7"
-	"glusterfs-object-storage/minio-go/v7/pkg/credentials"
+	minio "gluster-oss/minio-go/v7"
+	"gluster-oss/minio-go/v7/pkg/credentials"
 )
 
 func main() {

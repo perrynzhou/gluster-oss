@@ -29,7 +29,7 @@ import (
 	"strings"
 
 	"github.com/google/uuid"
-	"glusterfs-object-storage/minio-go/v7/pkg/s3utils"
+	"gluster-oss/minio-go/v7/pkg/s3utils"
 )
 
 // putObjectMultipartStream - upload a large object using

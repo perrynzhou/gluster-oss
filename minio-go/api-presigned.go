@@ -24,8 +24,8 @@ import (
 	"net/url"
 	"time"
 
-	"glusterfs-object-storage/minio-go/v7/pkg/s3utils"
-	"glusterfs-object-storage/minio-go/v7/pkg/signer"
+	"gluster-oss/minio-go/v7/pkg/s3utils"
+	"gluster-oss/minio-go/v7/pkg/signer"
 )
 
 // presignURL - Returns a presigned URL for an input 'method'.

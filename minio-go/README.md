@@ -1,4 +1,4 @@
-# MinIO Go Client SDK for Amazon S3 Compatible Cloud Storage [![Slack](https://slack.min.io/slack?type=svg)](https://slack.min.io) [![Sourcegraph](https://sourcegraph.com/glusterfs-object-storage/minio-go/-/badge.svg)](https://sourcegraph.com/glusterfs-object-storage/minio-go?badge) [![Apache V2 License](http://img.shields.io/badge/license-Apache%20V2-blue.svg)](https://glusterfs-object-storage/minio-go/blob/master/LICENSE)
+# MinIO Go Client SDK for Amazon S3 Compatible Cloud Storage [![Slack](https://slack.min.io/slack?type=svg)](https://slack.min.io) [![Sourcegraph](https://sourcegraph.com/gluster-oss/minio-go/-/badge.svg)](https://sourcegraph.com/gluster-oss/minio-go?badge) [![Apache V2 License](http://img.shields.io/badge/license-Apache%20V2-blue.svg)](https://gluster-oss/minio-go/blob/master/LICENSE)
 
 The MinIO Go Client SDK provides simple APIs to access any Amazon S3 compatible object storage.
 
@@ -8,7 +8,7 @@ This document assumes that you have a working [Go development environment](https
 
 ## Download from Github
 ```sh
-GO111MODULE=on go get glusterfs-object-storage/minio-go/v7
+GO111MODULE=on go get gluster-oss/minio-go/v7
 ```
 
 ## Initialize MinIO Client
@@ -26,8 +26,8 @@ package main
 import (
 	"log"
 
-	"glusterfs-object-storage/minio-go/v7"
-	"glusterfs-object-storage/minio-go/v7/pkg/credentials"
+	"gluster-oss/minio-go/v7"
+	"gluster-oss/minio-go/v7/pkg/credentials"
 )
 
 func main() {
@@ -62,8 +62,8 @@ import (
 	"context"
 	"log"
 
-	"glusterfs-object-storage/minio-go/v7"
-	"glusterfs-object-storage/minio-go/v7/pkg/credentials"
+	"gluster-oss/minio-go/v7"
+	"gluster-oss/minio-go/v7/pkg/credentials"
 )
 
 func main() {
@@ -180,74 +180,74 @@ The full API Reference is available here.
 ## Full Examples
 
 ### Full Examples : Bucket Operations
-* [makebucket.go](https://glusterfs-object-storage/minio-go/blob/master/examples/s3/makebucket.go)
-* [listbuckets.go](https://glusterfs-object-storage/minio-go/blob/master/examples/s3/listbuckets.go)
-* [bucketexists.go](https://glusterfs-object-storage/minio-go/blob/master/examples/s3/bucketexists.go)
-* [removebucket.go](https://glusterfs-object-storage/minio-go/blob/master/examples/s3/removebucket.go)
-* [listobjects.go](https://glusterfs-object-storage/minio-go/blob/master/examples/s3/listobjects.go)
-* [listobjectsV2.go](https://glusterfs-object-storage/minio-go/blob/master/examples/s3/listobjectsV2.go)
-* [listincompleteuploads.go](https://glusterfs-object-storage/minio-go/blob/master/examples/s3/listincompleteuploads.go)
+* [makebucket.go](https://gluster-oss/minio-go/blob/master/examples/s3/makebucket.go)
+* [listbuckets.go](https://gluster-oss/minio-go/blob/master/examples/s3/listbuckets.go)
+* [bucketexists.go](https://gluster-oss/minio-go/blob/master/examples/s3/bucketexists.go)
+* [removebucket.go](https://gluster-oss/minio-go/blob/master/examples/s3/removebucket.go)
+* [listobjects.go](https://gluster-oss/minio-go/blob/master/examples/s3/listobjects.go)
+* [listobjectsV2.go](https://gluster-oss/minio-go/blob/master/examples/s3/listobjectsV2.go)
+* [listincompleteuploads.go](https://gluster-oss/minio-go/blob/master/examples/s3/listincompleteuploads.go)
 
 ### Full Examples : Bucket policy Operations
-* [setbucketpolicy.go](https://glusterfs-object-storage/minio-go/blob/master/examples/s3/setbucketpolicy.go)
-* [getbucketpolicy.go](https://glusterfs-object-storage/minio-go/blob/master/examples/s3/getbucketpolicy.go)
-* [listbucketpolicies.go](https://glusterfs-object-storage/minio-go/blob/master/examples/s3/listbucketpolicies.go)
+* [setbucketpolicy.go](https://gluster-oss/minio-go/blob/master/examples/s3/setbucketpolicy.go)
+* [getbucketpolicy.go](https://gluster-oss/minio-go/blob/master/examples/s3/getbucketpolicy.go)
+* [listbucketpolicies.go](https://gluster-oss/minio-go/blob/master/examples/s3/listbucketpolicies.go)
 
 ### Full Examples : Bucket lifecycle Operations
-* [setbucketlifecycle.go](https://glusterfs-object-storage/minio-go/blob/master/examples/s3/setbucketlifecycle.go)
-* [getbucketlifecycle.go](https://glusterfs-object-storage/minio-go/blob/master/examples/s3/getbucketlifecycle.go)
+* [setbucketlifecycle.go](https://gluster-oss/minio-go/blob/master/examples/s3/setbucketlifecycle.go)
+* [getbucketlifecycle.go](https://gluster-oss/minio-go/blob/master/examples/s3/getbucketlifecycle.go)
 
 ### Full Examples : Bucket encryption Operations
-* [setbucketencryption.go](https://glusterfs-object-storage/minio-go/blob/master/examples/s3/setbucketencryption.go)
-* [getbucketencryption.go](https://glusterfs-object-storage/minio-go/blob/master/examples/s3/getbucketencryption.go)
-* [deletebucketencryption.go](https://glusterfs-object-storage/minio-go/blob/master/examples/s3/deletebucketencryption.go)
+* [setbucketencryption.go](https://gluster-oss/minio-go/blob/master/examples/s3/setbucketencryption.go)
+* [getbucketencryption.go](https://gluster-oss/minio-go/blob/master/examples/s3/getbucketencryption.go)
+* [deletebucketencryption.go](https://gluster-oss/minio-go/blob/master/examples/s3/deletebucketencryption.go)
 
 ### Full Examples : Bucket replication Operations
-* [setbucketreplication.go](https://glusterfs-object-storage/minio-go/blob/master/examples/s3/setbucketreplication.go)
-* [getbucketreplication.go](https://glusterfs-object-storage/minio-go/blob/master/examples/s3/getbucketreplication.go)
-* [removebucketreplication.go](https://glusterfs-object-storage/minio-go/blob/master/examples/s3/removebucketreplication.go)
+* [setbucketreplication.go](https://gluster-oss/minio-go/blob/master/examples/s3/setbucketreplication.go)
+* [getbucketreplication.go](https://gluster-oss/minio-go/blob/master/examples/s3/getbucketreplication.go)
+* [removebucketreplication.go](https://gluster-oss/minio-go/blob/master/examples/s3/removebucketreplication.go)
 
 ### Full Examples : Bucket notification Operations
-* [setbucketnotification.go](https://glusterfs-object-storage/minio-go/blob/master/examples/s3/setbucketnotification.go)
-* [getbucketnotification.go](https://glusterfs-object-storage/minio-go/blob/master/examples/s3/getbucketnotification.go)
-* [removeallbucketnotification.go](https://glusterfs-object-storage/minio-go/blob/master/examples/s3/removeallbucketnotification.go)
-* [listenbucketnotification.go](https://glusterfs-object-storage/minio-go/blob/master/examples/minio/listenbucketnotification.go) (MinIO Extension)
-* [listennotification.go](https://glusterfs-object-storage/minio-go/blob/master/examples/minio/listen-notification.go) (MinIO Extension)
+* [setbucketnotification.go](https://gluster-oss/minio-go/blob/master/examples/s3/setbucketnotification.go)
+* [getbucketnotification.go](https://gluster-oss/minio-go/blob/master/examples/s3/getbucketnotification.go)
+* [removeallbucketnotification.go](https://gluster-oss/minio-go/blob/master/examples/s3/removeallbucketnotification.go)
+* [listenbucketnotification.go](https://gluster-oss/minio-go/blob/master/examples/minio/listenbucketnotification.go) (MinIO Extension)
+* [listennotification.go](https://gluster-oss/minio-go/blob/master/examples/minio/listen-notification.go) (MinIO Extension)
 
 ### Full Examples : File Object Operations
-* [fputobject.go](https://glusterfs-object-storage/minio-go/blob/master/examples/s3/fputobject.go)
-* [fgetobject.go](https://glusterfs-object-storage/minio-go/blob/master/examples/s3/fgetobject.go)
-* [fputobject-context.go](https://glusterfs-object-storage/minio-go/blob/master/examples/s3/fputobject-context.go)
-* [fgetobject-context.go](https://glusterfs-object-storage/minio-go/blob/master/examples/s3/fgetobject-context.go)
+* [fputobject.go](https://gluster-oss/minio-go/blob/master/examples/s3/fputobject.go)
+* [fgetobject.go](https://gluster-oss/minio-go/blob/master/examples/s3/fgetobject.go)
+* [fputobject-context.go](https://gluster-oss/minio-go/blob/master/examples/s3/fputobject-context.go)
+* [fgetobject-context.go](https://gluster-oss/minio-go/blob/master/examples/s3/fgetobject-context.go)
 
 ### Full Examples : Object Operations
-* [putobject.go](https://glusterfs-object-storage/minio-go/blob/master/examples/s3/putobject.go)
-* [getobject.go](https://glusterfs-object-storage/minio-go/blob/master/examples/s3/getobject.go)
-* [putobject-context.go](https://glusterfs-object-storage/minio-go/blob/master/examples/s3/putobject-context.go)
-* [getobject-context.go](https://glusterfs-object-storage/minio-go/blob/master/examples/s3/getobject-context.go)
-* [statobject.go](https://glusterfs-object-storage/minio-go/blob/master/examples/s3/statobject.go)
-* [copyobject.go](https://glusterfs-object-storage/minio-go/blob/master/examples/s3/copyobject.go)
-* [removeobject.go](https://glusterfs-object-storage/minio-go/blob/master/examples/s3/removeobject.go)
-* [removeincompleteupload.go](https://glusterfs-object-storage/minio-go/blob/master/examples/s3/removeincompleteupload.go)
-* [removeobjects.go](https://glusterfs-object-storage/minio-go/blob/master/examples/s3/removeobjects.go)
+* [putobject.go](https://gluster-oss/minio-go/blob/master/examples/s3/putobject.go)
+* [getobject.go](https://gluster-oss/minio-go/blob/master/examples/s3/getobject.go)
+* [putobject-context.go](https://gluster-oss/minio-go/blob/master/examples/s3/putobject-context.go)
+* [getobject-context.go](https://gluster-oss/minio-go/blob/master/examples/s3/getobject-context.go)
+* [statobject.go](https://gluster-oss/minio-go/blob/master/examples/s3/statobject.go)
+* [copyobject.go](https://gluster-oss/minio-go/blob/master/examples/s3/copyobject.go)
+* [removeobject.go](https://gluster-oss/minio-go/blob/master/examples/s3/removeobject.go)
+* [removeincompleteupload.go](https://gluster-oss/minio-go/blob/master/examples/s3/removeincompleteupload.go)
+* [removeobjects.go](https://gluster-oss/minio-go/blob/master/examples/s3/removeobjects.go)
 
 ### Full Examples : Encrypted Object Operations
-* [put-encrypted-object.go](https://glusterfs-object-storage/minio-go/blob/master/examples/s3/put-encrypted-object.go)
-* [get-encrypted-object.go](https://glusterfs-object-storage/minio-go/blob/master/examples/s3/get-encrypted-object.go)
-* [fput-encrypted-object.go](https://glusterfs-object-storage/minio-go/blob/master/examples/s3/fputencrypted-object.go)
+* [put-encrypted-object.go](https://gluster-oss/minio-go/blob/master/examples/s3/put-encrypted-object.go)
+* [get-encrypted-object.go](https://gluster-oss/minio-go/blob/master/examples/s3/get-encrypted-object.go)
+* [fput-encrypted-object.go](https://gluster-oss/minio-go/blob/master/examples/s3/fputencrypted-object.go)
 
 ### Full Examples : Presigned Operations
-* [presignedgetobject.go](https://glusterfs-object-storage/minio-go/blob/master/examples/s3/presignedgetobject.go)
-* [presignedputobject.go](https://glusterfs-object-storage/minio-go/blob/master/examples/s3/presignedputobject.go)
-* [presignedheadobject.go](https://glusterfs-object-storage/minio-go/blob/master/examples/s3/presignedheadobject.go)
-* [presignedpostpolicy.go](https://glusterfs-object-storage/minio-go/blob/master/examples/s3/presignedpostpolicy.go)
+* [presignedgetobject.go](https://gluster-oss/minio-go/blob/master/examples/s3/presignedgetobject.go)
+* [presignedputobject.go](https://gluster-oss/minio-go/blob/master/examples/s3/presignedputobject.go)
+* [presignedheadobject.go](https://gluster-oss/minio-go/blob/master/examples/s3/presignedheadobject.go)
+* [presignedpostpolicy.go](https://gluster-oss/minio-go/blob/master/examples/s3/presignedpostpolicy.go)
 
 ## Explore Further
 * [Complete Documentation](https://docs.min.io)
 * [MinIO Go Client SDK API Reference](https://docs.min.io/docs/golang-client-api-reference)
 
 ## Contribute
-[Contributors Guide](https://glusterfs-object-storage/minio-go/blob/master/CONTRIBUTING.md)
+[Contributors Guide](https://gluster-oss/minio-go/blob/master/CONTRIBUTING.md)
 
 ## License
 This SDK is distributed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0), see [LICENSE](./LICENSE) and [NOTICE](./NOTICE) for more information.

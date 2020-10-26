@@ -29,7 +29,7 @@ import (
 	"strings"
 	"time"
 
-	"glusterfs-object-storage/minio-go/v7/pkg/signer"
+	"gluster-oss/minio-go/v7/pkg/signer"
 	sha256 "github.com/minio/sha256-simd"
 )
 

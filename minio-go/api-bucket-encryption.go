@@ -23,8 +23,8 @@ import (
 	"net/http"
 	"net/url"
 
-	"glusterfs-object-storage/minio-go/v7/pkg/s3utils"
-	"glusterfs-object-storage/minio-go/v7/pkg/sse"
+	"gluster-oss/minio-go/v7/pkg/s3utils"
+	"gluster-oss/minio-go/v7/pkg/sse"
 )
 
 // SetBucketEncryption sets the default encryption configuration on an existing bucket.
