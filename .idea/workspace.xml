@@ -21,6 +21,7 @@
   <component name="ChangeListManager">
     <list default="true" id="f7c65245-82c2-4aca-bf98-994a2346074b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/minio-go/.github/workflows/codeql.yml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/minio-go/.github/workflows/go-windows.yml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/minio-go/.github/workflows/go.yml" beforeDir="false" />
