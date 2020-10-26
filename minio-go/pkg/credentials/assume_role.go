@@ -30,7 +30,7 @@ import (
 	"time"
 
 	"glusterfs-object-storage/minio-go/v7/pkg/signer"
-	sha256 "glusterfs-object-storage/sha256-simd"
+	sha256 "github.com/minio/sha256-simd"
 )
 
 // AssumeRoleResponse contains the result of successful AssumeRole request.

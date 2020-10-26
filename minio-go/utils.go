@@ -35,9 +35,9 @@ import (
 	"sync"
 	"time"
 
-	md5simd "glusterfs-object-storage/md5-simd"
+	md5simd "github.com/minio/md5-simd"
 	"glusterfs-object-storage/minio-go/v7/pkg/s3utils"
-	"glusterfs-object-storage/sha256-simd"
+	"github.com/minio/sha256-simd"
 )
 
 func trimEtag(etag string) string {

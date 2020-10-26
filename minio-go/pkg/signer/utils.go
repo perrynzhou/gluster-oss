@@ -22,7 +22,7 @@ import (
 	"net/http"
 	"strings"
 
-	"glusterfs-object-storage/sha256-simd"
+	"github.com/minio/sha256-simd"
 )
 
 // unsignedPayload - value to be set to X-Amz-Content-Sha256 header when
