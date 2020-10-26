@@ -2,7 +2,7 @@ package object
 
 import (
 	"errors"
-	fs_api "fusion-storage-gateway/fs-api"
+	fs_api "gluster-oss/fs-api"
 	"github.com/google/uuid"
 )
 

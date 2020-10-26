@@ -1,4 +1,4 @@
-# fusion-storage-gateway
+# gluster-oss
 
 ## 功能介绍
 - 以glusterfs为存储底座，gluster提供无副本、单副本、EC等实现方式，基于这个底座实现对象存储的功能，

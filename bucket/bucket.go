@@ -3,8 +3,8 @@ package bucket
 import (
 	"errors"
 	"fmt"
-	fs_api "fusion-storage-gateway/fs-api"
-	"fusion-storage-gateway/utils"
+	fs_api "gluster-oss/fs-api"
+	"gluster-oss/utils"
 )
 
 

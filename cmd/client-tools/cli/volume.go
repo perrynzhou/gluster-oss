@@ -2,7 +2,7 @@ package cli
 
 import (
 	"github.com/urfave/cli"
-	"fusion-storage-gateway/cmd/client"
+	"gluster-oss/cmd/client"
 )
 
 func VolumeCommond() cli.Command {
