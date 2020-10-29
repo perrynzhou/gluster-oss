@@ -3,8 +3,8 @@ package bucket
 import (
 	"errors"
 	"fmt"
-	fs_api "gluster-oss/fs-api"
-	"gluster-oss/utils"
+	fs_api "gluster-gtw/fs-api"
+	"gluster-gtw/utils"
 )
 
 
@@ -33,6 +33,7 @@ func NewBucket(api *fs_api.FsApi, name, subffix string, limitObject, totalCapaci
 		Index:0,
 		Count:0,
 	}
+	bucketBlockMetaFile := metaKey := fmt.Sprintf("%s.meta",meta.BucketName)
 	return bucket,nil
 }
 func (bucket *Bucket) StoreMeta() error {
@@ -49,7 +50,7 @@ func (bucket *Bucket)Delete() error {
 	if err != nil {
 		return err
 	}
-	meta.Status = BucketDelStatus
+	meta.Status = DelStatus
 	bucket.Meta = meta
 	return bucket.StoreMeta()
 }

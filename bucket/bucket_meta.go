@@ -3,7 +3,7 @@ package bucket
 import (
 	"context"
 	"errors"
-	"gluster-oss/utils"
+	"gluster-gtw/utils"
 
 	"go.mongodb.org/mongo-driver/bson"
 )
@@ -14,6 +14,7 @@ type BucketMeta struct {
 	UsedCapacity  uint64
 	TotalCapacity uint64
 	Status        uint8
+	BlockCount    uint64
 }
 
 func NewBucketMeta(limitObject, totalCapacity uint64) *BucketMeta {
@@ -22,7 +23,7 @@ func NewBucketMeta(limitObject, totalCapacity uint64) *BucketMeta {
 		ObjectCount:   0,
 		UsedCapacity:  0,
 		TotalCapacity: totalCapacity,
-		Status:        BucketUsedSatus,
+		Status:        UsedSatus,
 	}
 }
 
@@ -55,6 +56,6 @@ func (meta *BucketMeta) Store(bucketName string) error {
 	return nil
 }
 func (meta *BucketMeta) Delete(bucketName string) error {
-	meta.Status = BucketDelStatus
+	meta.Status = DelStatus
 	return meta.Store(bucketName)
 }

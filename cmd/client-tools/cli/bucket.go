@@ -2,7 +2,7 @@ package cli
 
 import (
 	"github.com/urfave/cli"
-	"gluster-oss/cmd/client"
+	"gluster-gtw/cmd/client"
 )
 
 func BucketCommond() cli.Command {

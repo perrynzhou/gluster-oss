@@ -1,4 +1,4 @@
-module gluster-oss
+module gluster-gtw
 
 go 1.15
 
