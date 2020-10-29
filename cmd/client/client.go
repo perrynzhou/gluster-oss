@@ -3,8 +3,8 @@ package main
 import (
 	"context"
 	"fmt"
-	"gluster-oss/conf"
-	"gluster-oss/protocol/pb"
+	"gluster-gtw/conf"
+	"gluster-gtw/protocol/pb"
 	"time"
 
 	log "github.com/sirupsen/logrus"

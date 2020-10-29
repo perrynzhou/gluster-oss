@@ -2,7 +2,7 @@ package object
 
 import (
 	"errors"
-	fs_api "gluster-oss/fs-api"
+	fs_api "gluster-gtw/fs-api"
 	"github.com/google/uuid"
 )
 

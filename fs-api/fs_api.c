@@ -21,7 +21,7 @@ fs_api *fs_api_init(char *volume, char *addr, int port)
 {
   fs_api *fapi = calloc(1, sizeof(fs_api *));
   char buf[1024] = {'\0'};
-  snprintf((char *)&buf, 128, "/tmp/gluster-oss.log.%d", getpid());
+  snprintf((char *)&buf, 128, "/tmp/gluster-gtw.log.%d", getpid());
   glfs_t *fs = glfs_new(volume);
   glfs_set_volfile_server(fs, "tcp", addr, port);
   glfs_set_logging(fs, (char *)&buf, 7);

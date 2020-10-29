@@ -2,10 +2,10 @@ package main
 
 import (
 	"flag"
-	"gluster-oss/conf"
-	fs_api "gluster-oss/fs-api"
-	ser "gluster-oss/grpc-service"
-	"gluster-oss/utils"
+	"gluster-gtw/conf"
+	fs_api "gluster-gtw/fs-api"
+	ser "gluster-gtw/grpc-service"
+	"gluster-gtw/utils"
 	"os"
 	"os/signal"
 	"strings"
@@ -16,8 +16,8 @@ import (
 )
 
 var (
-	confFile    = flag.String("c", "conf.yaml", "gluster-oss conf file")
-	serviceName = flag.String("n", "gluster-oss-service", "gluster-oss name")
+	confFile    = flag.String("c", "conf.yaml", "gluster-gtw conf file")
+	serviceName = flag.String("n", "gluster-gtw-service", "gluster-gtw name")
 )
 
 func init() {
