@@ -1,8 +1,9 @@
-package bucket
+package meta
 
 import (
 	"context"
 	"errors"
+	"gluster-gtw/bucket"
 	"gluster-gtw/utils"
 
 	"go.mongodb.org/mongo-driver/bson"
@@ -23,7 +24,7 @@ func NewBucketMeta(limitObject, totalCapacity uint64) *BucketMeta {
 		ObjectCount:   0,
 		UsedCapacity:  0,
 		TotalCapacity: totalCapacity,
-		Status:        UsedSatus,
+		Status:        bucket.UsedSatus,
 	}
 }
 
@@ -56,6 +57,6 @@ func (meta *BucketMeta) Store(bucketName string) error {
 	return nil
 }
 func (meta *BucketMeta) Delete(bucketName string) error {
-	meta.Status = DelStatus
+	meta.Status = bucket.DelStatus
 	return meta.Store(bucketName)
 }

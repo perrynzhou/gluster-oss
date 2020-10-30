@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/gluster-gtw.iml" filepath="$PROJECT_DIR$/.idea/gluster-gtw.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../gluster-gtw/.idea/gluster-gtw.iml" filepath="$PROJECT_DIR$/../gluster-gtw/.idea/gluster-gtw.iml" />
     </modules>
   </component>
 </project>
