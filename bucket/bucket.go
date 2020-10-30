@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	fs_api "gluster-gtw/fs-api"
+	"gluster-gtw/meta"
 	"gluster-gtw/utils"
 )
 
@@ -11,7 +12,7 @@ import (
 type Bucket struct {
 	Name    string
 	Subffix string
-	Meta    *BucketMeta
+	Meta    *meta.BucketMeta
 	Index    uint64
 	Count   uint64
 }
@@ -25,7 +26,7 @@ func NewBucket(api *fs_api.FsApi, name, subffix string, limitObject, totalCapaci
 	}else {
 		return nil,errors.New(fmt.Sprintf("%s already exist"))
 	}
-	meta := NewBucketMeta(limitObject,totalCapacity)
+	meta := meta.NewBucketMeta(limitObject,totalCapacity)
 	bucket:= &Bucket{
 		Name:    name,
 		Subffix: subffix,
@@ -42,11 +43,11 @@ func (bucket *Bucket) StoreMeta() error {
 	}
 	return bucket.Meta.Store(bucket.Name)
 }
-func (bucket *Bucket) GetMeta() (*BucketMeta, error) {
-	return GetBucketMeta(bucket.Name)
+func (bucket *Bucket) GetMeta() (*meta.BucketMeta, error) {
+	return meta.GetBucketMeta(bucket.Name)
 }
 func (bucket *Bucket)Delete() error {
-	meta,err := GetBucketMeta(bucket.Name)
+	meta,err := meta.GetBucketMeta(bucket.Name)
 	if err != nil {
 		return err
 	}

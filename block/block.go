@@ -3,13 +3,14 @@ package block
 import (
 	"fmt"
 	fs_api "gluster-gtw/fs-api"
+	meta2 "gluster-gtw/meta"
 	"os"
 )
 
 type Block struct {
 	api        *fs_api.FsApi
 	bucketName string
-	meta       *BlockMeta
+	meta       *meta2.BlockMeta
 }
 
 func NewBlock(api *fs_api.FsApi, name string, index uint64) (*Block, error) {
@@ -17,7 +18,7 @@ func NewBlock(api *fs_api.FsApi, name string, index uint64) (*Block, error) {
 	if err := createBlockFile(api, blockFilePath); err != nil {
 		return nil, err
 	}
-	blockMeta := NewBlockMeta(index, MaxBlockLength, name)
+	blockMeta := meta2.NewBlockMeta(index, MaxBlockLength, name)
 	return &Block{
 		api:        api,
 		bucketName: name,
