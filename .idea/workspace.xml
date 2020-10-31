@@ -41,10 +41,11 @@
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../gluster-storage-gateway/protocol/pb" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../gluster-storage-gateway/conf" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/../gluster-storage-gateway/conf" />
       <recent name="$PROJECT_DIR$/../gluster-storage-gateway/protocol/pb" />
       <recent name="$PROJECT_DIR$/cmd/client/bucket" />
     </key>

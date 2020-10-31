@@ -13,8 +13,14 @@ message CreateBucketRequest{
 }
 
 message CreateBucketResponse{
-    CreateBucketRequest requst=1;
-    string message = 2;
+     //request bucket name
+        string name = 1;
+     //request storage capacity
+        uint64 capacity = 3;
+        //obejcts limits
+        uint64 objects_limit = 4;
+        string bucket_dir=5;
+    string message = 6;
 
 }
 
