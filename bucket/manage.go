@@ -57,6 +57,7 @@ func (manage *BucketManage) handleCreateBucketRequest(request *BucketInfoRequest
 				manage.handleBucketDir(request.Info.RealDirName, deleteBucketDirType)
 				response.Err = err
 			} else {
+				response.Reply = request.Info
 				response.Err = nil
 				manage.notifyCh <- request.Info
 			}

@@ -49,47 +49,52 @@ func NewBucketSerivce(c *conf.ServerConfig, api *fs_api.FsApi, serviceName strin
 func (s *BucketService) CreateBucket(ctx context.Context, createBucketRequest *pb.CreateBucketRequest) (*pb.CreateBucketResponse, error) {
 	req := bucket.NewCreateBucketInfoRequest(createBucketRequest)
 	s.bucketRequestCh <- req
-	bucketResponse := <-req.Done
-
+	resp := <-req.Done
+	bucketInfo := resp.Reply.(*meta.BucketInfo)
 	createBucketResponse := &pb.CreateBucketResponse{
-		Requst:  createBucketRequest,
-		Message: "SUCCESS",
+		Name: bucketInfo.Name,
+		//request storage capacity
+		Capacity: bucketInfo.UsageInfo.CapacityLimitSize,
+		//obejcts limits
+		ObjectsLimit: bucketInfo.UsageInfo.ObjectsLimitCount,
+		BucketDir:    bucketInfo.RealDirName,
+		Message:      "success",
 	}
-	if bucketResponse.Err != nil {
-		createBucketResponse.Message = bucketResponse.Err.Error()
+	if resp.Err != nil {
+		createBucketResponse.Message = resp.Err.Error()
 	}
-	return createBucketResponse, bucketResponse.Err
+	return createBucketResponse, resp.Err
 }
 
 func (s *BucketService) DeleteBucket(ctx context.Context, deleteBucketRequest *pb.DeleteBucketRequest) (*pb.DeleteBucketResponse, error) {
 	req := bucket.NewDeleteBucketInfoRequest(deleteBucketRequest)
 	s.bucketRequestCh <- req
 	resp := <-req.Done
-    bucketInfo := resp.Reply.(*meta.BucketInfo)
+	bucketInfo := resp.Reply.(*meta.BucketInfo)
 	deleteBucketResponse := &pb.DeleteBucketResponse{
-		Name:bucketInfo.Name,
+		Name:         bucketInfo.Name,
 		ObjectsLimit: bucketInfo.UsageInfo.ObjectsLimitCount,
-		Capacity: bucketInfo.UsageInfo.CapacityLimitSize,
-		ObjectCount: bucketInfo.UsageInfo.ObjectsCurrentCount,
+		Capacity:     bucketInfo.UsageInfo.CapacityLimitSize,
+		ObjectCount:  bucketInfo.UsageInfo.ObjectsCurrentCount,
 	}
 	if resp.Err != nil {
 		deleteBucketResponse.Message = resp.Err.Error()
 	}
 	return deleteBucketResponse, resp.Err
 }
-func (s *BucketService) UpdateBucket(ctx context.Context,updateBucketRequest *pb.UpdateBucketRequest) (*pb.UpdateBucketResponse, error) {
+func (s *BucketService) UpdateBucket(ctx context.Context, updateBucketRequest *pb.UpdateBucketRequest) (*pb.UpdateBucketResponse, error) {
 	req := bucket.NewUpdateBucketInfoRequest(updateBucketRequest)
 	s.bucketRequestCh <- req
 	resp := <-req.Done
 	bucketInfo := resp.Reply.(*meta.BucketInfo)
 	updateBucketResponse := &pb.UpdateBucketResponse{
-		Name:bucketInfo.Name,
+		Name:         bucketInfo.Name,
 		ObjectsLimit: bucketInfo.UsageInfo.ObjectsLimitCount,
-		Capacity: bucketInfo.UsageInfo.CapacityLimitSize,
-		ObjectCount: bucketInfo.UsageInfo.ObjectsCurrentCount,
-		BucketDir: bucketInfo.RealDirName,
+		Capacity:     bucketInfo.UsageInfo.CapacityLimitSize,
+		ObjectCount:  bucketInfo.UsageInfo.ObjectsCurrentCount,
+		BucketDir:    bucketInfo.RealDirName,
 	}
-	updateBucketResponse.Message="success"
+	updateBucketResponse.Message = "success"
 	if resp.Err != nil {
 		updateBucketResponse.Message = resp.Err.Error()
 	}
