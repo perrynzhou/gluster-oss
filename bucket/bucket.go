@@ -1,57 +1,123 @@
 package bucket
 
 import (
-	"errors"
-	"fmt"
-	fs_api "gluster-gtw/fs-api"
-	"gluster-gtw/meta"
-	"gluster-gtw/utils"
+	"github.com/google/uuid"
+	meta "gluster-storage-gateway/meta"
+	"gluster-storage-gateway/protocol/pb"
 )
 
+const (
+	CreateBucketType = 1
+	DeleteBucketType = 2
+	UpdateBucketType = 3
+)
+const (
+	BucketActiveStatus=1
+	BucketInActiveStatus=2
 
-type Bucket struct {
-	Name    string
-	Subffix string
-	Meta    *meta.BucketMeta
-	Index    uint64
-	Count   uint64
+)
+
+type BucketInfoRequest struct {
+	RequestType uint8
+	Info *meta.BucketInfo
+	Done chan *BucketInfoResponse
+}
+type BucketInfoResponse struct {
+	Err  error
 }
 
-func NewBucket(api *fs_api.FsApi, name, subffix string, limitObject, totalCapacity uint64) (*Bucket, error) {
-	bucketPath := fmt.Sprintf("/%s", name)
-	if err := checkBucketExist(api,bucketPath);err != nil {
-		if err := api.Mkdir(name, 0664); err != nil {
-			return nil, err
+func NewCreateBucketInfoRequest(request *pb.CreateBucketRequest) *BucketInfoRequest {
+	return &BucketInfoRequest{
+		Info: &meta.BucketInfo{
+			Name: request.Name,
+			UsageInfo: &meta.BucketUsageInfo{
+				ObjectsLimitCount:   request.ObjectsLimit,
+				ObjectsCurrentCount: uint64(0),
+			},
+			Status:BucketActiveStatus,
+			RealDirName: uuid.New().String(),
+		},
+		Done: make(chan *BucketInfoResponse),
+		RequestType:CreateBucketType,
+	}
+}
+func NewDeleteBucketInfoRequest(request *pb.CreateBucketRequest) *BucketInfoRequest {
+	return &BucketInfoRequest{
+		Info: &meta.BucketInfo{
+			Name: request.Name,
+		},
+		Done: make(chan *BucketInfoResponse),
+		RequestType:DeleteBucketType,
+	}
+}
+func NewUpdateBucketInfoRequest(request *pb.CreateBucketRequest) *BucketInfoRequest {
+	return &BucketInfoRequest{
+		Info: &meta.BucketInfo{
+			Name: request.Name,
+			UsageInfo: &meta.BucketUsageInfo{
+				ObjectsLimitCount:   request.ObjectsLimit,
+				ObjectsCurrentCount: uint64(0),
+			},
+			Status:BucketActiveStatus,
+		},
+		Done: make(chan *BucketInfoResponse),
+		RequestType:CreateBucketType,
+	}
+}
+/*
+func NewBuckManage(api *fs_api.FsApi)  (*BlockManage,error) {
+	if api==nil {
+		return nil,errors.New("api is nil")
+	}
+	return &BlockManage {
+		api:api,
+		ch:make(chan *meta.BlockInfo),
+	},nil
+}
+func (mgr *BlockManage)Run() {
+	for {
+		select {
+		case
 		}
-	}else {
-		return nil,errors.New(fmt.Sprintf("%s already exist"))
 	}
-	meta := meta.NewBucketMeta(limitObject,totalCapacity)
-	bucket:= &Bucket{
-		Name:    name,
-		Subffix: subffix,
-		Meta:    meta,
-		Index:0,
-		Count:0,
+}
+func NewBlock(api *fs_api.FsApi, name string, index uint64) (*Block, error) {
+	blockFilePath := fmt.Sprintf("/%s/%s.%d", name, name, index)
+	if err := block.createBlockFile(api, blockFilePath); err != nil {
+		return nil, err
 	}
-	bucketBlockMetaFile := metaKey := fmt.Sprintf("%s.meta",meta.BucketName)
-	return bucket,nil
+	blockMeta := meta.NewBlockMeta(index, block.MaxBlockLength, name)
+	return &Block{
+		api:        api,
+		bucketName: name,
+		meta:       blockMeta,
+	}, nil
+
 }
-func (bucket *Bucket) StoreMeta() error {
-	if utils.RedisClient == nil {
-		return errors.New("redisPool is init")
+func (block *Block) Delete(filepath string) (int64, error) {
+	var err error
+	blockFilePath := fmt.Sprintf("/%s/%s.%d", block.bucketName, block.bucketName)
+	if err = block.api.RmFile(blockFilePath); err != nil {
+		return int64(-1), err
 	}
-	return bucket.Meta.Store(bucket.Name)
+	return int64(0), nil
 }
-func (bucket *Bucket) GetMeta() (*meta.BucketMeta, error) {
-	return meta.GetBucketMeta(bucket.Name)
-}
-func (bucket *Bucket)Delete() error {
-	meta,err := meta.GetBucketMeta(bucket.Name)
+func (block *Block) Seek(index, pos uint64) (*fs_api.FsFd, error) {
+
+	blockFile := fmt.Sprintf("/%s/%s.%d", block.bucketName, block.bucketName, index)
+	fd, err := block.api.Seek(blockFile, os.O_RDONLY, pos, os.SEEK_SET)
 	if err != nil {
-		return err
+		return nil, err
 	}
-	meta.Status = DelStatus
-	bucket.Meta = meta
-	return bucket.StoreMeta()
+	return fd, nil
 }
+func (block *Block) Read(fd *fs_api.FsFd, data []byte) (int64, error) {
+	return block.api.Read(fd, data)
+}
+
+func (block *Block) Write(fd *fs_api.FsFd, data []byte) (int64, error) {
+	return block.api.Write(fd, data)
+}
+
+
+*/

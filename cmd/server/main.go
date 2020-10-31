@@ -2,10 +2,10 @@ package main
 
 import (
 	"flag"
-	"gluster-gtw/conf"
-	fs_api "gluster-gtw/fs-api"
-	ser "gluster-gtw/grpc-service"
-	"gluster-gtw/utils"
+	"gluster-storage-gateway/conf"
+	fs_api "gluster-storage-gateway/fs-api"
+	ser "gluster-storage-gateway/grpc-service"
+	"gluster-storage-gateway/utils"
 	"os"
 	"os/signal"
 	"strings"
@@ -15,54 +15,40 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
+
 var (
-	confFile    = flag.String("c", "conf.yaml", "gluster-gtw conf file")
-	serviceName = flag.String("n", "gluster-gtw-service", "gluster-gtw name")
+	confFile    = flag.String("c", "server_conf.yaml", "gluster-storage-gateway conf file")
+	serviceName = flag.String("n", "gluster-storage-gateway", "gluster-storage-gateway name")
 )
 
 func init() {
 	flag.Parse()
 	utils.InitLogFormat()
 }
-func initStoreServer(addr string, port int) (*fs_api.FsApi, error) {
-	address := strings.Split(addr, ":")
-	metaApi, err := fs_api.NewFsApi(address[1], address[0], port, true)
+func initStoreBackend(sc *conf.ServerConfig) (*fs_api.FsApi, error) {
+	address := strings.Split(sc.Addr, ":")
+	api, err := fs_api.NewFsApi(address[1], address[0], sc.StoreBackend.Port, true)
 	if err != nil {
 		log.Error("new metaApi failed")
 		return nil, err
 	}
-
-	if err := metaApi.Stat(utils.GlobalObjectMetaSavePath); err != nil {
-		if err = metaApi.Mkdir(utils.GlobalObjectMetaSavePath, 0644); err != nil {
-			log.Error("new metaApi failed",err)
-			return nil, err
-		}
-	}
-	if err := metaApi.Stat(utils.GlobalBucketMetaSavePath); err != nil {
-		if err = metaApi.Mkdir(utils.GlobalBucketMetaSavePath, 0644); err != nil {
-			log.Error("new metaApi failed",err)
-			return nil, err
-		}
-	}
-	return metaApi, nil
+	return api, nil
 }
 func main() {
 
-	c, err := conf.NewServiceConf(*confFile)
+	c, err := conf.NewServerConf(*confFile)
 	if err != nil {
 		log.Fatal(err)
 	}
 	signals := make(chan os.Signal, 1)
 	signal.Notify(signals, os.Interrupt, syscall.SIGTERM, syscall.SIGINT)
 	wg := &sync.WaitGroup{}
-	utils.InitRedisClient(c.MetaSrvAddr.Addr, c.MetaSrvAddr.Port)
-	metaApi, err := initStoreServer(c.StoreSrvAddr.Addr, c.StoreSrvAddr.Port)
+	utils.InitRedisClient(c.MetaBacked.Addr, c.MetaBacked.Port)
+	fsApi, err := initStoreBackend(c)
 	if err != nil {
-		log.Fatal("init metaApi failed:", err)
+		log.Fatal("init fsApi failed:", err)
 	}
-	dataApi := make(map[string]*fs_api.FsApi)
-	dataApi["ssd_vol"] = metaApi
-	service := ser.NewGrpcSerivce(c, dataApi, metaApi, *serviceName, wg)
+	service := ser.NewGrpcSerivce(c, fsApi, *serviceName, wg)
 	service.Run()
 	defer wg.Wait()
 	for {

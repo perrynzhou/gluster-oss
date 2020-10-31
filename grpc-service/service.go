@@ -2,9 +2,9 @@ package put_service
 
 import (
 	"fmt"
-	"gluster-gtw/bucket"
-	"gluster-gtw/conf"
-	fs_api "gluster-gtw/fs-api"
+	"gluster-storage-gateway/bucket"
+	"gluster-storage-gateway/conf"
+	fs_api "gluster-storage-gateway/fs-api"
 	"net"
 	"net/http"
 	"sync"
@@ -14,7 +14,7 @@ import (
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 
-	"gluster-gtw/protocol/pb"
+	"gluster-storage-gateway/protocol/pb"
 )
 
 type GrpcService struct {
@@ -23,25 +23,25 @@ type GrpcService struct {
 	httpPort    int
 	stopGrpcCh  chan struct{}
 	stopHttpCh  chan struct{}
-	dataApi     map[string]*fs_api.FsApi
-	metaApi     *fs_api.FsApi
+	fsApi       *fs_api.FsApi
 	serviceName string
 	wg          *sync.WaitGroup
+	bucketRequestCh  chan *bucket.BucketInfoRequest
 }
 
 //putservice init
 //func NewGrpcSerivce(addr string, grpcPort, httpPort int, wg *sync.WaitGroup) *GrpcService {
-func NewGrpcSerivce(c *conf.ServiceConf, dataApi map[string]*fs_api.FsApi, metaApi *fs_api.FsApi, serviceName string, wg *sync.WaitGroup) *GrpcService {
+func NewGrpcSerivce(c *conf.ServerConfig, api *fs_api.FsApi,  serviceName string, wg *sync.WaitGroup) *GrpcService {
 	service := &GrpcService{
 		addr:        c.Addr,
 		grpcPort:    c.GrpcPort,
 		httpPort:    c.HttpPort,
 		stopGrpcCh:  make(chan struct{}),
 		stopHttpCh:  make(chan struct{}),
-		dataApi:     dataApi,
-		metaApi:     metaApi,
+		fsApi:     api,
 		serviceName: serviceName,
 		wg:          wg,
+		bucketRequestCh:make(chan *bucket.BucketInfoRequest),
 	}
 
 	return service
@@ -53,19 +53,18 @@ func (s *GrpcService) Put(context.Context, *pb.PutObjectRequest) (*pb.PutObjectR
 }
 
 func (s *GrpcService) CreateBucket(ctx context.Context, createBucketRequest *pb.CreateBucketRequest) (*pb.CreateBucketResponse, error) {
-	resp := &pb.CreateBucketResponse{}
-	bucketName := createBucketRequest.Name
-	bt, err := bucket.NewBucket(s.metaApi, bucketName, s.serviceName, createBucketRequest.ObjLimit, createBucketRequest.Capacity)
-	if err != nil {
-		return resp, err
+	req := bucket.NewCreateBucketInfoRequest(createBucketRequest)
+	s.bucketRequestCh <-req
+	bucketResponse :=<- req.Done
+
+	createBucketResponse := &pb.CreateBucketResponse{
+		Requst:createBucketRequest,
+		Message: "SUCCESS",
 	}
-	if err = bt.SaveMeta(s.metaApi); err != nil {
-		return resp, nil
+	if bucketResponse.Err !=nil {
+		createBucketResponse.Message = bucketResponse.Err.Error()
 	}
-	resp.Capacity = bt.Meta.TotalCapacity
-	resp.ObjLimit = bt.Meta.LimitObject
-	resp.Name = bt.Name
-	return resp, nil
+	return createBucketResponse, bucketResponse.Err
 }
 
 func (s *GrpcService) DeleteBucket(context.Context, *pb.DeleteBucketRequest) (*pb.DeleteBucketResponse, error) {

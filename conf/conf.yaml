@@ -1,9 +1,0 @@
-serverAddr: 172.25.78.11
-grpcPort: 5566
-httpPort: 5567
-storeServer:
-  addr: 172.25.78.11:ssd_vol
-  port: 24007
-metaServer:
-  addr: 172.25.78.11
-  port: 6379
