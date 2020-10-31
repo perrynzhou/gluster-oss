@@ -18,6 +18,7 @@ import (
 
 var (
 	requestBucketType = flag.String("op", "create", "create bucket")
+	confFile =flag.String("c", "./conf.yaml", "default conf is ./conf.yaml")
 )
 
 type ClientRequest struct {
@@ -96,8 +97,8 @@ func DeleteBucket(c *Client, request *pb.DeleteBucketRequest) error {
 	return nil
 }
 func main() {
-	c, err := NewClient("../server_conf.yaml")
 	flag.Parse()
+	c, err := NewClient(*confFile)
 	if err != nil {
 		log.Error("NewClient:", err)
 		return
