@@ -7,12 +7,8 @@
 package pb
 
 import (
-	context "context"
 	proto "github.com/golang/protobuf/proto"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
-	grpc "google.golang.org/grpc"
-	codes "google.golang.org/grpc/codes"
-	status "google.golang.org/grpc/status"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -549,27 +545,7 @@ var file_bucket_proto_rawDesc = []byte{
 	0x75, 0x63, 0x6b, 0x65, 0x74, 0x5f, 0x64, 0x69, 0x72, 0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x52,
 	0x09, 0x62, 0x75, 0x63, 0x6b, 0x65, 0x74, 0x44, 0x69, 0x72, 0x12, 0x18, 0x0a, 0x07, 0x6d, 0x65,
 	0x73, 0x73, 0x61, 0x67, 0x65, 0x18, 0x06, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x6d, 0x65, 0x73,
-	0x73, 0x61, 0x67, 0x65, 0x32, 0xbd, 0x02, 0x0a, 0x1b, 0x47, 0x6c, 0x75, 0x73, 0x74, 0x65, 0x72,
-	0x53, 0x74, 0x6f, 0x72, 0x61, 0x67, 0x65, 0x47, 0x61, 0x74, 0x65, 0x77, 0x61, 0x79, 0x42, 0x75,
-	0x63, 0x6b, 0x65, 0x74, 0x12, 0x5e, 0x0a, 0x0c, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x42, 0x75,
-	0x63, 0x6b, 0x65, 0x74, 0x12, 0x17, 0x2e, 0x70, 0x62, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65,
-	0x42, 0x75, 0x63, 0x6b, 0x65, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x18, 0x2e,
-	0x70, 0x62, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x42, 0x75, 0x63, 0x6b, 0x65, 0x74, 0x52,
-	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x1b, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x15, 0x22,
-	0x10, 0x2f, 0x76, 0x31, 0x2f, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x42, 0x75, 0x63, 0x6b, 0x65,
-	0x74, 0x3a, 0x01, 0x2a, 0x12, 0x5e, 0x0a, 0x0c, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x42, 0x75,
-	0x63, 0x6b, 0x65, 0x74, 0x12, 0x17, 0x2e, 0x70, 0x62, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65,
-	0x42, 0x75, 0x63, 0x6b, 0x65, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x18, 0x2e,
-	0x70, 0x62, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x42, 0x75, 0x63, 0x6b, 0x65, 0x74, 0x52,
-	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x1b, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x15, 0x22,
-	0x10, 0x2f, 0x76, 0x31, 0x2f, 0x64, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x42, 0x75, 0x63, 0x6b, 0x65,
-	0x74, 0x3a, 0x01, 0x2a, 0x12, 0x5e, 0x0a, 0x0c, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x42, 0x75,
-	0x63, 0x6b, 0x65, 0x74, 0x12, 0x17, 0x2e, 0x70, 0x62, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65,
-	0x42, 0x75, 0x63, 0x6b, 0x65, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x18, 0x2e,
-	0x70, 0x62, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x42, 0x75, 0x63, 0x6b, 0x65, 0x74, 0x52,
-	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x1b, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x15, 0x22,
-	0x10, 0x2f, 0x76, 0x31, 0x2f, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x42, 0x75, 0x63, 0x6b, 0x65,
-	0x74, 0x3a, 0x01, 0x2a, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x73, 0x61, 0x67, 0x65, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -594,14 +570,8 @@ var file_bucket_proto_goTypes = []interface{}{
 	(*UpdateBucketResponse)(nil), // 5: pb.UpdateBucketResponse
 }
 var file_bucket_proto_depIdxs = []int32{
-	0, // 0: pb.GlusterStorageGatewayBucket.CreateBucket:input_type -> pb.CreateBucketRequest
-	2, // 1: pb.GlusterStorageGatewayBucket.DeleteBucket:input_type -> pb.DeleteBucketRequest
-	4, // 2: pb.GlusterStorageGatewayBucket.UpdateBucket:input_type -> pb.UpdateBucketRequest
-	1, // 3: pb.GlusterStorageGatewayBucket.CreateBucket:output_type -> pb.CreateBucketResponse
-	3, // 4: pb.GlusterStorageGatewayBucket.DeleteBucket:output_type -> pb.DeleteBucketResponse
-	5, // 5: pb.GlusterStorageGatewayBucket.UpdateBucket:output_type -> pb.UpdateBucketResponse
-	3, // [3:6] is the sub-list for method output_type
-	0, // [0:3] is the sub-list for method input_type
+	0, // [0:0] is the sub-list for method output_type
+	0, // [0:0] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -694,7 +664,7 @@ func file_bucket_proto_init() {
 			NumEnums:      0,
 			NumMessages:   6,
 			NumExtensions: 0,
-			NumServices:   1,
+			NumServices:   0,
 		},
 		GoTypes:           file_bucket_proto_goTypes,
 		DependencyIndexes: file_bucket_proto_depIdxs,
@@ -704,156 +674,4 @@ func file_bucket_proto_init() {
 	file_bucket_proto_rawDesc = nil
 	file_bucket_proto_goTypes = nil
 	file_bucket_proto_depIdxs = nil
-}
-
-// Reference imports to suppress errors if they are not otherwise used.
-var _ context.Context
-var _ grpc.ClientConnInterface
-
-// This is a compile-time assertion to ensure that this generated file
-// is compatible with the grpc package it is being compiled against.
-const _ = grpc.SupportPackageIsVersion6
-
-// GlusterStorageGatewayBucketClient is the client API for GlusterStorageGatewayBucket service.
-//
-// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
-type GlusterStorageGatewayBucketClient interface {
-	CreateBucket(ctx context.Context, in *CreateBucketRequest, opts ...grpc.CallOption) (*CreateBucketResponse, error)
-	DeleteBucket(ctx context.Context, in *DeleteBucketRequest, opts ...grpc.CallOption) (*DeleteBucketResponse, error)
-	UpdateBucket(ctx context.Context, in *UpdateBucketRequest, opts ...grpc.CallOption) (*UpdateBucketResponse, error)
-}
-
-type glusterStorageGatewayBucketClient struct {
-	cc grpc.ClientConnInterface
-}
-
-func NewGlusterStorageGatewayBucketClient(cc grpc.ClientConnInterface) GlusterStorageGatewayBucketClient {
-	return &glusterStorageGatewayBucketClient{cc}
-}
-
-func (c *glusterStorageGatewayBucketClient) CreateBucket(ctx context.Context, in *CreateBucketRequest, opts ...grpc.CallOption) (*CreateBucketResponse, error) {
-	out := new(CreateBucketResponse)
-	err := c.cc.Invoke(ctx, "/pb.GlusterStorageGatewayBucket/CreateBucket", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *glusterStorageGatewayBucketClient) DeleteBucket(ctx context.Context, in *DeleteBucketRequest, opts ...grpc.CallOption) (*DeleteBucketResponse, error) {
-	out := new(DeleteBucketResponse)
-	err := c.cc.Invoke(ctx, "/pb.GlusterStorageGatewayBucket/DeleteBucket", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *glusterStorageGatewayBucketClient) UpdateBucket(ctx context.Context, in *UpdateBucketRequest, opts ...grpc.CallOption) (*UpdateBucketResponse, error) {
-	out := new(UpdateBucketResponse)
-	err := c.cc.Invoke(ctx, "/pb.GlusterStorageGatewayBucket/UpdateBucket", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-// GlusterStorageGatewayBucketServer is the server API for GlusterStorageGatewayBucket service.
-type GlusterStorageGatewayBucketServer interface {
-	CreateBucket(context.Context, *CreateBucketRequest) (*CreateBucketResponse, error)
-	DeleteBucket(context.Context, *DeleteBucketRequest) (*DeleteBucketResponse, error)
-	UpdateBucket(context.Context, *UpdateBucketRequest) (*UpdateBucketResponse, error)
-}
-
-// UnimplementedGlusterStorageGatewayBucketServer can be embedded to have forward compatible implementations.
-type UnimplementedGlusterStorageGatewayBucketServer struct {
-}
-
-func (*UnimplementedGlusterStorageGatewayBucketServer) CreateBucket(context.Context, *CreateBucketRequest) (*CreateBucketResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateBucket not implemented")
-}
-func (*UnimplementedGlusterStorageGatewayBucketServer) DeleteBucket(context.Context, *DeleteBucketRequest) (*DeleteBucketResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteBucket not implemented")
-}
-func (*UnimplementedGlusterStorageGatewayBucketServer) UpdateBucket(context.Context, *UpdateBucketRequest) (*UpdateBucketResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateBucket not implemented")
-}
-
-func RegisterGlusterStorageGatewayBucketServer(s *grpc.Server, srv GlusterStorageGatewayBucketServer) {
-	s.RegisterService(&_GlusterStorageGatewayBucket_serviceDesc, srv)
-}
-
-func _GlusterStorageGatewayBucket_CreateBucket_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateBucketRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(GlusterStorageGatewayBucketServer).CreateBucket(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/pb.GlusterStorageGatewayBucket/CreateBucket",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GlusterStorageGatewayBucketServer).CreateBucket(ctx, req.(*CreateBucketRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _GlusterStorageGatewayBucket_DeleteBucket_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeleteBucketRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(GlusterStorageGatewayBucketServer).DeleteBucket(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/pb.GlusterStorageGatewayBucket/DeleteBucket",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GlusterStorageGatewayBucketServer).DeleteBucket(ctx, req.(*DeleteBucketRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _GlusterStorageGatewayBucket_UpdateBucket_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateBucketRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(GlusterStorageGatewayBucketServer).UpdateBucket(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/pb.GlusterStorageGatewayBucket/UpdateBucket",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GlusterStorageGatewayBucketServer).UpdateBucket(ctx, req.(*UpdateBucketRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-var _GlusterStorageGatewayBucket_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "pb.GlusterStorageGatewayBucket",
-	HandlerType: (*GlusterStorageGatewayBucketServer)(nil),
-	Methods: []grpc.MethodDesc{
-		{
-			MethodName: "CreateBucket",
-			Handler:    _GlusterStorageGatewayBucket_CreateBucket_Handler,
-		},
-		{
-			MethodName: "DeleteBucket",
-			Handler:    _GlusterStorageGatewayBucket_DeleteBucket_Handler,
-		},
-		{
-			MethodName: "UpdateBucket",
-			Handler:    _GlusterStorageGatewayBucket_UpdateBucket_Handler,
-		},
-	},
-	Streams:  []grpc.StreamDesc{},
-	Metadata: "bucket.proto",
 }

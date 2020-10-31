@@ -1,0 +1,27 @@
+syntax = "proto3";
+import "google/api/annotations.proto";
+import "bucket.proto";
+package pb;
+service  GlusterStorageGateway {
+    rpc CreateBucket(CreateBucketRequest) returns (CreateBucketResponse){
+        option (google.api.http) = {
+            post: "/v1/createBucket"
+            body: "*"
+        };
+    }
+
+    rpc DeleteBucket(DeleteBucketRequest) returns (DeleteBucketResponse) {
+        option (google.api.http) = {
+            post: "/v1/deleteBucket"
+            body: "*"
+        };
+    }
+
+    rpc UpdateBucket(UpdateBucketRequest) returns (UpdateBucketResponse) {
+        option (google.api.http) = {
+            post: "/v1/updateBucket"
+            body: "*"
+        };
+    }
+
+}

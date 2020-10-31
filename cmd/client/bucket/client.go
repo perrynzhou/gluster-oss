@@ -24,7 +24,7 @@ type ClientRequest struct {
 	Requests []*pb.CreateBucketRequest
 }
 type Client struct {
-	glusterStorageGatewayClient pb.GlusterStorageGatewayBucketClient
+	glusterStorageGatewayClient pb.GlusterStorageGatewayClient
 	conn                        *grpc.ClientConn
 }
 
@@ -40,7 +40,7 @@ func NewClient(path string) (*Client, error) {
 		log.Error("grpc.Dial Failed, err:", err)
 		return nil, nil
 	}
-	glusterStorageGatewayClient := pb.NewGlusterStorageGatewayBucketClient(cnn)
+	glusterStorageGatewayClient := pb.NewGlusterStorageGatewayClient(cnn)
 
 	return &Client{
 		glusterStorageGatewayClient: glusterStorageGatewayClient,

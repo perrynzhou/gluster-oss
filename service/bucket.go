@@ -117,7 +117,7 @@ func (s *BucketService) runHttp() {
 	defer cancel()
 	mux := runtime.NewServeMux()
 	dialOptions := []grpc.DialOption{grpc.WithInsecure()}
-	if err := pb.RegisterGlusterStorageGatewayBucketHandlerFromEndpoint(ctx, mux, fmt.Sprintf(":%d", s.grpcPort), dialOptions); err != nil {
+	if err := pb.RegisterGlusterStorageGatewayHandlerFromEndpoint(ctx, mux, fmt.Sprintf(":%d", s.grpcPort), dialOptions); err != nil {
 		log.Fatal("register http GlusterStorageGatewayBucket failed:", err)
 	}
 	go func(port int) {
@@ -125,11 +125,11 @@ func (s *BucketService) runHttp() {
 			log.Infof("start  http GlusterStorageGatewayBucket on %s:%d failed,err:%v", s.addr, s.httpPort, err)
 		}
 	}(s.httpPort)
-	log.Infof("start  http GlusterStorageGatewayBucket on %s:%d  success", s.addr, s.httpPort)
+	log.Infof("start  http GlusterStorageGateway on %s:%d  success", s.addr, s.httpPort)
 	for {
 		select {
 		case <-s.stopHttpCh:
-			log.Infof("stop http GlusterStorageGatewayBucket on %s:%d success\n", s.addr, s.httpPort)
+			log.Infof("stop http GlusterStorageGateway on %s:%d success\n", s.addr, s.httpPort)
 			return
 		}
 	}
@@ -141,18 +141,18 @@ func (s *BucketService) runGrpc() {
 		log.Fatalf("failed to listen on %d,err: %v", s.grpcPort, err)
 	}
 	srv := grpc.NewServer()
-	pb.RegisterGlusterStorageGatewayBucketServer(srv, s)
+	pb.RegisterGlusterStorageGatewayServer(srv, s)
 	go func(srv *grpc.Server) {
 		if err := srv.Serve(listen); err != nil {
-			log.Fatal("start  grpc FusionSorageGatewayService on %s:%d failed:%v ", s.addr, s.grpcPort, err)
+			log.Fatal("start  grpc GlusterStorageGateway on %s:%d failed:%v ", s.addr, s.grpcPort, err)
 		}
 	}(srv)
-	log.Infof("start  grpc FusionSorageGatewayService on %s:%d  success", s.addr, s.grpcPort)
+	log.Infof("start  grpc GlusterStorageGateway on %s:%d  success", s.addr, s.grpcPort)
 	for {
 		select {
 		case <-s.stopGrpcCh:
 			srv.Stop()
-			log.Infof("stop grpc FusionSorageGatewayService on %s:%d success", s.addr, s.grpcPort)
+			log.Infof("stop grpc GlusterStorageGateway on %s:%d success", s.addr, s.grpcPort)
 			return
 		}
 	}
