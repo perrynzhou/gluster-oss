@@ -53,7 +53,7 @@ func (s *BucketService) CreateBucket(ctx context.Context, createBucketRequest *p
 	resp := <-req.Done
 
 	bucketInfo := resp.Reply.(*meta.BucketInfo)
-	log.Info("finish CreateBucket request:",bucketInfo,",err:",resp.Err
+	log.Info("finish CreateBucket request:",bucketInfo,",err:",resp.Err)
 	createBucketResponse := &pb.CreateBucketResponse{
 		Name: bucketInfo.Name,
 		//request storage capacity
