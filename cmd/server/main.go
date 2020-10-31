@@ -35,6 +35,7 @@ func initStoreBackend(sc *conf.ServerConfig) (*fs_api.FsApi, error) {
 func main() {
 
 	c, err := conf.NewServerConf(*confFile)
+	log.Info("serverConf:",c)
 	if err != nil {
 		log.Fatal(err)
 	}
