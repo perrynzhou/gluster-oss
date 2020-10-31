@@ -35,7 +35,7 @@ func NewClient(path string) (*Client, error) {
 		return nil, err
 	}
 	diaOpt := grpc.WithDefaultCallOptions()
-	cnn, err := grpc.Dial(fmt.Sprintf("%s:%d", config.StorageGatewayAddr, config.StorageGatewayPort), grpc.WithInsecure(), diaOpt)
+	cnn, err := grpc.Dial(fmt.Sprintf("%s:%d", config.CommonConf.Addr, config.CommonConf.Port), grpc.WithInsecure(), diaOpt)
 	if err != nil {
 		log.Error("grpc.Dial Failed, err:", err)
 		return nil, nil

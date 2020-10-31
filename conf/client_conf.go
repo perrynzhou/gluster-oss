@@ -6,17 +6,16 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-type ClientConf struct {
-	StorageGatewayAddr string `yaml:"storageGatewayAddr"`
-	StorageGatewayPort int    `yaml:"storageGatewayPort"`
-}
 
-func NewClientConf(confFile string) (*ClientConf, error) {
+type StorageGatewayClient struct {
+	CommonConf  CommonBackendConf `yaml:"storageGateway"`
+}
+func NewClientConf(confFile string) (*StorageGatewayClient, error) {
 	b, err := ioutil.ReadFile(confFile)
 	if err != nil {
 		return nil, err
 	}
-	c := &ClientConf{}
+	c := &StorageGatewayClient{}
 	if err = yaml.Unmarshal(b, c); err != nil {
 		return nil, err
 	}

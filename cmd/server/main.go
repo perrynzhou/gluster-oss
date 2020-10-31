@@ -8,7 +8,6 @@ import (
 	"gluster-storage-gateway/utils"
 	"os"
 	"os/signal"
-	"strings"
 	"sync"
 	"syscall"
 
@@ -25,8 +24,8 @@ func init() {
 	utils.InitLogFormat()
 }
 func initStoreBackend(sc *conf.ServerConfig) (*fs_api.FsApi, error) {
-	address := strings.Split(sc.Addr, ":")
-	api, err := fs_api.NewFsApi(address[1], address[0], sc.StoreBackend.Port, true)
+
+	api, err := fs_api.NewFsApi(sc.StoreBackend.Volume, sc.StoreBackend.Addr, sc.StoreBackend.Port, true)
 	if err != nil {
 		log.Error("new metaApi failed")
 		return nil, err
