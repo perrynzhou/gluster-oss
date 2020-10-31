@@ -12,18 +12,18 @@ type CommonBackendConf struct {
 }
 type StoreBackendConf struct {
 	CommonBackendConf
-	Volume  string `yaml:"volume"`
+	Volume string `yaml:"volume"`
 }
 type ServiceBackendConfig struct {
 	BackendAddr string `yaml:"addr"`
-	GrpcPort    int    `yaml:"grpc_port"`
+	GrpcPort    int    `yaml:"grpcport"`
 	//service http port
-	HttpPort int `yaml:"http_port"`
+	HttpPort int `yaml:"httpport"`
 }
 type ServerConfig struct {
 	//service address
 	ServiceBackend ServiceBackendConfig `yaml:"serviceBackend"`
-	StoreBackend  StoreBackendConf      `yaml:"storageBackend"`
+	StoreBackend   StoreBackendConf     `yaml:"storageBackend"`
 	//metadata server address
 	MetaBacked CommonBackendConf `yaml:"metaBackend"`
 }
