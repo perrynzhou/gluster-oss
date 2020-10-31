@@ -9,33 +9,32 @@ import (
 	bson "go.mongodb.org/mongo-driver/bson"
 )
 
-
 const (
-	createBucketDirType= 0
-	deleteBucketDirType= 1
+	createBucketDirType = 0
+	deleteBucketDirType = 1
 )
 
-func (manage *BucketManage)checkBucketExist(bucketName string) error {
+func (manage *BucketManage) checkBucketExist(bucketName string) error {
 	if _, err := manage.conn.Get(context.Background(), bucketName).Result(); err != nil {
 		return err
 	}
 	return nil
 }
-func (manage *BucketManage)handleBucketDir(bucketDirName string,bucketDirType int) error {
+func (manage *BucketManage) handleBucketDir(bucketDirName string, bucketDirType int) error {
 	var err error
 	bucketDir := fmt.Sprintf("/%s", bucketDirName)
-	switch(bucketDirType) {
+	switch bucketDirType {
 	case createBucketDirType:
 		err = manage.api.Mkdir(bucketDir, os.ModePerm)
-		break;
+		break
 	case deleteBucketDirType:
 		manage.api.RmDir(bucketDir)
-		break;
+		break
 	}
 	return err
 }
 
-func (manage *BucketManage)storeBucketInfo(bucketInfo *meta.BucketInfo) (string, error) {
+func (manage *BucketManage) storeBucketInfo(bucketInfo *meta.BucketInfo) (string, error) {
 	var result string
 	b, err := bson.Marshal(bucketInfo)
 	if err != nil {
@@ -43,7 +42,7 @@ func (manage *BucketManage)storeBucketInfo(bucketInfo *meta.BucketInfo) (string,
 	}
 	return manage.conn.Set(context.Background(), bucketInfo.Name, b, -1).Result()
 }
-func (manage *BucketManage)fetchBucketInfo(bucket string) (*meta.BucketInfo, error) {
+func (manage *BucketManage) fetchBucketInfo(bucket string) (*meta.BucketInfo, error) {
 	if manage.bucketInfoCache[bucket] == nil {
 		binstr, err := manage.conn.Get(context.Background(), bucket).Result()
 		if err != nil {
@@ -57,13 +56,14 @@ func (manage *BucketManage)fetchBucketInfo(bucket string) (*meta.BucketInfo, err
 	}
 	return manage.bucketInfoCache[bucket], nil
 }
-func (manage *BucketManage)delBucketInfoAndBucketData(bucketInfoRequest *BucketInfoRequest,bucketDir string) error{
-	bucketInfoResponse :=&BucketInfoResponse{}
-  if err := manage.api.RmAllFileFromPath(bucketDir);err != nil {
-	  bucketInfoResponse.Err = nil
-	  return err
-  }
- manage.conn.Del(context.Background(),bucketInfoRequest.Info.Name)
-  bucketInfoRequest.Done <-bucketInfoResponse
-  return nil
+func (manage *BucketManage) delBucketInfoAndBucketData(bucketInfoRequest *BucketInfoRequest, bucketDir string) error {
+	bucketInfoResponse := &BucketInfoResponse{}
+	if err := manage.api.RmAllFileFromPath(bucketDir); err != nil {
+		bucketInfoResponse.Err = nil
+		return err
+	}
+	manage.conn.Del(context.Background(), bucketInfoRequest.Info.Name)
+	bucketInfoResponse.Reply = bucketInfoRequest.Info
+	bucketInfoRequest.Done <- bucketInfoResponse
+	return nil
 }

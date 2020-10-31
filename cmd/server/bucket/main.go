@@ -4,7 +4,7 @@ import (
 	"flag"
 	"gluster-storage-gateway/conf"
 	fs_api "gluster-storage-gateway/fs-api"
-	ser "gluster-storage-gateway/grpc-service"
+	ser "gluster-storage-gateway/service"
 	"gluster-storage-gateway/utils"
 	"os"
 	"os/signal"
@@ -14,7 +14,6 @@ import (
 
 	log "github.com/sirupsen/logrus"
 )
-
 
 var (
 	confFile    = flag.String("c", "server_conf.yaml", "gluster-storage-gateway conf file")
@@ -48,13 +47,13 @@ func main() {
 	if err != nil {
 		log.Fatal("init fsApi failed:", err)
 	}
-	service := ser.NewGrpcSerivce(c, fsApi, *serviceName, wg)
-	service.Run()
+	bucketService := ser.NewBucketSerivce(c, fsApi, *serviceName, wg)
+	bucketService.Run()
 	defer wg.Wait()
 	for {
 		select {
 		case <-signals:
-			service.Stop()
+			bucketService.Stop()
 			return
 		}
 	}

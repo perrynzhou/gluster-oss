@@ -76,7 +76,7 @@ int fs_api_rm_file_from_path(fs_api *fapi, const char *path)
   char buffer[4096] = {'\0'};
   char dirent_buffer[512] = {'\0'};
   struct dirent *dt = NULL;
-  glfs_fd_t *gfd = glfs_opendir(sapi->fs, path);
+  glfs_fd_t *gfd = glfs_opendir(fapi->fs, path);
   while (glfs_readdir_r(gfd, (struct dirent *)dirent_buffer, &dt), dt)
   {
     size_t len = strlen(dt->d_name);
@@ -133,18 +133,7 @@ int fs_api_creat(fs_api *fapi, fs_fd *fd, const char *pathname, int flags, mode_
   }
   return 0;
 }
-int fs_api_fallocate(fs_fd *fd, int mode, off_t offset, off_t len)
-{
-  if (fd == NULL)
-  {
-    return -1;
-  }
-  if (fd->lfd != -1)
-  {
-    return fallocate(fd->lfd, mode, offset, len);
-  }
-  return glfs_fallocate(fd->gfd, mode, offset, len);
-}
+
 int fs_api_mkdir(fs_api *fapi, const char *path, mode_t mode)
 {
   if (fapi != NULL)

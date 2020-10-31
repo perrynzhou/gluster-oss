@@ -1,10 +1,11 @@
 package lock
+
 import (
 	"fmt"
 	"log"
 
 	"github.com/go-redis/redis/v8"
-	)
+)
 
 type Lock struct {
 	resource string
@@ -66,6 +67,7 @@ func TryLockWithTimeout(conn redis.Conn, resource string, token string, timeout 
 
 	return
 }
+
 /*
 func main() {
 	fmt.Println("start")
@@ -86,4 +88,4 @@ func main() {
 	defer lock.Unlock()
 }
 
- */
+*/
