@@ -49,12 +49,12 @@ func (manage *BucketManage) refreshCache() {
 }
 func (manage *BucketManage) handleCreateBucketRequest(request *BucketInfoRequest) {
 	response := &BucketInfoResponse{}
-	if checkBucketExist(manage.conn, request.Info.Name) != nil {
-		if err := HandleBucketDir(manage.api, request.Info.RealDirName,createBucketDirType); err != nil {
+	if manage.checkBucketExist(request.Info.Name) != nil {
+		if err := manage.handleBucketDir(request.Info.RealDirName,createBucketDirType); err != nil {
 			response.Err = err
 		} else {
-			if _, err := storeBucketInfo(manage.conn, request.Info); err != nil {
-				HandleBucketDir(manage.api, request.Info.RealDirName,deleteBucketDirType)
+			if _, err := manage.storeBucketInfo(request.Info); err != nil {
+				manage.handleBucketDir(request.Info.RealDirName,deleteBucketDirType)
 				response.Err = err
 			} else {
 				response.Err = nil
@@ -66,7 +66,7 @@ func (manage *BucketManage) handleCreateBucketRequest(request *BucketInfoRequest
 }
 func (manage *BucketManage) handleUpdateBucketRequest(request *BucketInfoRequest) error {
 	response := &BucketInfoResponse{}
-	bucketInfo, err := fetchBucketInfo(manage.conn,manage.bucketInfoCache, request.Info.Name)
+	bucketInfo, err := manage.fetchBucketInfo(request.Info.Name)
 	if err != nil {
 		response.Err = err
 		request.Done <- response
@@ -83,7 +83,7 @@ func (manage *BucketManage) handleUpdateBucketRequest(request *BucketInfoRequest
 	}
 	bucketInfo.UsageInfo.ObjectsLimitCount = request.Info.UsageInfo.ObjectsLimitCount
 	bucketInfo.UsageInfo.CapacityLimitSize = request.Info.UsageInfo.CapacityLimitSize
-	if _, err := storeBucketInfo(manage.conn, bucketInfo); err != nil {
+	if _, err := manage.storeBucketInfo(bucketInfo); err != nil {
 		response.Err = err
 		request.Done <- response
 		return err
@@ -93,13 +93,13 @@ func (manage *BucketManage) handleUpdateBucketRequest(request *BucketInfoRequest
 }
 func (manage *BucketManage) handleDeleteBucketRequest(request *BucketInfoRequest) error {
 	response := &BucketInfoResponse{}
-	bucketInfo, err := fetchBucketInfo(manage.conn, manage.bucketInfoCache, request.Info.Name)
+	bucketInfo, err := manage.fetchBucketInfo(request.Info.Name)
 	if err != nil {
 		response.Err = err
 		request.Done <- response
 		return err
 	}
-	go delBucketInfoAndBucketData(manage.api,request,bucketInfo.RealDirName)
+	go manage.delBucketInfoAndBucketData(request,bucketInfo.RealDirName)
 	return nil
 }
 func (manage *BucketManage) Run() {

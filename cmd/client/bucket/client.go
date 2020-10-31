@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"flag"
 	"fmt"
 	"gluster-storage-gateway/conf"
 	"gluster-storage-gateway/protocol/pb"
@@ -10,7 +11,10 @@ import (
 	log "github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 )
+var (
+	requestBucketType    = flag.String("op", "create", "create bucket")
 
+)
 type Client struct {
 	client pb.FusionStorageGatewayClient
 	conn   *grpc.ClientConn
@@ -60,12 +64,19 @@ func CreateBucket(c *Client) error {
 	return nil
 }
 func main() {
-	c,err:= NewClient("../conf.yaml")
+	c,err:= NewClient("../server_conf.yaml")
+	flag.Parse()
 	if err != nil {
 		log.Error("NewClient:",err)
 		return
 	}
-	if err := CreateBucket(c); err != nil {
-		log.Error("CreateBucket:", err)
+	if *requestBucketType == "create" {
+		if err := CreateBucket(c); err != nil {
+			log.Error("CreateBucket:", err)
+		}
+	}else if *requestBucketType == "delete" {
+
+	}else if *requestBucketType == "update" {
+
 	}
 }

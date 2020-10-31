@@ -1,70 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BranchesTreeState">
-    <expand>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="GROUP_NODE:perryn" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="GROUP_NODE:perryn" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-    </expand>
+    <expand />
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b051cf80-bfb5-4b14-a789-de05dde22070" name="默认更改列表" comment="">
-      <change afterPath="$PROJECT_DIR$/block/bloick.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bucket/manage.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lock/lock.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/meta/block.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/meta/bucket.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/meta/object.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/block/block.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/block/utils.go" beforeDir="false" afterPath="$PROJECT_DIR$/block/utils.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bucket/bucket.go" beforeDir="false" afterPath="$PROJECT_DIR$/bucket/bucket.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bucket/utils.go" beforeDir="false" afterPath="$PROJECT_DIR$/bucket/utils.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/client-tools/cli/bucket.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/client-tools/cli/bucket.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/client-tools/cli/volume.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/client-tools/cli/volume.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/client-tools/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/client-tools/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/client/client.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/client/bucket/client.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/server/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/server/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/conf/conf.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/conf/conf.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/conf/service_conf.go" beforeDir="false" afterPath="$PROJECT_DIR$/conf/server_conf.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fs-api/fs_api.c" beforeDir="false" afterPath="$PROJECT_DIR$/fs-api/fs_api.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fs-api/fs_api.go" beforeDir="false" afterPath="$PROJECT_DIR$/fs-api/fs_api.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fs-api/fs_api.h" beforeDir="false" afterPath="$PROJECT_DIR$/fs-api/fs_api.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grpc-service/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/grpc-service/service.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/meta/block_meta.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/meta/bucket_meta.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/object/object.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/object/object_meta.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/oss-type/types.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/protocol/pb/service.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/protocol/pb/service.pb.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/protocol/pb/service.pb.gw.go" beforeDir="false" afterPath="$PROJECT_DIR$/protocol/pb/service.pb.gw.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/protocol/pb/service.proto" beforeDir="false" afterPath="$PROJECT_DIR$/protocol/pb/service.proto" afterDir="false" />
-    </list>
+    <list default="true" id="b051cf80-bfb5-4b14-a789-de05dde22070" name="默认更改列表" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -85,7 +26,7 @@
     <option name="indexEntireGoPath" value="false" />
   </component>
   <component name="ProjectId" id="1jbD6Q15jPNIkJ6G9HUG198nH6l" />
-  <component name="ProjectLevelVcsManager">
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="添加" />
   </component>
   <component name="ProjectViewState">
@@ -100,7 +41,7 @@
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/cmd/client/bucket" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../gluster-storage-gateway" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -149,10 +90,14 @@
     <integration-enabled>true</integration-enabled>
   </component>
   <component name="WindowStateProjectService">
-    <state x="539" y="82" width="601" height="823" key="find.popup" timestamp="1604110600085">
+    <state x="627" y="255" key="FileChooserDialogImpl" timestamp="1604126331996">
+      <screen x="0" y="23" width="1680" height="941" />
+    </state>
+    <state x="627" y="255" key="FileChooserDialogImpl/0.23.1680.941@0.23.1680.941" timestamp="1604126331996" />
+    <state x="539" y="82" width="601" height="823" key="find.popup" timestamp="1604126343672">
       <screen x="0" y="23" width="1680" height="941" />
     </state>
     <state x="539" y="82" width="601" height="822" key="find.popup/0.23.1680.940@0.23.1680.940" timestamp="1604064477778" />
-    <state x="539" y="82" width="601" height="823" key="find.popup/0.23.1680.941@0.23.1680.941" timestamp="1604110600085" />
+    <state x="539" y="82" width="601" height="823" key="find.popup/0.23.1680.941@0.23.1680.941" timestamp="1604126343672" />
   </component>
 </project>

@@ -7,8 +7,8 @@ import (
 )
 
 type ClientConf struct {
-	Addr string `yaml:"addr"`
-	Port int    `yaml:"port"`
+	StorageGatewayAddr string `yaml:"storageGatewayAddr"`
+	StorageGatewayPort int    `yaml:"storageGatewayPort"`
 }
 
 func NewClientConf(confFile string) (*ClientConf, error) {
