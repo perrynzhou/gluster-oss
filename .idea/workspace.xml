@@ -41,13 +41,15 @@
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../gluster-storage-gateway" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../gluster-storage-gateway/protocol/pb" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/../gluster-storage-gateway/protocol/pb" />
       <recent name="$PROJECT_DIR$/cmd/client/bucket" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/../gluster-storage-gateway/cmd/server/bucket" />
       <recent name="$PROJECT_DIR$/bucket" />
     </key>
   </component>
@@ -90,18 +92,18 @@
     <integration-enabled>true</integration-enabled>
   </component>
   <component name="WindowStateProjectService">
-    <state x="673" y="302" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1604129818278">
+    <state x="673" y="302" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1604139775690">
       <screen x="0" y="23" width="1680" height="941" />
     </state>
-    <state x="673" y="302" key="#com.intellij.fileTypes.FileTypeChooser/0.23.1680.941@0.23.1680.941" timestamp="1604129818278" />
+    <state x="673" y="302" key="#com.intellij.fileTypes.FileTypeChooser/0.23.1680.941@0.23.1680.941" timestamp="1604139775690" />
     <state x="627" y="255" key="FileChooserDialogImpl" timestamp="1604126331996">
       <screen x="0" y="23" width="1680" height="941" />
     </state>
     <state x="627" y="255" key="FileChooserDialogImpl/0.23.1680.941@0.23.1680.941" timestamp="1604126331996" />
-    <state x="539" y="82" width="601" height="823" key="find.popup" timestamp="1604126343672">
+    <state x="539" y="82" width="601" height="823" key="find.popup" timestamp="1604140007653">
       <screen x="0" y="23" width="1680" height="941" />
     </state>
     <state x="539" y="82" width="601" height="822" key="find.popup/0.23.1680.940@0.23.1680.940" timestamp="1604064477778" />
-    <state x="539" y="82" width="601" height="823" key="find.popup/0.23.1680.941@0.23.1680.941" timestamp="1604126343672" />
+    <state x="539" y="82" width="601" height="823" key="find.popup/0.23.1680.941@0.23.1680.941" timestamp="1604140007653" />
   </component>
 </project>

@@ -1,10 +1,11 @@
-package put_service
+package service
 
 import (
 	"fmt"
 	"gluster-storage-gateway/bucket"
 	"gluster-storage-gateway/conf"
 	fs_api "gluster-storage-gateway/fs-api"
+	"gluster-storage-gateway/meta"
 	"net"
 	"net/http"
 	"sync"
@@ -17,7 +18,7 @@ import (
 	"gluster-storage-gateway/protocol/pb"
 )
 
-type GrpcService struct {
+type BucketService struct {
 	addr            string
 	grpcPort        int
 	httpPort        int
@@ -29,10 +30,8 @@ type GrpcService struct {
 	bucketRequestCh chan *bucket.BucketInfoRequest
 }
 
-//putservice init
-//func NewGrpcSerivce(addr string, grpcPort, httpPort int, wg *sync.WaitGroup) *GrpcService {
-func NewGrpcSerivce(c *conf.ServerConfig, api *fs_api.FsApi, serviceName string, wg *sync.WaitGroup) *GrpcService {
-	service := &GrpcService{
+func NewBucketSerivce(c *conf.ServerConfig, api *fs_api.FsApi, serviceName string, wg *sync.WaitGroup) *BucketService {
+	service := &BucketService{
 		addr:            c.Addr,
 		grpcPort:        c.GrpcPort,
 		httpPort:        c.HttpPort,
@@ -46,13 +45,8 @@ func NewGrpcSerivce(c *conf.ServerConfig, api *fs_api.FsApi, serviceName string,
 
 	return service
 }
-func (s *GrpcService) Put(context.Context, *pb.PutObjectRequest) (*pb.PutObjectResponse, error) {
-	log.Info("test put function")
-	return &pb.PutObjectResponse{}, nil
 
-}
-
-func (s *GrpcService) CreateBucket(ctx context.Context, createBucketRequest *pb.CreateBucketRequest) (*pb.CreateBucketResponse, error) {
+func (s *BucketService) CreateBucket(ctx context.Context, createBucketRequest *pb.CreateBucketRequest) (*pb.CreateBucketResponse, error) {
 	req := bucket.NewCreateBucketInfoRequest(createBucketRequest)
 	s.bucketRequestCh <- req
 	bucketResponse := <-req.Done
@@ -67,50 +61,50 @@ func (s *GrpcService) CreateBucket(ctx context.Context, createBucketRequest *pb.
 	return createBucketResponse, bucketResponse.Err
 }
 
-func (s *GrpcService) DeleteBucket(ctx context.Context, deleteBucketRequest *pb.DeleteBucketRequest) (*pb.DeleteBucketResponse, error) {
+func (s *BucketService) DeleteBucket(ctx context.Context, deleteBucketRequest *pb.DeleteBucketRequest) (*pb.DeleteBucketResponse, error) {
 	req := bucket.NewDeleteBucketInfoRequest(deleteBucketRequest)
 	s.bucketRequestCh <- req
-	bucketResponse := <-req.Done
-
-	createBucketResponse := &pb.CreateBucketResponse{
-		Requst:  createBucketRequest,
-		Message: "SUCCESS",
+	resp := <-req.Done
+    bucketInfo := resp.Reply.(*meta.BucketInfo)
+	deleteBucketResponse := &pb.DeleteBucketResponse{
+		Name:bucketInfo.Name,
+		ObjectsLimit: bucketInfo.UsageInfo.ObjectsLimitCount,
+		Capacity: bucketInfo.UsageInfo.CapacityLimitSize,
+		ObjectCount: bucketInfo.UsageInfo.ObjectsCurrentCount,
 	}
-	if bucketResponse.Err != nil {
-		createBucketResponse.Message = bucketResponse.Err.Error()
+	if resp.Err != nil {
+		deleteBucketResponse.Message = resp.Err.Error()
 	}
-	return createBucketResponse, bucketResponse.Err
+	return deleteBucketResponse, resp.Err
 }
-
-func (s *GrpcService) ListBuckets(context.Context, *pb.ListBucketsRequest) (*pb.ListBucketsResponse, error) {
-	return &pb.ListBucketsResponse{}, nil
+func (s *BucketService) UpdateBucket(ctx context.Context,updateBucketRequest *pb.UpdateBucketRequest) (*pb.UpdateBucketResponse, error) {
+	req := bucket.NewUpdateBucketInfoRequest(updateBucketRequest)
+	s.bucketRequestCh <- req
+	resp := <-req.Done
+	bucketInfo := resp.Reply.(*meta.BucketInfo)
+	updateBucketResponse := &pb.UpdateBucketResponse{
+		Name:bucketInfo.Name,
+		ObjectsLimit: bucketInfo.UsageInfo.ObjectsLimitCount,
+		Capacity: bucketInfo.UsageInfo.CapacityLimitSize,
+		ObjectCount: bucketInfo.UsageInfo.ObjectsCurrentCount,
+		BucketDir: bucketInfo.RealDirName,
+	}
+	updateBucketResponse.Message="success"
+	if resp.Err != nil {
+		updateBucketResponse.Message = resp.Err.Error()
+	}
+	return updateBucketResponse, resp.Err
 }
-
-func (s *GrpcService) UpdateBucket(context.Context, *pb.UpdateBucketRequest) (*pb.UpdateBucketResponse, error) {
-	return &pb.UpdateBucketResponse{}, nil
-}
-func (s *GrpcService) AddVolume(context.Context, *pb.AddVolumeRequest) (*pb.AddVolumeResponse, error) {
-	return &pb.AddVolumeResponse{}, nil
-}
-
-func (s *GrpcService) DeleteVolume(context.Context, *pb.DeleteVolumeRequest) (*pb.DeleteVolumeResponse, error) {
-	return &pb.DeleteVolumeResponse{}, nil
-}
-
-func (s *GrpcService) ListVolumes(context.Context, *pb.ListVolumesRequest) (*pb.ListVolumesResponse, error) {
-	return &pb.ListVolumesResponse{}, nil
-}
-
-func (s *GrpcService) Stop() {
+func (s *BucketService) Stop() {
 	s.stopGrpcCh <- struct{}{}
 	s.stopHttpCh <- struct{}{}
 }
-func (s *GrpcService) Run() {
+func (s *BucketService) Run() {
 	s.wg.Add(2)
 	go s.runGrpc()
 	go s.runHttp()
 }
-func (s *GrpcService) runHttp() {
+func (s *BucketService) runHttp() {
 	defer s.wg.Done()
 	//http gateway
 	ctx := context.Background()
@@ -118,31 +112,31 @@ func (s *GrpcService) runHttp() {
 	defer cancel()
 	mux := runtime.NewServeMux()
 	dialOptions := []grpc.DialOption{grpc.WithInsecure()}
-	if err := pb.RegisterFusionStorageGatewayHandlerFromEndpoint(ctx, mux, fmt.Sprintf(":%d", s.grpcPort), dialOptions); err != nil {
-		log.Fatal("register http FusionSorageGatewayService failed:", err)
+	if err := pb.RegisterGlusterStorageGatewayBucketHandlerFromEndpoint(ctx, mux, fmt.Sprintf(":%d", s.grpcPort), dialOptions); err != nil {
+		log.Fatal("register http GlusterStorageGatewayBucket failed:", err)
 	}
 	go func(port int) {
 		if err := http.ListenAndServe(fmt.Sprintf(":%d", port), mux); err != nil {
-			log.Infof("start  http FusionSorageGatewayService on %s:%d failed,err:%v", s.addr, s.httpPort, err)
+			log.Infof("start  http GlusterStorageGatewayBucket on %s:%d failed,err:%v", s.addr, s.httpPort, err)
 		}
 	}(s.httpPort)
-	log.Infof("start  http FusionSorageGatewayService on %s:%d  success", s.addr, s.httpPort)
+	log.Infof("start  http GlusterStorageGatewayBucket on %s:%d  success", s.addr, s.httpPort)
 	for {
 		select {
 		case <-s.stopHttpCh:
-			log.Infof("stop http FusionSorageGatewayService on %s:%d success\n", s.addr, s.httpPort)
+			log.Infof("stop http GlusterStorageGatewayBucket on %s:%d success\n", s.addr, s.httpPort)
 			return
 		}
 	}
 }
-func (s *GrpcService) runGrpc() {
+func (s *BucketService) runGrpc() {
 	defer s.wg.Done()
 	listen, err := net.Listen("tcp", fmt.Sprintf(":%d", s.grpcPort))
 	if err != nil {
 		log.Fatalf("failed to listen on %d,err: %v", s.grpcPort, err)
 	}
 	srv := grpc.NewServer()
-	pb.RegisterFusionStorageGatewayServer(srv, s)
+	pb.RegisterGlusterStorageGatewayBucketServer(srv, s)
 	go func(srv *grpc.Server) {
 		if err := srv.Serve(listen); err != nil {
 			log.Fatal("start  grpc FusionSorageGatewayService on %s:%d failed:%v ", s.addr, s.grpcPort, err)

@@ -23,6 +23,7 @@ type BucketInfoRequest struct {
 	Done chan *BucketInfoResponse
 }
 type BucketInfoResponse struct {
+	Reply interface{}
 	Err  error
 }
 
