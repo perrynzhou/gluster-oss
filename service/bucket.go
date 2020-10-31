@@ -32,9 +32,9 @@ type BucketService struct {
 
 func NewBucketSerivce(c *conf.ServerConfig, api *fs_api.FsApi, serviceName string, wg *sync.WaitGroup) *BucketService {
 	service := &BucketService{
-		addr:            c.Addr,
-		grpcPort:        c.GrpcPort,
-		httpPort:        c.HttpPort,
+		addr:            c.ServiceBackend.BackendAddr,
+		grpcPort:        c.ServiceBackend.GrpcPort,
+		httpPort:        c.ServiceBackend.HttpPort,
 		stopGrpcCh:      make(chan struct{}),
 		stopHttpCh:      make(chan struct{}),
 		fsApi:           api,
@@ -42,15 +42,18 @@ func NewBucketSerivce(c *conf.ServerConfig, api *fs_api.FsApi, serviceName strin
 		wg:              wg,
 		bucketRequestCh: make(chan *bucket.BucketInfoRequest),
 	}
-
+	log.Info("init BucketSerice success")
 	return service
 }
 
 func (s *BucketService) CreateBucket(ctx context.Context, createBucketRequest *pb.CreateBucketRequest) (*pb.CreateBucketResponse, error) {
 	req := bucket.NewCreateBucketInfoRequest(createBucketRequest)
+	log.Info("get CreateBucket request:",createBucketRequest)
 	s.bucketRequestCh <- req
 	resp := <-req.Done
+
 	bucketInfo := resp.Reply.(*meta.BucketInfo)
+	log.Info("finish CreateBucket request:",bucketInfo,",err:",resp.Err
 	createBucketResponse := &pb.CreateBucketResponse{
 		Name: bucketInfo.Name,
 		//request storage capacity
@@ -68,9 +71,13 @@ func (s *BucketService) CreateBucket(ctx context.Context, createBucketRequest *p
 
 func (s *BucketService) DeleteBucket(ctx context.Context, deleteBucketRequest *pb.DeleteBucketRequest) (*pb.DeleteBucketResponse, error) {
 	req := bucket.NewDeleteBucketInfoRequest(deleteBucketRequest)
+	log.Info("get DeleteBucket request:",deleteBucketRequest)
+
 	s.bucketRequestCh <- req
 	resp := <-req.Done
 	bucketInfo := resp.Reply.(*meta.BucketInfo)
+	log.Info("finish DeleteBucket request:",bucketInfo,",err:",resp.Err)
+
 	deleteBucketResponse := &pb.DeleteBucketResponse{
 		Name:         bucketInfo.Name,
 		ObjectsLimit: bucketInfo.UsageInfo.ObjectsLimitCount,
@@ -84,9 +91,13 @@ func (s *BucketService) DeleteBucket(ctx context.Context, deleteBucketRequest *p
 }
 func (s *BucketService) UpdateBucket(ctx context.Context, updateBucketRequest *pb.UpdateBucketRequest) (*pb.UpdateBucketResponse, error) {
 	req := bucket.NewUpdateBucketInfoRequest(updateBucketRequest)
+	log.Info("get UpdateBucket request:",updateBucketRequest)
+
 	s.bucketRequestCh <- req
 	resp := <-req.Done
 	bucketInfo := resp.Reply.(*meta.BucketInfo)
+	log.Info("finish UpdateBucket request:",bucketInfo,",err:",resp.Err)
+
 	updateBucketResponse := &pb.UpdateBucketResponse{
 		Name:         bucketInfo.Name,
 		ObjectsLimit: bucketInfo.UsageInfo.ObjectsLimitCount,
@@ -110,6 +121,7 @@ func (s *BucketService) Run() {
 	go s.runHttp()
 }
 func (s *BucketService) runHttp() {
+	log.Info("start BucketService Http")
 	defer s.wg.Done()
 	//http gateway
 	ctx := context.Background()
@@ -135,6 +147,7 @@ func (s *BucketService) runHttp() {
 	}
 }
 func (s *BucketService) runGrpc() {
+	log.Info("start BucketService GRPC")
 	defer s.wg.Done()
 	listen, err := net.Listen("tcp", fmt.Sprintf(":%d", s.grpcPort))
 	if err != nil {

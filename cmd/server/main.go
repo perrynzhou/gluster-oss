@@ -46,6 +46,7 @@ func main() {
 	if err != nil {
 		log.Fatal("init fsApi failed:", err)
 	}
+	log.Info("init gluster-storage-gateway success")
 	bucketService := service.NewBucketSerivce(c, fsApi, *serviceName, wg)
 	service := service.NewService(bucketService)
 	service.Run()
@@ -53,7 +54,7 @@ func main() {
 	for {
 		select {
 		case <-signals:
-			bucketService.Stop()
+			service.Stop()
 			return
 		}
 	}

@@ -27,5 +27,8 @@ func (s *Service) UpdateBucket(ctx context.Context, updateBucketRequest *pb.Upda
 func (s *Service)Run() {
 	s.bucketService.Run()
 }
+func (s *Service)Stop() {
+	s.bucketService.Stop()
+}
 
 

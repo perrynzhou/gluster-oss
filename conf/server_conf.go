@@ -22,7 +22,7 @@ type ServiceBackendConfig struct {
 }
 type ServerConfig struct {
 	//service address
-	ServerBackend ServiceBackendConfig `yaml:"serviceBackend"`
+	ServiceBackend ServiceBackendConfig `yaml:"serviceBackend"`
 	StoreBackend  StoreBackendConf      `yaml:"storageBackend"`
 	//metadata server address
 	MetaBacked CommonBackendConf `yaml:"metaBackend"`
