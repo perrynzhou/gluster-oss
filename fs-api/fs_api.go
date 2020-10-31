@@ -1,7 +1,7 @@
 package fs_api
 
 //#cgo CFLAGS: -I/usr/include/glusterfs -I./
-//#cgo LDFLAGS: -L/usr/lib/x86_64-linux-gnu/ -lgfapi
+//#cgo LDFLAGS: -L/usr/local/lib/ -lgfapi
 /*
 #define _GNU_SOURCE
 #include "fs_api.h"
