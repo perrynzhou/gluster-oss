@@ -17,10 +17,7 @@ github.com/go-redis/redis/v8/internal/util
 github.com/go-stack/stack
 # github.com/golang/protobuf v1.4.3
 ## explicit
-github.com/golang/protobuf/descriptor
-github.com/golang/protobuf/jsonpb
 github.com/golang/protobuf/proto
-github.com/golang/protobuf/protoc-gen-go/descriptor
 github.com/golang/protobuf/ptypes
 github.com/golang/protobuf/ptypes/any
 github.com/golang/protobuf/ptypes/duration
@@ -31,9 +28,6 @@ github.com/golang/protobuf/ptypes/wrappers
 github.com/google/uuid
 # github.com/grpc-ecosystem/grpc-gateway v1.14.7
 ## explicit
-github.com/grpc-ecosystem/grpc-gateway/internal
-github.com/grpc-ecosystem/grpc-gateway/runtime
-github.com/grpc-ecosystem/grpc-gateway/utilities
 # github.com/grpc-ecosystem/grpc-gateway/v2 v2.0.1
 ## explicit
 github.com/grpc-ecosystem/grpc-gateway/v2/internal/httprule
@@ -171,7 +165,6 @@ google.golang.org/protobuf/internal/set
 google.golang.org/protobuf/internal/strs
 google.golang.org/protobuf/internal/version
 google.golang.org/protobuf/proto
-google.golang.org/protobuf/reflect/protodesc
 google.golang.org/protobuf/reflect/protoreflect
 google.golang.org/protobuf/reflect/protoregistry
 google.golang.org/protobuf/runtime/protoiface

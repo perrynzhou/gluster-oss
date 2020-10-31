@@ -121,18 +121,18 @@ func (fsApi *FsApi) RmAllFileFromPath(path string) error {
 	}
 	return nil
 }
-func (fsApi *FsApi) Seek(filename string, flags int, offset uint64, whence int) (*FsFd,error) {
+func (fsApi *FsApi) Seek(filename string, flags int, offset uint64, whence int) (*FsFd, error) {
 	coffset := C.off_t(offset)
 	fd, err := fsApi.Open(filename, flags)
 	if fd == nil {
-		return nil,err
+		return nil, err
 	}
 	ret, err := C.fs_api_seek(fsApi.api, fd.Fd, coffset, C.int(whence))
 	if int(ret) != 0 {
 		C.fs_api_close(fd.Fd)
-		return nil,err
+		return nil, err
 	}
-	return fd,nil
+	return fd, nil
 }
 func (fsApi *FsApi) Write(fd *FsFd, data []byte) (int64, error) {
 
@@ -157,7 +157,6 @@ func (fsApi *FsApi) Close(fd *FsFd) error {
 	}
 	return err
 }
-
 
 func (fsApi *FsApi) Releae() {
 	if fsApi != nil {

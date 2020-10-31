@@ -31,7 +31,7 @@ var _ = runtime.String
 var _ = utilities.NewDoubleArray
 var _ = metadata.Join
 
-func request_FusionStorageGateway_Put_0(ctx context.Context, marshaler runtime.Marshaler, client FusionStorageGatewayClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_GlusterStorageGateway_Put_0(ctx context.Context, marshaler runtime.Marshaler, client GlusterStorageGatewayClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq PutObjectRequest
 	var metadata runtime.ServerMetadata
 
@@ -48,7 +48,7 @@ func request_FusionStorageGateway_Put_0(ctx context.Context, marshaler runtime.M
 
 }
 
-func local_request_FusionStorageGateway_Put_0(ctx context.Context, marshaler runtime.Marshaler, server FusionStorageGatewayServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_GlusterStorageGateway_Put_0(ctx context.Context, marshaler runtime.Marshaler, server GlusterStorageGatewayServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq PutObjectRequest
 	var metadata runtime.ServerMetadata
 
@@ -65,7 +65,7 @@ func local_request_FusionStorageGateway_Put_0(ctx context.Context, marshaler run
 
 }
 
-func request_FusionStorageGateway_CreateBucket_0(ctx context.Context, marshaler runtime.Marshaler, client FusionStorageGatewayClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_GlusterStorageGateway_CreateBucket_0(ctx context.Context, marshaler runtime.Marshaler, client GlusterStorageGatewayClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq CreateBucketRequest
 	var metadata runtime.ServerMetadata
 
@@ -82,7 +82,7 @@ func request_FusionStorageGateway_CreateBucket_0(ctx context.Context, marshaler 
 
 }
 
-func local_request_FusionStorageGateway_CreateBucket_0(ctx context.Context, marshaler runtime.Marshaler, server FusionStorageGatewayServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_GlusterStorageGateway_CreateBucket_0(ctx context.Context, marshaler runtime.Marshaler, server GlusterStorageGatewayServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq CreateBucketRequest
 	var metadata runtime.ServerMetadata
 
@@ -99,7 +99,7 @@ func local_request_FusionStorageGateway_CreateBucket_0(ctx context.Context, mars
 
 }
 
-func request_FusionStorageGateway_DeleteBucket_0(ctx context.Context, marshaler runtime.Marshaler, client FusionStorageGatewayClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_GlusterStorageGateway_DeleteBucket_0(ctx context.Context, marshaler runtime.Marshaler, client GlusterStorageGatewayClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq DeleteBucketRequest
 	var metadata runtime.ServerMetadata
 
@@ -116,7 +116,7 @@ func request_FusionStorageGateway_DeleteBucket_0(ctx context.Context, marshaler 
 
 }
 
-func local_request_FusionStorageGateway_DeleteBucket_0(ctx context.Context, marshaler runtime.Marshaler, server FusionStorageGatewayServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_GlusterStorageGateway_DeleteBucket_0(ctx context.Context, marshaler runtime.Marshaler, server GlusterStorageGatewayServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq DeleteBucketRequest
 	var metadata runtime.ServerMetadata
 
@@ -133,7 +133,7 @@ func local_request_FusionStorageGateway_DeleteBucket_0(ctx context.Context, mars
 
 }
 
-func request_FusionStorageGateway_ListBuckets_0(ctx context.Context, marshaler runtime.Marshaler, client FusionStorageGatewayClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_GlusterStorageGateway_ListBuckets_0(ctx context.Context, marshaler runtime.Marshaler, client GlusterStorageGatewayClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq ListBucketsRequest
 	var metadata runtime.ServerMetadata
 
@@ -142,7 +142,7 @@ func request_FusionStorageGateway_ListBuckets_0(ctx context.Context, marshaler r
 
 }
 
-func local_request_FusionStorageGateway_ListBuckets_0(ctx context.Context, marshaler runtime.Marshaler, server FusionStorageGatewayServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_GlusterStorageGateway_ListBuckets_0(ctx context.Context, marshaler runtime.Marshaler, server GlusterStorageGatewayServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq ListBucketsRequest
 	var metadata runtime.ServerMetadata
 
@@ -151,7 +151,7 @@ func local_request_FusionStorageGateway_ListBuckets_0(ctx context.Context, marsh
 
 }
 
-func request_FusionStorageGateway_UpdateBucket_0(ctx context.Context, marshaler runtime.Marshaler, client FusionStorageGatewayClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_GlusterStorageGateway_UpdateBucket_0(ctx context.Context, marshaler runtime.Marshaler, client GlusterStorageGatewayClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq UpdateBucketRequest
 	var metadata runtime.ServerMetadata
 
@@ -168,7 +168,7 @@ func request_FusionStorageGateway_UpdateBucket_0(ctx context.Context, marshaler 
 
 }
 
-func local_request_FusionStorageGateway_UpdateBucket_0(ctx context.Context, marshaler runtime.Marshaler, server FusionStorageGatewayServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_GlusterStorageGateway_UpdateBucket_0(ctx context.Context, marshaler runtime.Marshaler, server GlusterStorageGatewayServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq UpdateBucketRequest
 	var metadata runtime.ServerMetadata
 
@@ -185,7 +185,7 @@ func local_request_FusionStorageGateway_UpdateBucket_0(ctx context.Context, mars
 
 }
 
-func request_FusionStorageGateway_AddVolume_0(ctx context.Context, marshaler runtime.Marshaler, client FusionStorageGatewayClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_GlusterStorageGateway_AddVolume_0(ctx context.Context, marshaler runtime.Marshaler, client GlusterStorageGatewayClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq AddVolumeRequest
 	var metadata runtime.ServerMetadata
 
@@ -202,7 +202,7 @@ func request_FusionStorageGateway_AddVolume_0(ctx context.Context, marshaler run
 
 }
 
-func local_request_FusionStorageGateway_AddVolume_0(ctx context.Context, marshaler runtime.Marshaler, server FusionStorageGatewayServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_GlusterStorageGateway_AddVolume_0(ctx context.Context, marshaler runtime.Marshaler, server GlusterStorageGatewayServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq AddVolumeRequest
 	var metadata runtime.ServerMetadata
 
@@ -219,7 +219,7 @@ func local_request_FusionStorageGateway_AddVolume_0(ctx context.Context, marshal
 
 }
 
-func request_FusionStorageGateway_DeleteVolume_0(ctx context.Context, marshaler runtime.Marshaler, client FusionStorageGatewayClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_GlusterStorageGateway_DeleteVolume_0(ctx context.Context, marshaler runtime.Marshaler, client GlusterStorageGatewayClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq DeleteVolumeRequest
 	var metadata runtime.ServerMetadata
 
@@ -236,7 +236,7 @@ func request_FusionStorageGateway_DeleteVolume_0(ctx context.Context, marshaler 
 
 }
 
-func local_request_FusionStorageGateway_DeleteVolume_0(ctx context.Context, marshaler runtime.Marshaler, server FusionStorageGatewayServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_GlusterStorageGateway_DeleteVolume_0(ctx context.Context, marshaler runtime.Marshaler, server GlusterStorageGatewayServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq DeleteVolumeRequest
 	var metadata runtime.ServerMetadata
 
@@ -253,7 +253,7 @@ func local_request_FusionStorageGateway_DeleteVolume_0(ctx context.Context, mars
 
 }
 
-func request_FusionStorageGateway_ListVolumes_0(ctx context.Context, marshaler runtime.Marshaler, client FusionStorageGatewayClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_GlusterStorageGateway_ListVolumes_0(ctx context.Context, marshaler runtime.Marshaler, client GlusterStorageGatewayClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq ListVolumesRequest
 	var metadata runtime.ServerMetadata
 
@@ -262,7 +262,7 @@ func request_FusionStorageGateway_ListVolumes_0(ctx context.Context, marshaler r
 
 }
 
-func local_request_FusionStorageGateway_ListVolumes_0(ctx context.Context, marshaler runtime.Marshaler, server FusionStorageGatewayServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_GlusterStorageGateway_ListVolumes_0(ctx context.Context, marshaler runtime.Marshaler, server GlusterStorageGatewayServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq ListVolumesRequest
 	var metadata runtime.ServerMetadata
 
@@ -271,24 +271,24 @@ func local_request_FusionStorageGateway_ListVolumes_0(ctx context.Context, marsh
 
 }
 
-// RegisterFusionStorageGatewayHandlerServer registers the http handlers for service FusionStorageGateway to "mux".
-// UnaryRPC     :call FusionStorageGatewayServer directly.
+// RegisterGlusterStorageGatewayHandlerServer registers the http handlers for service GlusterStorageGateway to "mux".
+// UnaryRPC     :call GlusterStorageGatewayServer directly.
 // StreamingRPC :currently unsupported pending https://github.com/grpc/grpc-go/issues/906.
-// Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterFusionStorageGatewayHandlerFromEndpoint instead.
-func RegisterFusionStorageGatewayHandlerServer(ctx context.Context, mux *runtime.ServeMux, server FusionStorageGatewayServer) error {
+// Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterGlusterStorageGatewayHandlerFromEndpoint instead.
+func RegisterGlusterStorageGatewayHandlerServer(ctx context.Context, mux *runtime.ServeMux, server GlusterStorageGatewayServer) error {
 
-	mux.Handle("POST", pattern_FusionStorageGateway_Put_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_GlusterStorageGateway_Put_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.FusionStorageGateway/Put")
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.GlusterStorageGateway/Put")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_FusionStorageGateway_Put_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_GlusterStorageGateway_Put_0(rctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -296,22 +296,22 @@ func RegisterFusionStorageGatewayHandlerServer(ctx context.Context, mux *runtime
 			return
 		}
 
-		forward_FusionStorageGateway_Put_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_GlusterStorageGateway_Put_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("POST", pattern_FusionStorageGateway_CreateBucket_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_GlusterStorageGateway_CreateBucket_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.FusionStorageGateway/CreateBucket")
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.GlusterStorageGateway/CreateBucket")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_FusionStorageGateway_CreateBucket_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_GlusterStorageGateway_CreateBucket_0(rctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -319,22 +319,22 @@ func RegisterFusionStorageGatewayHandlerServer(ctx context.Context, mux *runtime
 			return
 		}
 
-		forward_FusionStorageGateway_CreateBucket_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_GlusterStorageGateway_CreateBucket_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("POST", pattern_FusionStorageGateway_DeleteBucket_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_GlusterStorageGateway_DeleteBucket_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.FusionStorageGateway/DeleteBucket")
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.GlusterStorageGateway/DeleteBucket")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_FusionStorageGateway_DeleteBucket_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_GlusterStorageGateway_DeleteBucket_0(rctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -342,22 +342,22 @@ func RegisterFusionStorageGatewayHandlerServer(ctx context.Context, mux *runtime
 			return
 		}
 
-		forward_FusionStorageGateway_DeleteBucket_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_GlusterStorageGateway_DeleteBucket_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("GET", pattern_FusionStorageGateway_ListBuckets_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_GlusterStorageGateway_ListBuckets_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.FusionStorageGateway/ListBuckets")
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.GlusterStorageGateway/ListBuckets")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_FusionStorageGateway_ListBuckets_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_GlusterStorageGateway_ListBuckets_0(rctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -365,22 +365,22 @@ func RegisterFusionStorageGatewayHandlerServer(ctx context.Context, mux *runtime
 			return
 		}
 
-		forward_FusionStorageGateway_ListBuckets_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_GlusterStorageGateway_ListBuckets_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("POST", pattern_FusionStorageGateway_UpdateBucket_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_GlusterStorageGateway_UpdateBucket_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.FusionStorageGateway/UpdateBucket")
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.GlusterStorageGateway/UpdateBucket")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_FusionStorageGateway_UpdateBucket_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_GlusterStorageGateway_UpdateBucket_0(rctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -388,22 +388,22 @@ func RegisterFusionStorageGatewayHandlerServer(ctx context.Context, mux *runtime
 			return
 		}
 
-		forward_FusionStorageGateway_UpdateBucket_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_GlusterStorageGateway_UpdateBucket_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("POST", pattern_FusionStorageGateway_AddVolume_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_GlusterStorageGateway_AddVolume_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.FusionStorageGateway/AddVolume")
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.GlusterStorageGateway/AddVolume")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_FusionStorageGateway_AddVolume_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_GlusterStorageGateway_AddVolume_0(rctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -411,22 +411,22 @@ func RegisterFusionStorageGatewayHandlerServer(ctx context.Context, mux *runtime
 			return
 		}
 
-		forward_FusionStorageGateway_AddVolume_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_GlusterStorageGateway_AddVolume_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("POST", pattern_FusionStorageGateway_DeleteVolume_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_GlusterStorageGateway_DeleteVolume_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.FusionStorageGateway/DeleteVolume")
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.GlusterStorageGateway/DeleteVolume")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_FusionStorageGateway_DeleteVolume_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_GlusterStorageGateway_DeleteVolume_0(rctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -434,22 +434,22 @@ func RegisterFusionStorageGatewayHandlerServer(ctx context.Context, mux *runtime
 			return
 		}
 
-		forward_FusionStorageGateway_DeleteVolume_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_GlusterStorageGateway_DeleteVolume_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("GET", pattern_FusionStorageGateway_ListVolumes_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_GlusterStorageGateway_ListVolumes_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.FusionStorageGateway/ListVolumes")
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.GlusterStorageGateway/ListVolumes")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_FusionStorageGateway_ListVolumes_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_GlusterStorageGateway_ListVolumes_0(rctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -457,16 +457,16 @@ func RegisterFusionStorageGatewayHandlerServer(ctx context.Context, mux *runtime
 			return
 		}
 
-		forward_FusionStorageGateway_ListVolumes_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_GlusterStorageGateway_ListVolumes_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
 	return nil
 }
 
-// RegisterFusionStorageGatewayHandlerFromEndpoint is same as RegisterFusionStorageGatewayHandler but
+// RegisterGlusterStorageGatewayHandlerFromEndpoint is same as RegisterGlusterStorageGatewayHandler but
 // automatically dials to "endpoint" and closes the connection when "ctx" gets done.
-func RegisterFusionStorageGatewayHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) (err error) {
+func RegisterGlusterStorageGatewayHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) (err error) {
 	conn, err := grpc.Dial(endpoint, opts...)
 	if err != nil {
 		return err
@@ -486,179 +486,179 @@ func RegisterFusionStorageGatewayHandlerFromEndpoint(ctx context.Context, mux *r
 		}()
 	}()
 
-	return RegisterFusionStorageGatewayHandler(ctx, mux, conn)
+	return RegisterGlusterStorageGatewayHandler(ctx, mux, conn)
 }
 
-// RegisterFusionStorageGatewayHandler registers the http handlers for service FusionStorageGateway to "mux".
+// RegisterGlusterStorageGatewayHandler registers the http handlers for service GlusterStorageGateway to "mux".
 // The handlers forward requests to the grpc endpoint over "conn".
-func RegisterFusionStorageGatewayHandler(ctx context.Context, mux *runtime.ServeMux, conn *grpc.ClientConn) error {
-	return RegisterFusionStorageGatewayHandlerClient(ctx, mux, NewFusionStorageGatewayClient(conn))
+func RegisterGlusterStorageGatewayHandler(ctx context.Context, mux *runtime.ServeMux, conn *grpc.ClientConn) error {
+	return RegisterGlusterStorageGatewayHandlerClient(ctx, mux, NewGlusterStorageGatewayClient(conn))
 }
 
-// RegisterFusionStorageGatewayHandlerClient registers the http handlers for service FusionStorageGateway
-// to "mux". The handlers forward requests to the grpc endpoint over the given implementation of "FusionStorageGatewayClient".
-// Note: the gRPC framework executes interceptors within the gRPC handler. If the passed in "FusionStorageGatewayClient"
+// RegisterGlusterStorageGatewayHandlerClient registers the http handlers for service GlusterStorageGateway
+// to "mux". The handlers forward requests to the grpc endpoint over the given implementation of "GlusterStorageGatewayClient".
+// Note: the gRPC framework executes interceptors within the gRPC handler. If the passed in "GlusterStorageGatewayClient"
 // doesn't go through the normal gRPC flow (creating a gRPC client etc.) then it will be up to the passed in
-// "FusionStorageGatewayClient" to call the correct interceptors.
-func RegisterFusionStorageGatewayHandlerClient(ctx context.Context, mux *runtime.ServeMux, client FusionStorageGatewayClient) error {
+// "GlusterStorageGatewayClient" to call the correct interceptors.
+func RegisterGlusterStorageGatewayHandlerClient(ctx context.Context, mux *runtime.ServeMux, client GlusterStorageGatewayClient) error {
 
-	mux.Handle("POST", pattern_FusionStorageGateway_Put_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_GlusterStorageGateway_Put_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/pb.FusionStorageGateway/Put")
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/pb.GlusterStorageGateway/Put")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_FusionStorageGateway_Put_0(rctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_GlusterStorageGateway_Put_0(rctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_FusionStorageGateway_Put_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_GlusterStorageGateway_Put_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("POST", pattern_FusionStorageGateway_CreateBucket_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_GlusterStorageGateway_CreateBucket_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/pb.FusionStorageGateway/CreateBucket")
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/pb.GlusterStorageGateway/CreateBucket")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_FusionStorageGateway_CreateBucket_0(rctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_GlusterStorageGateway_CreateBucket_0(rctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_FusionStorageGateway_CreateBucket_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_GlusterStorageGateway_CreateBucket_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("POST", pattern_FusionStorageGateway_DeleteBucket_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_GlusterStorageGateway_DeleteBucket_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/pb.FusionStorageGateway/DeleteBucket")
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/pb.GlusterStorageGateway/DeleteBucket")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_FusionStorageGateway_DeleteBucket_0(rctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_GlusterStorageGateway_DeleteBucket_0(rctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_FusionStorageGateway_DeleteBucket_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_GlusterStorageGateway_DeleteBucket_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("GET", pattern_FusionStorageGateway_ListBuckets_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_GlusterStorageGateway_ListBuckets_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/pb.FusionStorageGateway/ListBuckets")
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/pb.GlusterStorageGateway/ListBuckets")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_FusionStorageGateway_ListBuckets_0(rctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_GlusterStorageGateway_ListBuckets_0(rctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_FusionStorageGateway_ListBuckets_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_GlusterStorageGateway_ListBuckets_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("POST", pattern_FusionStorageGateway_UpdateBucket_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_GlusterStorageGateway_UpdateBucket_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/pb.FusionStorageGateway/UpdateBucket")
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/pb.GlusterStorageGateway/UpdateBucket")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_FusionStorageGateway_UpdateBucket_0(rctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_GlusterStorageGateway_UpdateBucket_0(rctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_FusionStorageGateway_UpdateBucket_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_GlusterStorageGateway_UpdateBucket_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("POST", pattern_FusionStorageGateway_AddVolume_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_GlusterStorageGateway_AddVolume_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/pb.FusionStorageGateway/AddVolume")
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/pb.GlusterStorageGateway/AddVolume")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_FusionStorageGateway_AddVolume_0(rctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_GlusterStorageGateway_AddVolume_0(rctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_FusionStorageGateway_AddVolume_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_GlusterStorageGateway_AddVolume_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("POST", pattern_FusionStorageGateway_DeleteVolume_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_GlusterStorageGateway_DeleteVolume_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/pb.FusionStorageGateway/DeleteVolume")
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/pb.GlusterStorageGateway/DeleteVolume")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_FusionStorageGateway_DeleteVolume_0(rctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_GlusterStorageGateway_DeleteVolume_0(rctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_FusionStorageGateway_DeleteVolume_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_GlusterStorageGateway_DeleteVolume_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("GET", pattern_FusionStorageGateway_ListVolumes_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_GlusterStorageGateway_ListVolumes_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/pb.FusionStorageGateway/ListVolumes")
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/pb.GlusterStorageGateway/ListVolumes")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_FusionStorageGateway_ListVolumes_0(rctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_GlusterStorageGateway_ListVolumes_0(rctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_FusionStorageGateway_ListVolumes_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_GlusterStorageGateway_ListVolumes_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -666,37 +666,37 @@ func RegisterFusionStorageGatewayHandlerClient(ctx context.Context, mux *runtime
 }
 
 var (
-	pattern_FusionStorageGateway_Put_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "put"}, ""))
+	pattern_GlusterStorageGateway_Put_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "put"}, ""))
 
-	pattern_FusionStorageGateway_CreateBucket_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "createBucket"}, ""))
+	pattern_GlusterStorageGateway_CreateBucket_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "createBucket"}, ""))
 
-	pattern_FusionStorageGateway_DeleteBucket_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "deleteBucket"}, ""))
+	pattern_GlusterStorageGateway_DeleteBucket_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "deleteBucket"}, ""))
 
-	pattern_FusionStorageGateway_ListBuckets_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "listBuckets"}, ""))
+	pattern_GlusterStorageGateway_ListBuckets_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "listBuckets"}, ""))
 
-	pattern_FusionStorageGateway_UpdateBucket_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "updateBucket"}, ""))
+	pattern_GlusterStorageGateway_UpdateBucket_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "updateBucket"}, ""))
 
-	pattern_FusionStorageGateway_AddVolume_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "addVolume"}, ""))
+	pattern_GlusterStorageGateway_AddVolume_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "addVolume"}, ""))
 
-	pattern_FusionStorageGateway_DeleteVolume_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "deleteVolume"}, ""))
+	pattern_GlusterStorageGateway_DeleteVolume_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "deleteVolume"}, ""))
 
-	pattern_FusionStorageGateway_ListVolumes_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "listVolumes"}, ""))
+	pattern_GlusterStorageGateway_ListVolumes_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "listVolumes"}, ""))
 )
 
 var (
-	forward_FusionStorageGateway_Put_0 = runtime.ForwardResponseMessage
+	forward_GlusterStorageGateway_Put_0 = runtime.ForwardResponseMessage
 
-	forward_FusionStorageGateway_CreateBucket_0 = runtime.ForwardResponseMessage
+	forward_GlusterStorageGateway_CreateBucket_0 = runtime.ForwardResponseMessage
 
-	forward_FusionStorageGateway_DeleteBucket_0 = runtime.ForwardResponseMessage
+	forward_GlusterStorageGateway_DeleteBucket_0 = runtime.ForwardResponseMessage
 
-	forward_FusionStorageGateway_ListBuckets_0 = runtime.ForwardResponseMessage
+	forward_GlusterStorageGateway_ListBuckets_0 = runtime.ForwardResponseMessage
 
-	forward_FusionStorageGateway_UpdateBucket_0 = runtime.ForwardResponseMessage
+	forward_GlusterStorageGateway_UpdateBucket_0 = runtime.ForwardResponseMessage
 
-	forward_FusionStorageGateway_AddVolume_0 = runtime.ForwardResponseMessage
+	forward_GlusterStorageGateway_AddVolume_0 = runtime.ForwardResponseMessage
 
-	forward_FusionStorageGateway_DeleteVolume_0 = runtime.ForwardResponseMessage
+	forward_GlusterStorageGateway_DeleteVolume_0 = runtime.ForwardResponseMessage
 
-	forward_FusionStorageGateway_ListVolumes_0 = runtime.ForwardResponseMessage
+	forward_GlusterStorageGateway_ListVolumes_0 = runtime.ForwardResponseMessage
 )

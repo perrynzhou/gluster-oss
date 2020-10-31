@@ -15,7 +15,6 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-
 var (
 	confFile    = flag.String("c", "server_conf.yaml", "gluster-storage-gateway conf file")
 	serviceName = flag.String("n", "gluster-storage-gateway", "gluster-storage-gateway name")

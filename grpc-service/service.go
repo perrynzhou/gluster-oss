@@ -9,7 +9,7 @@ import (
 	"net/http"
 	"sync"
 
-	"github.com/grpc-ecosystem/grpc-gateway/runtime"
+	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	log "github.com/sirupsen/logrus"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
@@ -18,30 +18,30 @@ import (
 )
 
 type GrpcService struct {
-	addr        string
-	grpcPort    int
-	httpPort    int
-	stopGrpcCh  chan struct{}
-	stopHttpCh  chan struct{}
-	fsApi       *fs_api.FsApi
-	serviceName string
-	wg          *sync.WaitGroup
-	bucketRequestCh  chan *bucket.BucketInfoRequest
+	addr            string
+	grpcPort        int
+	httpPort        int
+	stopGrpcCh      chan struct{}
+	stopHttpCh      chan struct{}
+	fsApi           *fs_api.FsApi
+	serviceName     string
+	wg              *sync.WaitGroup
+	bucketRequestCh chan *bucket.BucketInfoRequest
 }
 
 //putservice init
 //func NewGrpcSerivce(addr string, grpcPort, httpPort int, wg *sync.WaitGroup) *GrpcService {
-func NewGrpcSerivce(c *conf.ServerConfig, api *fs_api.FsApi,  serviceName string, wg *sync.WaitGroup) *GrpcService {
+func NewGrpcSerivce(c *conf.ServerConfig, api *fs_api.FsApi, serviceName string, wg *sync.WaitGroup) *GrpcService {
 	service := &GrpcService{
-		addr:        c.Addr,
-		grpcPort:    c.GrpcPort,
-		httpPort:    c.HttpPort,
-		stopGrpcCh:  make(chan struct{}),
-		stopHttpCh:  make(chan struct{}),
-		fsApi:     api,
-		serviceName: serviceName,
-		wg:          wg,
-		bucketRequestCh:make(chan *bucket.BucketInfoRequest),
+		addr:            c.Addr,
+		grpcPort:        c.GrpcPort,
+		httpPort:        c.HttpPort,
+		stopGrpcCh:      make(chan struct{}),
+		stopHttpCh:      make(chan struct{}),
+		fsApi:           api,
+		serviceName:     serviceName,
+		wg:              wg,
+		bucketRequestCh: make(chan *bucket.BucketInfoRequest),
 	}
 
 	return service
@@ -54,21 +54,32 @@ func (s *GrpcService) Put(context.Context, *pb.PutObjectRequest) (*pb.PutObjectR
 
 func (s *GrpcService) CreateBucket(ctx context.Context, createBucketRequest *pb.CreateBucketRequest) (*pb.CreateBucketResponse, error) {
 	req := bucket.NewCreateBucketInfoRequest(createBucketRequest)
-	s.bucketRequestCh <-req
-	bucketResponse :=<- req.Done
+	s.bucketRequestCh <- req
+	bucketResponse := <-req.Done
 
 	createBucketResponse := &pb.CreateBucketResponse{
-		Requst:createBucketRequest,
+		Requst:  createBucketRequest,
 		Message: "SUCCESS",
 	}
-	if bucketResponse.Err !=nil {
+	if bucketResponse.Err != nil {
 		createBucketResponse.Message = bucketResponse.Err.Error()
 	}
 	return createBucketResponse, bucketResponse.Err
 }
 
-func (s *GrpcService) DeleteBucket(context.Context, *pb.DeleteBucketRequest) (*pb.DeleteBucketResponse, error) {
-	return &pb.DeleteBucketResponse{}, nil
+func (s *GrpcService) DeleteBucket(ctx context.Context, deleteBucketRequest *pb.DeleteBucketRequest) (*pb.DeleteBucketResponse, error) {
+	req := bucket.NewDeleteBucketInfoRequest(deleteBucketRequest)
+	s.bucketRequestCh <- req
+	bucketResponse := <-req.Done
+
+	createBucketResponse := &pb.CreateBucketResponse{
+		Requst:  createBucketRequest,
+		Message: "SUCCESS",
+	}
+	if bucketResponse.Err != nil {
+		createBucketResponse.Message = bucketResponse.Err.Error()
+	}
+	return createBucketResponse, bucketResponse.Err
 }
 
 func (s *GrpcService) ListBuckets(context.Context, *pb.ListBucketsRequest) (*pb.ListBucketsResponse, error) {

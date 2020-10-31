@@ -12,14 +12,14 @@ import (
 )
 
 type BucketManage struct {
-	api         *fs_api.FsApi
-	conn        redis.Conn
-	ReqCh       chan *BucketInfoRequest
-	doneCh      chan struct{}
-	wg          *sync.WaitGroup
-	bucketInfoCache       map[string]*meta.BucketInfo
-	notifyCh    chan *meta.BucketInfo
-	goFuncCount int
+	api             *fs_api.FsApi
+	conn            redis.Conn
+	ReqCh           chan *BucketInfoRequest
+	doneCh          chan struct{}
+	wg              *sync.WaitGroup
+	bucketInfoCache map[string]*meta.BucketInfo
+	notifyCh        chan *meta.BucketInfo
+	goFuncCount     int
 }
 
 func NewBucketManage(api *fs_api.FsApi, conn redis.Conn, wg *sync.WaitGroup) *BucketManage {
@@ -50,11 +50,11 @@ func (manage *BucketManage) refreshCache() {
 func (manage *BucketManage) handleCreateBucketRequest(request *BucketInfoRequest) {
 	response := &BucketInfoResponse{}
 	if manage.checkBucketExist(request.Info.Name) != nil {
-		if err := manage.handleBucketDir(request.Info.RealDirName,createBucketDirType); err != nil {
+		if err := manage.handleBucketDir(request.Info.RealDirName, createBucketDirType); err != nil {
 			response.Err = err
 		} else {
 			if _, err := manage.storeBucketInfo(request.Info); err != nil {
-				manage.handleBucketDir(request.Info.RealDirName,deleteBucketDirType)
+				manage.handleBucketDir(request.Info.RealDirName, deleteBucketDirType)
 				response.Err = err
 			} else {
 				response.Err = nil
@@ -99,7 +99,7 @@ func (manage *BucketManage) handleDeleteBucketRequest(request *BucketInfoRequest
 		request.Done <- response
 		return err
 	}
-	go manage.delBucketInfoAndBucketData(request,bucketInfo.RealDirName)
+	go manage.delBucketInfoAndBucketData(request, bucketInfo.RealDirName)
 	return nil
 }
 func (manage *BucketManage) Run() {
