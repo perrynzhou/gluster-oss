@@ -4,7 +4,7 @@ import (
 	"flag"
 	"gluster-storage-gateway/conf"
 	fs_api "gluster-storage-gateway/fs-api"
-	ser "gluster-storage-gateway/service"
+	"gluster-storage-gateway/service"
 	"gluster-storage-gateway/utils"
 	"os"
 	"os/signal"
@@ -47,8 +47,9 @@ func main() {
 	if err != nil {
 		log.Fatal("init fsApi failed:", err)
 	}
-	bucketService := ser.NewBucketSerivce(c, fsApi, *serviceName, wg)
-	bucketService.Run()
+	bucketService := service.NewBucketSerivce(c, fsApi, *serviceName, wg)
+	service := service.NewService(bucketService)
+	service.Run()
 	defer wg.Wait()
 	for {
 		select {
