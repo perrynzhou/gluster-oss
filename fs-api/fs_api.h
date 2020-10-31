@@ -25,7 +25,6 @@ int fs_api_stat(fs_api *fapi,const char *pathname,struct stat *st);
 off_t fs_api_seek(fs_api *fapi,fs_fd *fd,off_t offset, int whence);
 ssize_t fs_api_read(fs_api *fapi, fs_fd *fd, void *buf, size_t count);
 ssize_t fs_api_write(fs_api *fapi, fs_fd *fd, void *buf, size_t count);
-int fs_api_fallocate(fs_fd *fd, int mode, off_t offset, off_t len);
 int fs_api_mkdir(fs_api *fapi,const char *path,mode_t mode);
 int fs_api_rmfile(fs_api *fapi,const char *path);
 int fs_api_rmdir(fs_api *fapi,const char *path);

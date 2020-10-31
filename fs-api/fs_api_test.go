@@ -41,7 +41,7 @@ func TestCreat(t *testing.T) {
 	fsApi.Releae()
 }
 func TestRead(t *testing.T) {
-	fsApi,err := NewFsApi("rep_vol","172.25.78.11",24007,true)
+	fsApi,err := NewFsApi("rep_vol","10.211.55.17",24007,true)
 	if err != nil {
 		log.Fatal(err)
 	}

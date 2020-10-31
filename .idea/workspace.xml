@@ -90,6 +90,10 @@
     <integration-enabled>true</integration-enabled>
   </component>
   <component name="WindowStateProjectService">
+    <state x="673" y="302" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1604129818278">
+      <screen x="0" y="23" width="1680" height="941" />
+    </state>
+    <state x="673" y="302" key="#com.intellij.fileTypes.FileTypeChooser/0.23.1680.941@0.23.1680.941" timestamp="1604129818278" />
     <state x="627" y="255" key="FileChooserDialogImpl" timestamp="1604126331996">
       <screen x="0" y="23" width="1680" height="941" />
     </state>

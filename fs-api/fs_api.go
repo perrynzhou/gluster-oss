@@ -87,7 +87,7 @@ func (fsApi *FsApi) Open(filename string, flags int) (*FsFd, error) {
 	fd := &FsFd{}
 	cfilename := C.CString(filename)
 	defer C.free(unsafe.Pointer(cfilename))
-	if _, err := C.fs_api_open(fsApi.api, fd.Fd.gfd, cfilename, C.int(flags)); err != nil {
+	if _, err := C.fs_api_open(fsApi.api, fd.Fd, cfilename, C.int(flags)); err != nil {
 		return nil, err
 	}
 	return fd, err
@@ -96,7 +96,7 @@ func (fsApi *FsApi) Creat(filename string, flags int, mode os.FileMode) (*FsFd, 
 	fd := &FsFd{}
 	cfilename := C.CString(filename)
 	defer C.free(unsafe.Pointer(cfilename))
-	ret, err := C.fs_api_creat(fsApi.api, fd.Fd.gfd, cfilename, C.int(flags), C.mode_t(mode))
+	ret, err := C.fs_api_creat(fsApi.api, fd.Fd, cfilename, C.int(flags), C.mode_t(mode))
 	if int(ret) != 0 {
 		return nil, err
 	}
@@ -127,7 +127,7 @@ func (fsApi *FsApi) Seek(filename string, flags int, offset uint64, whence int) 
 	if fd == nil {
 		return nil,err
 	}
-	ret, err := C.fs_api_seek(fsApi.api, fd, coffset, C.int(whence))
+	ret, err := C.fs_api_seek(fsApi.api, fd.Fd, coffset, C.int(whence))
 	if int(ret) != 0 {
 		C.fs_api_close(fd)
 		return nil,err
@@ -136,7 +136,7 @@ func (fsApi *FsApi) Seek(filename string, flags int, offset uint64, whence int) 
 }
 func (fsApi *FsApi) Write(fd *FsFd, data []byte) (int64, error) {
 
-	sz, err := C.fs_api_write(fsApi.api, fd.Fd.gfd, unsafe.Pointer(&data[0]), (C.size_t)(len(data)))
+	sz, err := C.fs_api_write(fsApi.api, fd.Fd, unsafe.Pointer(&data[0]), (C.size_t)(len(data)))
 	if err != nil {
 		return int64(-1), err
 	}
@@ -144,7 +144,7 @@ func (fsApi *FsApi) Write(fd *FsFd, data []byte) (int64, error) {
 }
 
 func (fsApi *FsApi) Read(fd *FsFd, data []byte) (int64, error) {
-	sz, err := C.fs_api_read(fsApi.api, fd.Fd.gfd, unsafe.Pointer(&data[0]), (C.size_t)(len(data)))
+	sz, err := C.fs_api_read(fsApi.api, fd.Fd, unsafe.Pointer(&data[0]), (C.size_t)(len(data)))
 	if err != nil {
 		return int64(-1), err
 	}
@@ -153,25 +153,11 @@ func (fsApi *FsApi) Read(fd *FsFd, data []byte) (int64, error) {
 func (fsApi *FsApi) Close(fd *FsFd) error {
 	var err error
 	if fd != nil {
-		_, err = C.fs_api_close(fd.Fd.gfd)
+		_, err = C.fs_api_close(fd.Fd)
 	}
 	return err
 }
 
-func (api *FsApi) Fallocate(path string, flag int, size uint64) (*FsFd, error) {
-	cfd, err := api.Open(path, flag)
-	if err != nil {
-		return nil, err
-	}
-	ret, err := C.glfs_fallocate(cfd, C.FALLOC_FL_KEEP_SIZE, 0, C.uint64_t(size))
-	if int(ret) != 0 {
-		_, err = C.glfs_close(cfd)
-		return nil, err
-	}
-	return &FsFd{
-		Fd: cfd,
-	}, nil
-}
 
 func (fsApi *FsApi) Releae() {
 	if fsApi != nil {
