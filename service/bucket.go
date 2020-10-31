@@ -28,6 +28,7 @@ type BucketService struct {
 	serviceName     string
 	wg              *sync.WaitGroup
 	bucketRequestCh chan *bucket.BucketInfoRequest
+	bucketMange     *bucket.BucketManage
 }
 
 func NewBucketSerivce(c *conf.ServerConfig, api *fs_api.FsApi, serviceName string, wg *sync.WaitGroup) *BucketService {
