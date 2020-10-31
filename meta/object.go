@@ -51,5 +51,5 @@ type ObjectInfo struct {
 
 
 	// backendType indicates which backend filled this structure
-	backendType BackendType
+	backendType string
 }
