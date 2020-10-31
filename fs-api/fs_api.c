@@ -21,7 +21,7 @@ fs_api *fs_api_init(char *volume, char *addr, int port)
 {
   fs_api *fapi = calloc(1, sizeof(fs_api *));
   char buf[1024] = {'\0'};
-  snprintf((char *)&buf, 128, "/tmp/gluster-gtw.log.%d", getpid());
+  snprintf((char *)&buf, 128, "/tmp/gluster-storage-gateway.log.%d", getpid());
   glfs_t *fs = glfs_new(volume);
   glfs_set_volfile_server(fs, "tcp", addr, port);
   glfs_set_logging(fs, (char *)&buf, 7);
@@ -68,6 +68,23 @@ int fs_api_open(fs_api *fapi, fs_fd *fd, const char *pathname, int flags)
   if (fd->gfd == NULL)
   {
     return -1;
+  }
+  return 0;
+}
+int fs_api_rm_file_from_path(fs_api *fapi, const char *path)
+{
+  char buffer[4096] = {'\0'};
+  char dirent_buffer[512] = {'\0'};
+  struct dirent *dt = NULL;
+  glfs_fd_t *gfd = glfs_opendir(sapi->fs, path);
+  while (glfs_readdir_r(gfd, (struct dirent *)dirent_buffer, &dt), dt)
+  {
+    size_t len = strlen(dt->d_name);
+    snprintf((char *)&buffer, 4096, "/%s/%s", path, dt->d_name);
+    if (dt->d_type == DT_REG)
+    {
+      glfs_unlink(fapi->fs, (char *)&buffer);
+    }
   }
   return 0;
 }
@@ -128,26 +145,29 @@ int fs_api_fallocate(fs_fd *fd, int mode, off_t offset, off_t len)
   }
   return glfs_fallocate(fd->gfd, mode, offset, len);
 }
-int fs_api_mkdir(fs_api *fapi,const char *path,mode_t mode)
+int fs_api_mkdir(fs_api *fapi, const char *path, mode_t mode)
 {
-  if(fapi!=NULL) {
-    return glfs_mkdir(fapi->fs,path,mode);
+  if (fapi != NULL)
+  {
+    return glfs_mkdir(fapi->fs, path, mode);
   }
   return mkdir(path, mode);
 }
-int fs_api_rmfile(fs_api *fapi,const char *path)
+int fs_api_rmfile(fs_api *fapi, const char *path)
 {
-  if(fapi==NULL) {
+  if (fapi == NULL)
+  {
     return remove(path);
   }
-  return glfs_unlink(fapi->fs,path);
+  return glfs_unlink(fapi->fs, path);
 }
-int fs_api_rmdir(fs_api *fapi,const char *path)
+int fs_api_rmdir(fs_api *fapi, const char *path)
 {
-   if(fapi==NULL) {
+  if (fapi == NULL)
+  {
     return rmdir(path);
   }
-  return glfs_rmdir(fapi->fs,path);
+  return glfs_rmdir(fapi->fs, path);
 }
 void fs_api_deinit(fs_api *fapi)
 {
@@ -195,7 +215,7 @@ int main(void)
   fs_api_close(&fd);
   fprintf(stdout, "fs_api_open:%d\n", fs_api_creat(fapi, &fd, "test.data.fallocate2", O_CREAT | O_RDWR, 0644));
   int ret = fs_api_fallocate(&fd, FALLOC_FL_KEEP_SIZE, 1024 * 1024 * 1024, 1024 * 1024 * 1024);
-  fprintf(stdout, "fs_api_fallocate:%d,err:%s\n", ret,strerror(ret));
+  fprintf(stdout, "fs_api_fallocate:%d,err:%s\n", ret, strerror(ret));
   fs_api_close(&fd);
   free(test_file);
   fs_api_deinit(fapi);

@@ -31,471 +31,39 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b051cf80-bfb5-4b14-a789-de05dde22070" name="默认更改列表" comment="">
-      <change afterPath="$PROJECT_DIR$/oss-type/types.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/block/bloick.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bucket/manage.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lock/lock.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/meta/block.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/meta/bucket.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/meta/object.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/block/block.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/block/utils.go" beforeDir="false" afterPath="$PROJECT_DIR$/block/utils.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bucket/bucket.go" beforeDir="false" afterPath="$PROJECT_DIR$/bucket/bucket.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bucket/utils.go" beforeDir="false" afterPath="$PROJECT_DIR$/bucket/utils.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/client-tools/cli/bucket.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/client-tools/cli/bucket.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/client-tools/cli/volume.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/client-tools/cli/volume.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/client-tools/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/client-tools/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/client/client.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/client/bucket/client.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmd/server/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/server/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conf/conf.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/conf/conf.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conf/service_conf.go" beforeDir="false" afterPath="$PROJECT_DIR$/conf/server_conf.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fs-api/fs_api.c" beforeDir="false" afterPath="$PROJECT_DIR$/fs-api/fs_api.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fs-api/fs_api.go" beforeDir="false" afterPath="$PROJECT_DIR$/fs-api/fs_api.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fs-api/fs_api.h" beforeDir="false" afterPath="$PROJECT_DIR$/fs-api/fs_api.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/grpc-service/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/grpc-service/service.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/.golangci.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/.goreleaser.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/.mailmap" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/CONFLICT.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/CONTRIBUTING.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/CREDITS" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/Dockerfile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/Dockerfile.arm.release" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/Dockerfile.arm64.release" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/Dockerfile.dev" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/Dockerfile.ppc64le.release" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/Dockerfile.release" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/Dockerfile.s390x.release" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/Makefile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/NOTICE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/README_zh_CN.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/buildscripts/build.env" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/buildscripts/build.sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/buildscripts/checkdeps.sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/buildscripts/cross-compile.sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/buildscripts/gen-ldflags.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/access-perms.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/accounting-reader.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-bucket-quota.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-bucket-remote-add.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-bucket-remote-ls.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-bucket-remote-main.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-bucket-remote-rm.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-bucket.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-config-export.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-config-get.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-config-help.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-config-history.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-config-import.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-config-reset.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-config-restore.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-config-set.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-config.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-console.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-group-add.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-group-disable.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-group-enable.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-group-info.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-group-list.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-group-remove.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-group.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-heal-result-item.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-heal-ui.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-heal.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-health.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-info.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-kms-key-create.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-kms-key-status.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-kms-key.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-kms.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-main.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-policy-add.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-policy-info.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-policy-list.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-policy-remove.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-policy-set.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-policy.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-profile-start.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-profile-stop.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-profile.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-prometheus-generate.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-prometheus.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-service-restart.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-service-stop.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-service.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-top-locks.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-top.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-trace.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-update.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-user-add.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-user-disable.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-user-enable.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-user-info.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-user-list.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-user-remove.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/admin-user.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/alias-list.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/alias-main.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/alias-remove.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/alias-set.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/auto-complete.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/build-constants.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/cat-main.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/cat_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/certs.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/client-admin.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/client-errors.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/client-fs.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/client-fs_darwin.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/client-fs_freebsd.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/client-fs_linux.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/client-fs_netbsd.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/client-fs_other.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/client-fs_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/client-fs_windows.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/client-s3-trace_v2.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/client-s3-trace_v4.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/client-s3.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/client-s3_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/client-url.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/client-url_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/client.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/common-methods.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/common-methods_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/config-deprecated.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/config-fix.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/config-migrate.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/config-old.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/config-utils.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/config-utils_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/config-v10.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/config-validate.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/config.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/config_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/cp-main.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/cp-main_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/cp-url-syntax.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/cp-url.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/diff-main.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/difference.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/difference_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/du-main.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/encrypt-clear.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/encrypt-info.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/encrypt-main.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/encrypt-set.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/error.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/event-add.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/event-list.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/event-main.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/event-remove.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/find-main.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/find.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/find_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/flags.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/fs-pathutils_nix.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/fs-pathutils_windows.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/globals.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/head-main.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/humanized-duration.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/ilm-add.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/ilm-export.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/ilm-import.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/ilm-ls.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/ilm-main.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/ilm-rm.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/ilm-set.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/ilm/options.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/ilm/parse.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/ilm/tabular_info.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/legalhold-clear.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/legalhold-info.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/legalhold-main.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/legalhold-set.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/ls-main.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/ls.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/ls_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/main.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/mb-main.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/mc_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/mirror-main.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/mirror-url.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/mv-main.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/parallel-manager.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/pipe-main.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/pipechan.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/pipechan_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/policy-main.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/pretty-record.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/pretty-table.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/pretty-table_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/print.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/progress-bar.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/rb-main.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/replicate-add.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/replicate-export.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/replicate-import.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/replicate-ls.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/replicate-main.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/replicate-rm.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/replicate-set.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/retention-clear.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/retention-common.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/retention-info.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/retention-main.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/retention-set.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/retry-continous.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/rm-main.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/scan-bar.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/session-migrate.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/session-old.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/session-v8.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/session.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/session_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/share-db-v1.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/share-download-main.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/share-list-main.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/share-main.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/share-upload-main.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/share.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/signals.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/sql-main.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/sql-main_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/stat-main.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/stat.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/stat_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/status.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/table-ui.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/tag-list.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/tag-main.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/tag-remove.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/tag-set.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/tree-main.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/typed-errors.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/undo-main.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/update-main.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/update-notifier.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/urls.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/utils.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/utils_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/version-enable.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/version-info.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/version-main.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/version-suspend.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/watch-main.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/cmd/watch.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/code_of_conduct.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/contributors.sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/docs/MAINTAINERS.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/docs/minio-admin-complete-guide.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/docs/minio-client-complete-guide.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/docs/minio-client-configuration-files.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/docs/zh_CN/CONTRIBUTING.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/docs/zh_CN/minio-client-complete-guide.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/docs/zh_CN/minio-client-configuration-files.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/functional-tests.sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/go.mod" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/go.sum" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/main.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/pkg/colorjson/colors.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/pkg/colorjson/decode.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/pkg/colorjson/encode.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/pkg/colorjson/fold.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/pkg/colorjson/indent.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/pkg/colorjson/scanner.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/pkg/colorjson/stream.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/pkg/colorjson/tables.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/pkg/colorjson/tags.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/pkg/disk/stat_darwin.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/pkg/disk/stat_freebsd.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/pkg/disk/stat_linux.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/pkg/disk/stat_netbsd.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/pkg/disk/stat_other.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/pkg/disk/stat_windows.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/pkg/hookreader/hookreader.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/pkg/hookreader/hookreader_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/pkg/httptracer/httptracer.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/pkg/httptracer/httptracer_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/pkg/ioutils/filepath.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/pkg/ioutils/format.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/pkg/ioutils/ioutils_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/pkg/probe/probe.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/pkg/probe/probe_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/pkg/probe/wrapper.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc/staticcheck.conf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/meta/block_meta.go" beforeDir="false" afterPath="$PROJECT_DIR$/meta/block_meta.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/.golangci.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/CNAME" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/CONTRIBUTING.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/MAINTAINERS.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/Makefile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/NOTICE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/README_zh_CN.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/api-bucket-encryption.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/api-bucket-lifecycle.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/api-bucket-notification.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/api-bucket-policy.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/api-bucket-replication.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/api-bucket-tagging.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/api-bucket-versioning.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/api-compose-object.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/api-compose-object_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/api-datatypes.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/api-error-response.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/api-error-response_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/api-get-object-acl.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/api-get-object-file.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/api-get-object.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/api-get-options.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/api-list.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/api-object-legal-hold.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/api-object-lock.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/api-object-retention.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/api-object-tagging.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/api-presigned.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/api-put-bucket.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/api-put-object-common.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/api-put-object-copy.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/api-put-object-file-context.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/api-put-object-multipart.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/api-put-object-streaming.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/api-put-object.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/api-put-object_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/api-remove.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/api-s3-datatypes.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/api-select.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/api-stat.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/api.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/api_unit_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/bucket-cache.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/bucket-cache_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/code_of_conduct.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/constants.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/core.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/core_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/docs/API.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/docs/zh_CN/API.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/docs/zh_CN/CONTRIBUTING.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/minio/listen-notification.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/minio/listenbucketnotification.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/bucketexists.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/composeobject.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/copyobject-with-new-tags.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/copyobject.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/disableversioning.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/enableversioning.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/fgetobject.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/fputencrypted-object.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/fputobject.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/get-encrypted-object.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/getbucketencryption.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/getbucketlifecycle.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/getbucketnotification.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/getbucketpolicy.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/getbucketreplication.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/getbuckettagging.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/getbucketversioning.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/getobject-client-encryption.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/getobject.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/getobjectacl.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/getobjectlegalhold.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/getobjectlockconfig.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/getobjectretention.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/getobjecttagging.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/listbuckets.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/listincompleteuploads.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/listobjects-N.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/listobjects.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/listobjectsV2.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/listobjectsV2WithMetadata.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/listobjectversions.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/makebucket.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/presignedgetobject.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/presignedheadobject.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/presignedpostpolicy.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/presignedputobject.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/put-encrypted-object.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/putobject-client-encryption.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/putobject-getobject-sse.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/putobject-progress.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/putobject-s3-accelerate.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/putobject-streaming.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/putobject-with-tags.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/putobject.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/putobjectlegalhold.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/putobjectretention.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/putobjecttagging.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/removeallbucketnotification.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/removebucket.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/removebucketencryption.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/removebucketreplication.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/removebuckettagging.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/removeincompleteupload.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/removeobject.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/removeobjects.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/removeobjecttagging.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/selectobject.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/setbucketencryption.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/setbucketlifecycle.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/setbucketnotification.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/setbucketpolicy.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/setbucketreplication.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/setbuckettagging.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/setobjectlockconfig.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/examples/s3/statobject.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/functional_tests.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/get-options_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/go.mod" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/go.sum" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/hook-reader.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/pkg/credentials/assume_role.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/pkg/credentials/chain.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/pkg/credentials/chain_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/pkg/credentials/config.json.sample" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/pkg/credentials/credentials.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/pkg/credentials/credentials.sample" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/pkg/credentials/credentials_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/pkg/credentials/doc.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/pkg/credentials/env_aws.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/pkg/credentials/env_minio.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/pkg/credentials/env_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/pkg/credentials/file_aws_credentials.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/pkg/credentials/file_minio_client.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/pkg/credentials/file_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/pkg/credentials/iam_aws.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/pkg/credentials/iam_aws_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/pkg/credentials/signature-type.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/pkg/credentials/static.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/pkg/credentials/static_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/pkg/credentials/sts_client_grants.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/pkg/credentials/sts_ldap_identity.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/pkg/credentials/sts_web_identity.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/pkg/encrypt/server-side.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/pkg/lifecycle/lifecycle.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/pkg/notification/info.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/pkg/notification/notification.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/pkg/notification/notification_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/pkg/policy/bucket-policy-condition.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/pkg/policy/bucket-policy-condition_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/pkg/policy/bucket-policy.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/pkg/policy/bucket-policy_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/pkg/replication/replication.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/pkg/replication/replication_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/pkg/s3utils/utils.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/pkg/s3utils/utils_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/pkg/set/stringset.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/pkg/set/stringset_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/pkg/signer/request-signature-streaming.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/pkg/signer/request-signature-streaming_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/pkg/signer/request-signature-v2.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/pkg/signer/request-signature-v2_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/pkg/signer/request-signature-v4.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/pkg/signer/request-signature-v4_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/pkg/signer/request-signature_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/pkg/signer/test-utils_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/pkg/signer/utils.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/pkg/signer/utils_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/pkg/sse/sse.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/pkg/tags/tags.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/post-policy.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/retry-continous.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/retry.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/s3-endpoints.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/s3-error.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/staticcheck.conf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/test-utils_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/testcerts/private.key" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/testcerts/public.crt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/transport.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/utils.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minio-go/utils_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/object/object.go" beforeDir="false" afterPath="$PROJECT_DIR$/object/object.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/meta/block_meta.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/meta/bucket_meta.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/object/object.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/object/object_meta.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/oss-type/types.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/pb/service.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/protocol/pb/service.pb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/pb/service.pb.gw.go" beforeDir="false" afterPath="$PROJECT_DIR$/protocol/pb/service.pb.gw.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/pb/service.proto" beforeDir="false" afterPath="$PROJECT_DIR$/protocol/pb/service.proto" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -517,6 +85,9 @@
     <option name="indexEntireGoPath" value="false" />
   </component>
   <component name="ProjectId" id="1jbD6Q15jPNIkJ6G9HUG198nH6l" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="添加" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -529,7 +100,36 @@
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/cmd/client/bucket" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/cmd/client/bucket" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/bucket" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="gluster-storage-gateway" />
+      <working_directory value="$PROJECT_DIR$/" />
+      <go_parameters value="-i" />
+      <kind value="FILE" />
+      <filePath value="$PROJECT_DIR$/" />
+      <directory value="$PROJECT_DIR$/" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="GoTestRunConfiguration" factoryName="Go Test">
+      <module name="gluster-storage-gateway" />
+      <working_directory value="$PROJECT_DIR$/" />
+      <go_parameters value="-i" />
+      <framework value="gotest" />
+      <kind value="DIRECTORY" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/" />
+      <method v="2" />
+    </configuration>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="2" />
@@ -549,9 +149,10 @@
     <integration-enabled>true</integration-enabled>
   </component>
   <component name="WindowStateProjectService">
-    <state x="539" y="82" width="601" height="822" key="find.popup" timestamp="1604064477778">
-      <screen x="0" y="23" width="1680" height="940" />
+    <state x="539" y="82" width="601" height="823" key="find.popup" timestamp="1604110600085">
+      <screen x="0" y="23" width="1680" height="941" />
     </state>
     <state x="539" y="82" width="601" height="822" key="find.popup/0.23.1680.940@0.23.1680.940" timestamp="1604064477778" />
+    <state x="539" y="82" width="601" height="823" key="find.popup/0.23.1680.941@0.23.1680.941" timestamp="1604110600085" />
   </component>
 </project>

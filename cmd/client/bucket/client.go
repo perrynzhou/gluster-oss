@@ -3,8 +3,8 @@ package main
 import (
 	"context"
 	"fmt"
-	"gluster-gtw/conf"
-	"gluster-gtw/protocol/pb"
+	"gluster-storage-gateway/conf"
+	"gluster-storage-gateway/protocol/pb"
 	"time"
 
 	log "github.com/sirupsen/logrus"
@@ -45,7 +45,10 @@ func CreateBucket(c *Client) error {
 	defer cancel()
 	for i := 0; i < 100; i++ {
 		req := &pb.CreateBucketRequest{
-			Name: fmt.Sprintf("bucket-%d", i),
+			Name: fmt.Sprintf("bucket%d", i),
+			Capacity:10234,
+			//obejcts limits
+			ObjectsLimit:100,
 		}
 		resp, err := c.client.CreateBucket(ctx, req)
 		if err != nil {
@@ -57,7 +60,7 @@ func CreateBucket(c *Client) error {
 	return nil
 }
 func main() {
-	c,err:= NewClient("./conf.yaml")
+	c,err:= NewClient("../conf.yaml")
 	if err != nil {
 		log.Error("NewClient:",err)
 		return

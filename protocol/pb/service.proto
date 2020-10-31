@@ -52,38 +52,17 @@ message VolumeInfo{
 message CreateBucketRequest{
     //request bucket name
     string name = 1;
-    //storage_type:ec/hash/replica/raw disk
-    string storage_type = 2;
     //access privileges
-    string key = 3;
+    string key = 2;
     //request storage capacity
-    uint64 capacity = 6;
+    uint64 capacity = 3;
     //obejcts limits
-    uint64 obj_limit = 8;
-    map<string, string> extra = 11;
+    uint64 objects_limit = 4;
 }
 
 message CreateBucketResponse{
-    //bucket name
-    string name = 1;
-    //storage_type:ec/hash/replica/raw disk
-    string storage_type = 2;
-    //access privileges
-    string key = 3;
-    //bucket status
-    int32 status = 4;
-    //bucket capacity
-    uint64 capacity = 5;
-    //max objects for buckets,this value can't limit
-    uint64 obj_limit = 6;
-    //bucket create time
-    int64 creation_time = 7;
-    //expire time,base uint is hour,if this value equals to -1,never expire
-    int32 expire_time = 8;
-    //volume that owned to bucket,format:127.0.0.1:24007:volume
-    repeated string volume_source = 9;
-    //extra  info to describle this bucket
-    map<string, string> extra = 10;
+    CreateBucketRequest requst=1;
+    string message = 2;
 
 }
 
@@ -140,7 +119,7 @@ message DeleteVolumeRequest {
 message DeleteVolumeResponse {
 }
 
-service  FusionStorageGateway {
+service  GlusterStorageGateway {
     //上传对象
     rpc Put(PutObjectRequest)  returns (PutObjectResponse) {
         option (google.api.http) = {

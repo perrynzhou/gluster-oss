@@ -11,24 +11,24 @@ type MetaServiceConf struct {
 	Port int    `yaml:"port"`
 }
 
-type ServiceConf struct {
+type ServerConfig struct {
 	//service address
 	Addr string `yaml:"serverAddr"`
 	//service grpc port
 	GrpcPort int `yaml:"grpcPort"`
 	//service http port
 	HttpPort     int             `yaml:"httpPort"`
-	StoreSrvAddr MetaServiceConf `yaml:"storeServer"`
+	StoreBackend MetaServiceConf `yaml:"storageBackend"`
 	//metadata server address
-	MetaSrvAddr MetaServiceConf `yaml:"metaServer"`
+	MetaBacked MetaServiceConf `yaml:"metaBackend"`
 }
 
-func NewServiceConf(confFile string) (*ServiceConf, error) {
+func NewServerConf(confFile string) (*ServerConfig, error) {
 	b, err := ioutil.ReadFile(confFile)
 	if err != nil {
 		return nil, err
 	}
-	c := &ServiceConf{}
+	c := &ServerConfig{}
 	if err = yaml.Unmarshal(b, c); err != nil {
 		return nil, err
 	}

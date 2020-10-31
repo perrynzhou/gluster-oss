@@ -112,7 +112,15 @@ func (fsApi *FsApi) Mkdir(path string, mode os.FileMode) error {
 	}
 	return nil
 }
-
+func (fsApi *FsApi) RmAllFileFromPath(path string) error {
+	cpath := C.CString(path)
+	defer C.free(unsafe.Pointer(cpath))
+	ret, err := C.fs_api_rm_file_from_path(fsApi.api, cpath)
+	if int(ret) != 0 {
+		return err
+	}
+	return nil
+}
 func (fsApi *FsApi) Seek(filename string, flags int, offset uint64, whence int) (*FsFd,error) {
 	coffset := C.off_t(offset)
 	fd, err := fsApi.Open(filename, flags)

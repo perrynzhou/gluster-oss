@@ -29,6 +29,7 @@ int fs_api_fallocate(fs_fd *fd, int mode, off_t offset, off_t len);
 int fs_api_mkdir(fs_api *fapi,const char *path,mode_t mode);
 int fs_api_rmfile(fs_api *fapi,const char *path);
 int fs_api_rmdir(fs_api *fapi,const char *path);
+int fs_api_rm_file_from_path(fs_api *fapi,const char *path);
 void fs_api_close(fs_fd *fd);
 void fs_api_deinit(fs_api *fapi);
 #endif
