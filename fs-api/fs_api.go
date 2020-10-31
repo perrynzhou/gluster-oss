@@ -129,7 +129,7 @@ func (fsApi *FsApi) Seek(filename string, flags int, offset uint64, whence int) 
 	}
 	ret, err := C.fs_api_seek(fsApi.api, fd.Fd, coffset, C.int(whence))
 	if int(ret) != 0 {
-		C.fs_api_close(fd)
+		C.fs_api_close(fd.Fd)
 		return nil,err
 	}
 	return fd,nil
