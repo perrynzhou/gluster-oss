@@ -76,7 +76,7 @@ int fs_api_rm_file_from_path(fs_api *fapi, const char *path)
   char buffer[4096] = {'\0'};
   char dirent_buffer[512] = {'\0'};
   struct dirent *dt = NULL;
-  glfs_fd_t *gfd = glfs_opendir(sapi->fs, path);
+  glfs_fd_t *gfd = glfs_opendir(fapi->fs, path);
   while (glfs_readdir_r(gfd, (struct dirent *)dirent_buffer, &dt), dt)
   {
     size_t len = strlen(dt->d_name);
