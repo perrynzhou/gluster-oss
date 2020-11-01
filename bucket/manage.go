@@ -70,6 +70,7 @@ func (manage *BucketManage) handleCreateBucketRequest(request *BucketInfoRequest
 			}
 		}
 	}
+	log.Errorln("handleCreateBucketRequest err:",response.Err)
 	return response.Err
 }
 func (manage *BucketManage) handleUpdateBucketRequest(request *BucketInfoRequest) error {
