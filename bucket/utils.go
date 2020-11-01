@@ -7,6 +7,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"os"
 	log "github.com/sirupsen/logrus"
+	"errors"
 )
 
 const (
@@ -17,10 +18,10 @@ const (
 func (manage *BucketManage) checkBucketExist(bucketName string) error {
 	var err error
 	defer log.Errorln("checkBucketExist err:",err)
-	if _, err = manage.conn.Get(context.Background(), bucketName).Result(); err != nil {
-		return err
+	if _, err = manage.conn.Get(context.Background(), bucketName).Result(); err == nil {
+		err = errors.New(fmt.Sprintf("%s is not exists",bucketName))
 	}
-	return nil
+	return err
 }
 func (manage *BucketManage) handleBucketDir(bucketDirName string, bucketDirType int) error {
 	var err error
