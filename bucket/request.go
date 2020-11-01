@@ -12,6 +12,9 @@ const (
 	UpdateBucketType = 3
 )
 const (
+	ServiceName = "bucket"
+)
+const (
 	BucketActiveStatus=1
 	BucketInActiveStatus=2
 
