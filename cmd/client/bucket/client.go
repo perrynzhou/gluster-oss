@@ -18,6 +18,7 @@ import (
 
 var (
 	requestBucketType = flag.String("op", "create", "create bucket")
+	confFile =flag.String("c", "./conf.yaml", "default conf is ./conf.yaml")
 )
 
 type ClientRequest struct {
@@ -35,7 +36,7 @@ func NewClient(path string) (*Client, error) {
 		return nil, err
 	}
 	diaOpt := grpc.WithDefaultCallOptions()
-	cnn, err := grpc.Dial(fmt.Sprintf("%s:%d", config.StorageGatewayAddr, config.StorageGatewayPort), grpc.WithInsecure(), diaOpt)
+	cnn, err := grpc.Dial(fmt.Sprintf("%s:%d", config.CommonConf.Addr, config.CommonConf.Port), grpc.WithInsecure(), diaOpt)
 	if err != nil {
 		log.Error("grpc.Dial Failed, err:", err)
 		return nil, nil
@@ -53,7 +54,7 @@ func (c *Client) Close() {
 }
 
 func CreateBucket(c *Client) (*ClientRequest, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 	clientRequest := &ClientRequest{
 		Requests: make([]*pb.CreateBucketRequest, 0),
@@ -96,8 +97,8 @@ func DeleteBucket(c *Client, request *pb.DeleteBucketRequest) error {
 	return nil
 }
 func main() {
-	c, err := NewClient("../server_conf.yaml")
 	flag.Parse()
+	c, err := NewClient(*confFile)
 	if err != nil {
 		log.Error("NewClient:", err)
 		return

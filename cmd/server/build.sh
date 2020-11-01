@@ -1,2 +1,2 @@
-rm -rf bucket_service
-go build -mod=vendor bucket_service
+rm -rf server
+go build -mod=vendor -o server
