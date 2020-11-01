@@ -49,7 +49,9 @@ func (manage *BucketManage) refreshCache() {
 	}
 }
 func (manage *BucketManage) handleCreateBucketRequest(request *BucketInfoRequest) {
-	response := &BucketInfoResponse{}
+	response := &BucketInfoResponse{
+		Reply:request.Info,
+	}
 	log.Infoln("handleCreateBucketRequest fetch request:",request)
 	if manage.checkBucketExist(request.Info.Name) != nil {
 		if err := manage.handleBucketDir(request.Info.RealDirName, createBucketDirType); err != nil {
@@ -59,7 +61,6 @@ func (manage *BucketManage) handleCreateBucketRequest(request *BucketInfoRequest
 				manage.handleBucketDir(request.Info.RealDirName, deleteBucketDirType)
 				response.Err = err
 			} else {
-				response.Reply = request.Info
 				response.Err = nil
 				log.Infoln("handleCreateBucketRequest resp:::",response)
 				manage.notifyCh <- request.Info
