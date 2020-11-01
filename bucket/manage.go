@@ -50,6 +50,7 @@ func (manage *BucketManage) refreshCache() {
 }
 func (manage *BucketManage) handleCreateBucketRequest(request *BucketInfoRequest) {
 	response := &BucketInfoResponse{}
+	log.Infoln("handleCreateBucketRequest fetch request:",request)
 	if manage.checkBucketExist(request.Info.Name) != nil {
 		if err := manage.handleBucketDir(request.Info.RealDirName, createBucketDirType); err != nil {
 			response.Err = err
