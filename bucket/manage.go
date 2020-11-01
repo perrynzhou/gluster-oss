@@ -48,10 +48,13 @@ func (manage *BucketManage) refreshCache() {
 		}
 	}
 }
-func (manage *BucketManage) handleCreateBucketRequest(request *BucketInfoRequest) {
+func (manage *BucketManage) handleCreateBucketRequest(request *BucketInfoRequest) error {
 	response := &BucketInfoResponse{
 		Reply:request.Info,
 	}
+	defer func(request *BucketInfoRequest,response *BucketInfoResponse) {
+		request.Done <- response
+	}(request,response)
 	log.Infoln("handleCreateBucketRequest fetch request:",request)
 	if manage.checkBucketExist(request.Info.Name) != nil {
 		if err := manage.handleBucketDir(request.Info.RealDirName, createBucketDirType); err != nil {
@@ -67,14 +70,19 @@ func (manage *BucketManage) handleCreateBucketRequest(request *BucketInfoRequest
 			}
 		}
 	}
-	request.Done <- response
+	return response.Err
 }
 func (manage *BucketManage) handleUpdateBucketRequest(request *BucketInfoRequest) error {
-	response := &BucketInfoResponse{}
+	bucketInfo :=request.Info
+	response := &BucketInfoResponse{
+		Reply:bucketInfo,
+	}
 	bucketInfo, err := manage.fetchBucketInfo(request.Info.Name)
+	defer func(request *BucketInfoRequest,response *BucketInfoResponse) {
+		request.Done <- response
+	}(request,response)
 	if err != nil {
 		response.Err = err
-		request.Done <- response
 		return err
 	}
 	if bucketInfo.UsageInfo.CapacityLimitSize <= request.Info.UsageInfo.CapacityLimitSize {
@@ -83,21 +91,22 @@ func (manage *BucketManage) handleUpdateBucketRequest(request *BucketInfoRequest
 		response.Err = errors.New(fmt.Sprintf("invalid ObjectsLimitCount(%d<=%d)", bucketInfo.UsageInfo.ObjectsLimitCount, request.Info.UsageInfo.ObjectsLimitCount))
 	}
 	if response.Err != nil {
-		request.Done <- response
 		return response.Err
 	}
 	bucketInfo.UsageInfo.ObjectsLimitCount = request.Info.UsageInfo.ObjectsLimitCount
 	bucketInfo.UsageInfo.CapacityLimitSize = request.Info.UsageInfo.CapacityLimitSize
 	if _, err := manage.storeBucketInfo(bucketInfo); err != nil {
 		response.Err = err
-		request.Done <- response
 		return err
 	}
 	manage.notifyCh <- request.Info
 	return nil
 }
 func (manage *BucketManage) handleDeleteBucketRequest(request *BucketInfoRequest) error {
-	response := &BucketInfoResponse{}
+	bucketInfo :=request.Info
+	response := &BucketInfoResponse{
+		Reply:bucketInfo,
+	}
 	bucketInfo, err := manage.fetchBucketInfo(request.Info.Name)
 	if err != nil {
 		response.Err = err

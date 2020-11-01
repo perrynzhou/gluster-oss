@@ -63,7 +63,6 @@ func (manage *BucketManage) delBucketInfoAndBucketData(bucketInfoRequest *Bucket
 		return err
 	}
 	manage.conn.Del(context.Background(), bucketInfoRequest.Info.Name)
-	bucketInfoResponse.Reply = bucketInfoRequest.Info
 	bucketInfoRequest.Done <- bucketInfoResponse
 	return nil
 }
