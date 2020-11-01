@@ -13,7 +13,7 @@ import (
 
 type BucketManage struct {
 	api             *fs_api.FsApi
-	conn            redis.Conn
+	conn            *redis.Conn
 	ReqCh           chan *BucketInfoRequest
 	doneCh          chan struct{}
 	wg              *sync.WaitGroup
@@ -22,11 +22,11 @@ type BucketManage struct {
 	goFuncCount     int
 }
 
-func NewBucketManage(api *fs_api.FsApi, conn redis.Conn, wg *sync.WaitGroup) *BucketManage {
+func NewBucketManage(api *fs_api.FsApi, conn *redis.Conn,bucketRequestCh chan *BucketInfoRequest, wg *sync.WaitGroup) *BucketManage {
 	return &BucketManage{
 		api:         api,
 		conn:        conn,
-		ReqCh:       make(chan *BucketInfoRequest),
+		ReqCh:      bucketRequestCh,
 		wg:          wg,
 		notifyCh:    make(chan *meta.BucketInfo),
 		doneCh:      make(chan struct{}),
@@ -34,6 +34,7 @@ func NewBucketManage(api *fs_api.FsApi, conn redis.Conn, wg *sync.WaitGroup) *Bu
 	}
 }
 func (manage *BucketManage) refreshCache() {
+	log.Info("run BucketService refreshCache")
 	defer manage.wg.Done()
 	for {
 		select {
@@ -111,6 +112,7 @@ func (manage *BucketManage) Run() {
 
 }
 func (manage *BucketManage) handleBucketRequest() {
+	log.Info("run BucketService handleBucketRequest")
 	manage.wg.Done()
 	for {
 		select {

@@ -22,5 +22,6 @@ func InitRedisClient(host string, port int) (*redis.Client, error) {
 			return nil, err
 		}
 	}
+
 	return RedisClient, nil
 }
