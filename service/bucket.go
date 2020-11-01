@@ -29,7 +29,7 @@ func NewBucketSerivce(api *fs_api.FsApi, serviceName string, wg *sync.WaitGroup)
 	}
 	redisCon :=utils.RedisClient.Conn(context.Background())
 	bucketService.bucketMange=bucket.NewBucketManage(api, redisCon,bucketService.bucketRequestCh, wg)
-	log.Info("init BucketSerice success")
+	log.Info("init BucketService success")
 	return bucketService
 }
 

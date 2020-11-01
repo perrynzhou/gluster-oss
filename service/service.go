@@ -2,6 +2,7 @@ package service
 
 import (
 	"fmt"
+	"gluster-storage-gateway/bucket"
 	"gluster-storage-gateway/conf"
 	"gluster-storage-gateway/protocol/pb"
 	"net"
@@ -13,9 +14,7 @@ import (
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 )
-var (
-	serviceKeys = []string{"bucket"}
-)
+
 type IService interface {
 	Run()
 	Stop()
@@ -25,7 +24,6 @@ type Service struct {
 	grpcPort      int
 	httpPort      int
 	services      map[string]IService
-	bucketService *BucketService
 	stopGrpcCh    chan struct{}
 	stopHttpCh    chan struct{}
 	wg            *sync.WaitGroup
@@ -38,6 +36,7 @@ func NewService(c *conf.ServerConfig, wg *sync.WaitGroup) *Service {
 		httpPort:      c.ServiceBackend.HttpPort,
 		stopGrpcCh:    make(chan struct{}),
 		stopHttpCh:    make(chan struct{}),
+		services:make(map[string]IService),
 		wg:            wg,
 	}
 }
@@ -46,13 +45,16 @@ func (s *Service)RegisterService(serviceName string,service IService) {
 		s.services[serviceName]=service
 	}}
 func (s *Service) CreateBucket(ctx context.Context, createBucketRequest *pb.CreateBucketRequest) (*pb.CreateBucketResponse, error) {
-	return s.bucketService.CreateBucket(ctx, createBucketRequest)
+	bucketService := s.services[bucket.ServiceName].(*BucketService)
+	return bucketService.CreateBucket(ctx, createBucketRequest)
 }
 func (s *Service) DeleteBucket(ctx context.Context, deleteBucketRequest *pb.DeleteBucketRequest) (*pb.DeleteBucketResponse, error) {
-	return s.bucketService.DeleteBucket(ctx, deleteBucketRequest)
+	bucketService := s.services[bucket.ServiceName].(*BucketService)
+	return bucketService.DeleteBucket(ctx, deleteBucketRequest)
 }
 func (s *Service) UpdateBucket(ctx context.Context, updateBucketRequest *pb.UpdateBucketRequest) (*pb.UpdateBucketResponse, error) {
-	return s.bucketService.UpdateBucket(ctx, updateBucketRequest)
+	bucketService := s.services[bucket.ServiceName].(*BucketService)
+	return bucketService.UpdateBucket(ctx, updateBucketRequest)
 
 }
 func (s *Service) Stop() {
