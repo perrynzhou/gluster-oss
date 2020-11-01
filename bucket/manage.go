@@ -34,7 +34,7 @@ func NewBucketManage(api *fs_api.FsApi, conn *redis.Conn,bucketRequestCh chan *B
 	}
 }
 func (manage *BucketManage) refreshCache() {
-	log.Info("run BucketService refreshCache")
+	log.Infoln("run BucketService refreshCache")
 	defer manage.wg.Done()
 	for {
 		select {
@@ -60,6 +60,7 @@ func (manage *BucketManage) handleCreateBucketRequest(request *BucketInfoRequest
 			} else {
 				response.Reply = request.Info
 				response.Err = nil
+				log.Infoln("handleCreateBucketRequest resp:::",response)
 				manage.notifyCh <- request.Info
 			}
 		}
@@ -112,12 +113,12 @@ func (manage *BucketManage) Run() {
 
 }
 func (manage *BucketManage) handleBucketRequest() {
-	log.Info("run BucketService handleBucketRequest")
+	log.Infoln("run BucketService handleBucketRequest")
 	manage.wg.Done()
 	for {
 		select {
 		case req := <-manage.ReqCh:
-			log.Info("recive request:", req)
+			log.Infoln("recive request:", req)
 			switch req.RequestType {
 			case CreateBucketType:
 				manage.handleCreateBucketRequest(req)
