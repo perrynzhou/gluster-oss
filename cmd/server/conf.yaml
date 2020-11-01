@@ -4,7 +4,7 @@ serviceBackend:
   httpport: 5567
 storageBackend:
   addr: 10.211.55.17
-  volume: rep_vol
+  volume: rep
   port: 24007
 metaBackend:
   addr: 10.211.55.17
