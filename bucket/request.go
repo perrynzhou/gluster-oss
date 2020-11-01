@@ -66,7 +66,3 @@ func NewUpdateBucketInfoRequest(request *pb.UpdateBucketRequest) *BucketInfoRequ
 		RequestType:UpdateBucketType,
 	}
 }
-/*
-
-
-*/

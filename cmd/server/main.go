@@ -34,22 +34,23 @@ func initStoreBackend(sc *conf.ServerConfig) (*fs_api.FsApi, error) {
 }
 func main() {
 
-	c, err := conf.NewServerConf(*confFile)
-	log.Info("serverConf:",c)
+	serverConf, err := conf.NewServerConf(*confFile)
+	log.Info("serverConf:",serverConf)
 	if err != nil {
 		log.Fatal(err)
 	}
 	signals := make(chan os.Signal, 1)
 	signal.Notify(signals, os.Interrupt, syscall.SIGTERM, syscall.SIGINT)
 	wg := &sync.WaitGroup{}
-	utils.InitRedisClient(c.MetaBacked.Addr, c.MetaBacked.Port)
-	fsApi, err := initStoreBackend(c)
+	utils.InitRedisClient(serverConf.MetaBacked.Addr, serverConf.MetaBacked.Port)
+	fsApi, err := initStoreBackend(serverConf)
 	if err != nil {
 		log.Fatal("init fsApi failed:", err)
 	}
 	log.Info("init gluster-storage-gateway success")
-	bucketService := service.NewBucketSerivce(c, fsApi, *serviceName, wg)
-	service := service.NewService(bucketService)
+	bucketService := service.NewBucketSerivce(fsApi, "bucket", wg)
+	service := service.NewService(serverConf,wg)
+	service.RegisterService(bucketService.ServiceName,bucketService)
 	service.Run()
 	defer wg.Wait()
 	for {

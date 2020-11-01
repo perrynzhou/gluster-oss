@@ -5,6 +5,7 @@ import (
 	fs_api "gluster-storage-gateway/fs-api"
 	"gluster-storage-gateway/meta"
 	"gluster-storage-gateway/protocol/pb"
+	"gluster-storage-gateway/utils"
 	"sync"
 
 	log "github.com/sirupsen/logrus"
@@ -13,7 +14,7 @@ import (
 
 type BucketService struct {
 	fsApi           *fs_api.FsApi
-	serviceName     string
+	ServiceName     string
 	bucketRequestCh chan *bucket.BucketInfoRequest
 	bucketMange     *bucket.BucketManage
 	wg              *sync.WaitGroup
@@ -22,14 +23,22 @@ type BucketService struct {
 func NewBucketSerivce(api *fs_api.FsApi, serviceName string, wg *sync.WaitGroup) *BucketService {
 	bucketService := &BucketService{
 		fsApi:           api,
-		serviceName:     serviceName,
+		ServiceName:     serviceName,
 		bucketRequestCh: make(chan *bucket.BucketInfoRequest),
 		wg:              wg,
 	}
+	redisCon :=utils.RedisClient.Conn(context.Background())
+	bucketService.bucketMange=bucket.NewBucketManage(api, redisCon,bucketService.bucketRequestCh, wg)
 	log.Info("init BucketSerice success")
 	return bucketService
 }
 
+func (s *BucketService)Run() {
+	s.bucketMange.Run()
+}
+func (s *BucketService)Stop() {
+	s.bucketMange.Stop()
+}
 func (s *BucketService) CreateBucket(ctx context.Context, createBucketRequest *pb.CreateBucketRequest) (*pb.CreateBucketResponse, error) {
 	req := bucket.NewCreateBucketInfoRequest(createBucketRequest)
 	log.Info("get CreateBucket request:", createBucketRequest)

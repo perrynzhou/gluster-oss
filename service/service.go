@@ -13,11 +13,18 @@ import (
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 )
-
+var (
+	serviceKeys = []string{"bucket"}
+)
+type IService interface {
+	Run()
+	Stop()
+}
 type Service struct {
 	addr          string
 	grpcPort      int
 	httpPort      int
+	services      map[string]IService
 	bucketService *BucketService
 	stopGrpcCh    chan struct{}
 	stopHttpCh    chan struct{}
@@ -34,9 +41,10 @@ func NewService(c *conf.ServerConfig, wg *sync.WaitGroup) *Service {
 		wg:            wg,
 	}
 }
-func (s *Service)RegisterBucketService(bucketService *BucketService) {
-	s.bucketService = bucketService
-}
+func (s *Service)RegisterService(serviceName string,service IService) {
+	if _, ok := s.services[serviceName]; !ok {
+		s.services[serviceName]=service
+	}}
 func (s *Service) CreateBucket(ctx context.Context, createBucketRequest *pb.CreateBucketRequest) (*pb.CreateBucketResponse, error) {
 	return s.bucketService.CreateBucket(ctx, createBucketRequest)
 }
@@ -53,6 +61,10 @@ func (s *Service) Stop() {
 }
 func (s *Service) Run() {
 	s.wg.Add(2)
+	for k,v := range s.services{
+		log.Info("load ",k," service")
+		v.Run()
+	}
 	go s.runGrpc()
 	go s.runHttp()
 }
@@ -89,18 +101,22 @@ func (s *Service) runGrpc() {
 	if err != nil {
 		log.Fatalf("failed to listen on %d,err: %v", s.grpcPort, err)
 	}
-	srv := grpc.NewServer()
-	pb.RegisterGlusterStorageGatewayServer(srv, s)
+	grpcServer := grpc.NewServer()
+	pb.RegisterGlusterStorageGatewayServer(grpcServer, s)
 	go func(srv *grpc.Server) {
 		if err := srv.Serve(listen); err != nil {
 			log.Fatal("start  grpc service on %s:%d failed:%v ", s.addr, s.grpcPort, err)
 		}
-	}(srv)
+	}(grpcServer)
 	log.Infof("start  grpc service on %s:%d  success", s.addr, s.grpcPort)
 	for {
 		select {
 		case <-s.stopGrpcCh:
-			srv.Stop()
+			for k,v := range s.services{
+				log.Info("stop ",k," service")
+				v.Stop()
+			}
+			grpcServer.Stop()
 			log.Infof("stop grpc service on %s:%d success", s.addr, s.grpcPort)
 			return
 		}
