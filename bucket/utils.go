@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 	"gluster-storage-gateway/meta"
+	"go.mongodb.org/mongo-driver/bson"
 	"os"
-
-	bson "go.mongodb.org/mongo-driver/bson"
+	log "github.com/sirupsen/logrus"
 )
 
 const (
@@ -15,7 +15,9 @@ const (
 )
 
 func (manage *BucketManage) checkBucketExist(bucketName string) error {
-	if _, err := manage.conn.Get(context.Background(), bucketName).Result(); err != nil {
+	var err error
+	defer log.Errorln("checkBucketExist err:",err)
+	if _, err = manage.conn.Get(context.Background(), bucketName).Result(); err != nil {
 		return err
 	}
 	return nil
