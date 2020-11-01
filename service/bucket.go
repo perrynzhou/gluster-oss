@@ -41,12 +41,12 @@ func (s *BucketService)Stop() {
 }
 func (s *BucketService) CreateBucket(ctx context.Context, createBucketRequest *pb.CreateBucketRequest) (*pb.CreateBucketResponse, error) {
 	req := bucket.NewCreateBucketInfoRequest(createBucketRequest)
-	log.Info("get CreateBucket request:", createBucketRequest)
+	log.Infoln("get CreateBucket request:", createBucketRequest)
 	s.bucketRequestCh <- req
 	resp := <-req.Done
 
 	bucketInfo := resp.Reply.(*meta.BucketInfo)
-	log.Info("finish CreateBucket request:", bucketInfo, ",err:", resp.Err)
+	log.Infoln("finish CreateBucket request:", bucketInfo, ",err:", resp.Err)
 	createBucketResponse := &pb.CreateBucketResponse{
 		Name: bucketInfo.Name,
 		//request storage capacity
@@ -64,12 +64,12 @@ func (s *BucketService) CreateBucket(ctx context.Context, createBucketRequest *p
 
 func (s *BucketService) DeleteBucket(ctx context.Context, deleteBucketRequest *pb.DeleteBucketRequest) (*pb.DeleteBucketResponse, error) {
 	req := bucket.NewDeleteBucketInfoRequest(deleteBucketRequest)
-	log.Info("get DeleteBucket request:", deleteBucketRequest)
+	log.Infoln("get DeleteBucket request:", deleteBucketRequest)
 
 	s.bucketRequestCh <- req
 	resp := <-req.Done
 	bucketInfo := resp.Reply.(*meta.BucketInfo)
-	log.Info("finish DeleteBucket request:", bucketInfo, ",err:", resp.Err)
+	log.Infoln("finish DeleteBucket request:", bucketInfo, ",err:", resp.Err)
 
 	deleteBucketResponse := &pb.DeleteBucketResponse{
 		Name:         bucketInfo.Name,
@@ -84,12 +84,12 @@ func (s *BucketService) DeleteBucket(ctx context.Context, deleteBucketRequest *p
 }
 func (s *BucketService) UpdateBucket(ctx context.Context, updateBucketRequest *pb.UpdateBucketRequest) (*pb.UpdateBucketResponse, error) {
 	req := bucket.NewUpdateBucketInfoRequest(updateBucketRequest)
-	log.Info("get UpdateBucket request:", updateBucketRequest)
+	log.Infoln("get UpdateBucket request:", updateBucketRequest)
 
 	s.bucketRequestCh <- req
 	resp := <-req.Done
 	bucketInfo := resp.Reply.(*meta.BucketInfo)
-	log.Info("finish UpdateBucket request:", bucketInfo, ",err:", resp.Err)
+	log.Infoln("finish UpdateBucket request:", bucketInfo, ",err:", resp.Err)
 
 	updateBucketResponse := &pb.UpdateBucketResponse{
 		Name:         bucketInfo.Name,
