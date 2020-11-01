@@ -3,7 +3,7 @@ serviceBackend:
   grpcport: 5566
   httpport: 5567
 storageBackend:
-  addr: 10.211.55.17
+  addr: 10.211.55.15
   volume: dht_vol
   port: 24007
 metaBackend:
