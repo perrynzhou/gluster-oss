@@ -169,11 +169,17 @@ void fs_api_deinit(fs_api *fapi)
 }
 
 #ifdef FS_API_TEST
-int main(void)
+int main(int argc, char *argv[])
 {
+
+  if (argc < 3)
+  {
+    fprintf(stdout, "usage:%s {ip} {volume}\n");
+    exit(0);
+  }
   //172.25.78.19:/train_vol
   //172.25.78.11:rep_ssd_vol
-  fs_api *fapi = fs_api_init("ssd_vol", "172.25.78.11", 24007);
+  fs_api *fapi = fs_api_init(atgv[2], argv[1], 24007);
   if (fapi == NULL)
   {
     fprintf(stdout, "inint failed\n");
