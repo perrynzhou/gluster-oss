@@ -179,7 +179,7 @@ int main(int argc, char *argv[])
   }
   //172.25.78.19:/train_vol
   //172.25.78.11:rep_ssd_vol
-  fs_api *fapi = fs_api_init(atgv[2], argv[1], 24007);
+  fs_api *fapi = fs_api_init(argv[2], argv[1], 24007);
   if (fapi == NULL)
   {
     fprintf(stdout, "inint failed\n");
