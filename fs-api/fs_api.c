@@ -203,8 +203,6 @@ int main(void)
 
   fs_api_close(&fd);
   fprintf(stdout, "fs_api_open:%d\n", fs_api_creat(fapi, &fd, "test.data.fallocate2", O_CREAT | O_RDWR, 0644));
-  int ret = fs_api_fallocate(&fd, FALLOC_FL_KEEP_SIZE, 1024 * 1024 * 1024, 1024 * 1024 * 1024);
-  fprintf(stdout, "fs_api_fallocate:%d,err:%s\n", ret, strerror(ret));
   fs_api_close(&fd);
   free(test_file);
   fs_api_deinit(fapi);
