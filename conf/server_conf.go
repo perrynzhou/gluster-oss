@@ -11,7 +11,8 @@ type CommonBackendConf struct {
 	Port int    `yaml:"port"`
 }
 type StoreBackendConf struct {
-	CommonBackendConf
+	Addr   string `yaml:"addr"`
+	Port   int    `yaml:"port"`
 	Volume string `yaml:"volume"`
 }
 type ServiceBackendConfig struct {

@@ -3,8 +3,8 @@ package bucket
 import (
 	"errors"
 	"fmt"
-	fs_api "gluster-storage-gateway/fs-api"
-	"gluster-storage-gateway/meta"
+	fs_api "fusion-storage-gateway/fs-api"
+	"fusion-storage-gateway/meta"
 	"sync"
 
 	"github.com/go-redis/redis/v8"
@@ -30,6 +30,7 @@ func NewBucketManage(api *fs_api.FsApi, conn *redis.Conn,bucketRequestCh chan *B
 		wg:          wg,
 		notifyCh:    make(chan *meta.BucketInfo),
 		doneCh:      make(chan struct{}),
+		bucketInfoCache: make(map[string]*meta.BucketInfo, 0),
 		goFuncCount: 0,
 	}
 }
@@ -56,12 +57,12 @@ func (manage *BucketManage) handleCreateBucketRequest(request *BucketInfoRequest
 		request.Done <- response
 	}(request,response)
 	log.Infoln("handleCreateBucketRequest fetch request:",request)
-	if manage.checkBucketExist(request.Info.Name) != nil {
-		if err := manage.handleBucketDir(request.Info.RealDirName, createBucketDirType); err != nil {
+	if !manage.checkBucketExist(request.Info.Name){
+		if err := manage.handleBucketDir(request.Info.Name,request.Info.RealDirName, createBucketDirType); err != nil {
 			response.Err = err
 		} else {
 			if _, err := manage.storeBucketInfo(request.Info); err != nil {
-				manage.handleBucketDir(request.Info.RealDirName, deleteBucketDirType)
+				manage.handleBucketDir(request.Info.Name, request.Info.RealDirName, deleteBucketDirType)
 				response.Err = err
 			} else {
 				response.Err = nil
@@ -70,7 +71,10 @@ func (manage *BucketManage) handleCreateBucketRequest(request *BucketInfoRequest
 			}
 		}
 	}
-	log.Errorln("handleCreateBucketRequest err:",response.Err)
+	if response.Err != nil{
+		log.Errorln("handleCreateBucketRequest err:",response.Err)
+	}
+
 	return response.Err
 }
 func (manage *BucketManage) handleUpdateBucketRequest(request *BucketInfoRequest) error {

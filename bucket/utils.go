@@ -3,11 +3,9 @@ package bucket
 import (
 	"context"
 	"fmt"
-	"gluster-storage-gateway/meta"
+	"fusion-storage-gateway/meta"
 	"go.mongodb.org/mongo-driver/bson"
-	"os"
 	log "github.com/sirupsen/logrus"
-	"errors"
 )
 
 const (
@@ -15,20 +13,21 @@ const (
 	deleteBucketDirType = 1
 )
 
-func (manage *BucketManage) checkBucketExist(bucketName string) error {
-	var err error
-	defer log.Errorln("checkBucketExist err:",err)
-	if _, err = manage.conn.Get(context.Background(), bucketName).Result(); err == nil {
-		err = errors.New(fmt.Sprintf("%s is not exists",bucketName))
+func (manage *BucketManage) checkBucketExist(bucketName string) bool {
+	//defer log.Errorln("checkBucketExist err:",err)
+	ret, err := manage.conn.Exists(context.Background(), bucketName).Result();
+	if err != nil || ret > 0 {
+		log.Debugf("the bucket:%v is exists", bucketName)
+		return true
 	}
-	return err
+	return false
 }
-func (manage *BucketManage) handleBucketDir(bucketDirName string, bucketDirType int) error {
+func (manage *BucketManage) handleBucketDir(bucketName,bucketDirName string, bucketDirType int) error {
 	var err error
-	bucketDir := fmt.Sprintf("/%s", bucketDirName)
+	bucketDir := fmt.Sprintf("%s-%s", bucketName, bucketDirName)
 	switch bucketDirType {
 	case createBucketDirType:
-		err = manage.api.Mkdir(bucketDir, os.ModePerm)
+		err = manage.api.Mkdir(bucketDir, 0755)
 		break
 	case deleteBucketDirType:
 		manage.api.RmDir(bucketDir)

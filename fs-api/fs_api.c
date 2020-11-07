@@ -20,11 +20,12 @@
 fs_api *fs_api_init(char *volume, char *addr, int port)
 {
   fs_api *fapi = calloc(1, sizeof(fs_api *));
+  remove("/tmp/fusion-storage-gateway.log");
   char buf[1024] = {'\0'};
-  snprintf((char *)&buf, 128, "/tmp/gluster-storage-gateway.log.%d", getpid());
+  snprintf((char *)&buf, 128, "/tmp/fusion-storage-gateway.log");
   glfs_t *fs = glfs_new(volume);
   glfs_set_volfile_server(fs, "tcp", addr, port);
-  glfs_set_logging(fs, (char *)&buf, 7);
+  glfs_set_logging(fs, (char *)&buf, 9);
   glfs_init(fs);
   fapi->fs = fs;
   return fapi;
@@ -53,8 +54,17 @@ int fs_api_stat(fs_api *fapi, const char *pathname, struct stat *st)
   }
   return glfs_stat(fapi->fs, pathname, st);
 }
-int fs_api_open(fs_api *fapi, fs_fd *fd, const char *pathname, int flags)
+int fs_api_open(fs_api *fapi, fs_fd **fd_ptr, const char *pathname, int flags)
 {
+  if (*fd_ptr == NULL)
+  {
+    *fd_ptr = calloc(1, sizeof(fs_fd *));
+  }
+  fs_fd *fd = *fd_ptr;
+  if (fd == NULL)
+  {
+    return -1;
+  }
   fd->lfd = -1;
   fd->gfd = NULL;
   if (fapi == NULL)
@@ -109,16 +119,26 @@ void fs_api_close(fs_fd *fd)
   if (fd != NULL && fd->gfd != NULL)
   {
     glfs_close(fd->gfd);
+
+    if (fd != NULL)
+    {
+      free(fd);
+    }
+    if (fd != NULL)
+    {
+      free(fd);
+    }
     return;
   }
-  if (fd != NULL && fd->lfd != -1)
-  {
-    close(fd->lfd);
-  }
 }
-int fs_api_creat(fs_api *fapi, fs_fd *fd, const char *pathname, int flags, mode_t mode)
+int fs_api_creat(fs_api *fapi, fs_fd **fd_ptr, const char *pathname, int flags, mode_t mode)
 {
-  if (fd == NULL || pathname == NULL)
+  if (*fd_ptr == NULL)
+  {
+    *fd_ptr = calloc(1, sizeof(fs_fd *));
+  }
+  fs_fd *fd = *fd_ptr;
+  if (fd == NULL)
   {
     return -1;
   }
@@ -171,47 +191,31 @@ void fs_api_deinit(fs_api *fapi)
 #ifdef FS_API_TEST
 int main(int argc, char *argv[])
 {
-
-  if (argc < 3)
-  {
-    fprintf(stdout, "usage:%s {ip} {volume}\n");
-    exit(0);
-  }
   //172.25.78.19:/train_vol
   //172.25.78.11:rep_ssd_vol
-  fs_api *fapi = fs_api_init(argv[2], argv[1], 24007);
+  //"test_volume", "10.193.51.144"
+  if (argc < 3)
+  {
+    fprintf(stdout, "usage:%s {volume} {host}\n", argv[0]);
+    exit(-1);
+  }
+  fs_api *fapi = fs_api_init(argv[1], argv[2], 24007);
   if (fapi == NULL)
   {
     fprintf(stdout, "inint failed\n");
     return -1;
   }
 
-  fs_fd fd;
-  char buf[64] = {'\0'};
-  snprintf((char *)&buf, 64, "test.%d", rand() % 10);
+  char buf[64] = "1";
   char *test_file = strdup((char *)&buf);
-  fprintf(stdout, "fs_api_open:%d\n", fs_api_open(fapi, &fd, "test.data", O_RDWR));
-  fs_api_close(&fd);
-  fprintf(stdout, "fs_api_creat:%d\n", fs_api_creat(fapi, &fd, (char *)&buf, O_CREAT | O_RDWR | O_APPEND, 0644));
-  size_t count = 0;
-  for (int i = 0; i < 100; i++)
-  {
-    snprintf((char *)&buf, 64, "test data=%d\n", i);
-    size_t blen = strlen((char *)&buf);
-    count += blen;
-    fprintf(stdout, "write ret:%ld\n", fs_api_write(fapi, &fd, (char *)&buf, blen));
-  }
-  fs_api_close(&fd);
+  fs_fd *fd = NULL;
   fprintf(stdout, "fs_api_open:%d\n", fs_api_open(fapi, &fd, test_file, O_RDWR));
+  fprintf(stdout, "write ret:%ld\n", fs_api_write(fapi, fd, (char *)&buf, blen));
   char rb[4096] = {'\0'};
-  fprintf(stdout, "read ret:%ld\n", fs_api_read(fapi, &fd, (char *)&rb, 4096));
+  fprintf(stdout, "read ret:%ld\n", fs_api_read(fapi, fd, (char *)&rb, 4096));
   fprintf(stdout, "buf=%s\n", (char *)&rb);
 
-  fs_api_close(&fd);
-  fprintf(stdout, "fs_api_open:%d\n", fs_api_creat(fapi, &fd, "test.data.fallocate2", O_CREAT | O_RDWR, 0644));
-  fs_api_close(&fd);
+  fs_api_close(fd);
   free(test_file);
-  fs_api_deinit(fapi);
-  return 0;
 }
 #endif
