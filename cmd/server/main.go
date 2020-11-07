@@ -2,11 +2,11 @@ package main
 
 import (
 	"flag"
-	"fusion-storage-gateway/bucket"
-	"fusion-storage-gateway/conf"
-	fs_api "fusion-storage-gateway/fs-api"
-	"fusion-storage-gateway/service"
-	"fusion-storage-gateway/utils"
+	"glusterfs-storage-gateway/bucket"
+	"glusterfs-storage-gateway/conf"
+	fs_api "glusterfs-storage-gateway/fs-api"
+	"glusterfs-storage-gateway/service"
+	"glusterfs-storage-gateway/utils"
 	"os"
 	"os/signal"
 	"sync"
@@ -16,8 +16,8 @@ import (
 )
 
 var (
-	confFile    = flag.String("c", "server_conf.yaml", "fusion-storage-gateway conf file")
-	serviceName = flag.String("n", "fusion-storage-gateway", "fusion-storage-gateway name")
+	confFile    = flag.String("c", "server_conf.yaml", "glusterfs-storage-gateway conf file")
+	serviceName = flag.String("n", "glusterfs-storage-gateway", "glusterfs-storage-gateway name")
 )
 
 func init() {
@@ -48,7 +48,7 @@ func main() {
 	if err != nil {
 		log.Fatal("init fsApi failed:", err)
 	}
-	log.Info("init fusion-storage-gateway success")
+	log.Info("init glusterfs-storage-gateway success")
 	bucketService := service.NewBucketSerivce(fsApi, bucket.ServiceName, wg)
 	service := service.NewService(serverConf,wg)
 	service.RegisterService(bucketService.ServiceName,bucketService)

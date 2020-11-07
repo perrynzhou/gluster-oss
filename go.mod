@@ -1,4 +1,4 @@
-module fusion-storage-gateway
+module glusterfs-storage-gateway
 
 go 1.15
 

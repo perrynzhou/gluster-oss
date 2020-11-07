@@ -2,9 +2,9 @@ package service
 
 import (
 	"fmt"
-	"fusion-storage-gateway/bucket"
-	"fusion-storage-gateway/conf"
-	"fusion-storage-gateway/protocol/pb"
+	"glusterfs-storage-gateway/bucket"
+	"glusterfs-storage-gateway/conf"
+	"glusterfs-storage-gateway/protocol/pb"
 	"net"
 	"net/http"
 	"sync"

@@ -1,11 +1,11 @@
 package service
 
 import (
-	"fusion-storage-gateway/bucket"
-	fs_api "fusion-storage-gateway/fs-api"
-	"fusion-storage-gateway/meta"
-	"fusion-storage-gateway/protocol/pb"
-	"fusion-storage-gateway/utils"
+	"glusterfs-storage-gateway/bucket"
+	fs_api "glusterfs-storage-gateway/fs-api"
+	"glusterfs-storage-gateway/meta"
+	"glusterfs-storage-gateway/protocol/pb"
+	"glusterfs-storage-gateway/utils"
 	"sync"
 
 	log "github.com/sirupsen/logrus"

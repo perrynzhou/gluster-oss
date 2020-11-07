@@ -3,8 +3,8 @@ package bucket
 import (
 	"errors"
 	"fmt"
-	fs_api "fusion-storage-gateway/fs-api"
-	"fusion-storage-gateway/meta"
+	fs_api "glusterfs-storage-gateway/fs-api"
+	"glusterfs-storage-gateway/meta"
 	"sync"
 
 	"github.com/go-redis/redis/v8"

@@ -3,7 +3,7 @@ package bucket
 import (
 	"context"
 	"fmt"
-	"fusion-storage-gateway/meta"
+	"glusterfs-storage-gateway/meta"
 	"go.mongodb.org/mongo-driver/bson"
 	log "github.com/sirupsen/logrus"
 )

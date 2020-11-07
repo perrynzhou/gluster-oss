@@ -1,7 +1,7 @@
 package main
 
 import (
-	fs_api "fusion-storage-gateway/fs-api"
+	fs_api "glusterfs-storage-gateway/fs-api"
 	"log"
 	"os"
 )
