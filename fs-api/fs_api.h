@@ -19,8 +19,8 @@ typedef struct fs_fd_t
   glfs_fd_t *gfd;
 } fs_fd;
 fs_api *fs_api_init(char *volume, char *addr, int port);
-int fs_api_open(fs_api *fapi, fs_fd *fd, const char *pathname, int flags);
-int fs_api_creat(fs_api *fapi, fs_fd *fd, const char *pathname, int flags, mode_t mode);
+int fs_api_open(fs_api *fapi, fs_fd **fd_ptr, const char *pathname, int flags);
+int fs_api_creat(fs_api *fapi, fs_fd **fd_ptr, const char *pathname, int flags, mode_t mode);
 int fs_api_stat(fs_api *fapi,const char *pathname,struct stat *st);
 off_t fs_api_seek(fs_api *fapi,fs_fd *fd,off_t offset, int whence);
 ssize_t fs_api_read(fs_api *fapi, fs_fd *fd, void *buf, size_t count);
@@ -29,6 +29,6 @@ int fs_api_mkdir(fs_api *fapi,const char *path,mode_t mode);
 int fs_api_rmfile(fs_api *fapi,const char *path);
 int fs_api_rmdir(fs_api *fapi,const char *path);
 int fs_api_rm_file_from_path(fs_api *fapi,const char *path);
-void fs_api_close(fs_fd *fd);
+void fs_api_close(fs_fd *fd_ptr);
 void fs_api_deinit(fs_api *fapi);
 #endif

@@ -2,9 +2,9 @@ package service
 
 import (
 	"fmt"
-	"gluster-storage-gateway/bucket"
-	"gluster-storage-gateway/conf"
-	"gluster-storage-gateway/protocol/pb"
+	"glusterfs-storage-gateway/bucket"
+	"glusterfs-storage-gateway/conf"
+	"glusterfs-storage-gateway/protocol/pb"
 	"net"
 	"net/http"
 	"sync"
@@ -79,15 +79,16 @@ func (s *Service) runHttp() {
 	defer cancel()
 	mux := runtime.NewServeMux()
 	dialOptions := []grpc.DialOption{grpc.WithInsecure()}
-	if err := pb.RegisterGlusterStorageGatewayHandlerFromEndpoint(ctx, mux, fmt.Sprintf(":%d", s.grpcPort), dialOptions); err != nil {
+	grpcServerEndpoint :=fmt.Sprintf("%s:%d",s.addr, s.grpcPort)
+	if err := pb.RegisterGlusterStorageGatewayHandlerFromEndpoint(ctx, mux, grpcServerEndpoint, dialOptions); err != nil {
 		log.Fatal("register http service failed:", err)
 	}
+	log.Infoln("start grpcService on ",grpcServerEndpoint)
 	go func(port int) {
 		if err := http.ListenAndServe(fmt.Sprintf(":%d", port), mux); err != nil {
-			log.Infof("start  http service on %s:%d failed,err:%v", s.addr, s.httpPort, err)
+			log.Infof("start  %s:%d failed,err:%v", s.addr, s.httpPort, err)
 		}
 	}(s.httpPort)
-	log.Infof("start  http service on %s:%d  success", s.addr, s.httpPort)
 	for {
 		select {
 		case <-s.stopHttpCh:

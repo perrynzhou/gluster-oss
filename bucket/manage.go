@@ -3,8 +3,8 @@ package bucket
 import (
 	"errors"
 	"fmt"
-	fs_api "gluster-storage-gateway/fs-api"
-	"gluster-storage-gateway/meta"
+	fs_api "glusterfs-storage-gateway/fs-api"
+	"glusterfs-storage-gateway/meta"
 	"sync"
 
 	"github.com/go-redis/redis/v8"
@@ -30,11 +30,12 @@ func NewBucketManage(api *fs_api.FsApi, conn *redis.Conn,bucketRequestCh chan *B
 		wg:          wg,
 		notifyCh:    make(chan *meta.BucketInfo),
 		doneCh:      make(chan struct{}),
+		bucketInfoCache: make(map[string]*meta.BucketInfo, 0),
 		goFuncCount: 0,
 	}
 }
 func (manage *BucketManage) refreshCache() {
-	log.Info("run BucketService refreshCache")
+	log.Infoln("run BucketService refreshCache")
 	defer manage.wg.Done()
 	for {
 		select {
@@ -48,30 +49,45 @@ func (manage *BucketManage) refreshCache() {
 		}
 	}
 }
-func (manage *BucketManage) handleCreateBucketRequest(request *BucketInfoRequest) {
-	response := &BucketInfoResponse{}
-	if manage.checkBucketExist(request.Info.Name) != nil {
-		if err := manage.handleBucketDir(request.Info.RealDirName, createBucketDirType); err != nil {
+func (manage *BucketManage) handleCreateBucketRequest(request *BucketInfoRequest) error {
+	response := &BucketInfoResponse{
+		Reply:request.Info,
+	}
+	defer func(request *BucketInfoRequest,response *BucketInfoResponse) {
+		request.Done <- response
+	}(request,response)
+	log.Infoln("handleCreateBucketRequest fetch request:",request)
+	if !manage.checkBucketExist(request.Info.Name){
+		if err := manage.handleBucketDir(request.Info.Name,request.Info.RealDirName, createBucketDirType); err != nil {
 			response.Err = err
 		} else {
 			if _, err := manage.storeBucketInfo(request.Info); err != nil {
-				manage.handleBucketDir(request.Info.RealDirName, deleteBucketDirType)
+				manage.handleBucketDir(request.Info.Name, request.Info.RealDirName, deleteBucketDirType)
 				response.Err = err
 			} else {
-				response.Reply = request.Info
 				response.Err = nil
+				log.Infoln("handleCreateBucketRequest resp:::",response)
 				manage.notifyCh <- request.Info
 			}
 		}
 	}
-	request.Done <- response
+	if response.Err != nil{
+		log.Errorln("handleCreateBucketRequest err:",response.Err)
+	}
+
+	return response.Err
 }
 func (manage *BucketManage) handleUpdateBucketRequest(request *BucketInfoRequest) error {
-	response := &BucketInfoResponse{}
+	bucketInfo :=request.Info
+	response := &BucketInfoResponse{
+		Reply:bucketInfo,
+	}
 	bucketInfo, err := manage.fetchBucketInfo(request.Info.Name)
+	defer func(request *BucketInfoRequest,response *BucketInfoResponse) {
+		request.Done <- response
+	}(request,response)
 	if err != nil {
 		response.Err = err
-		request.Done <- response
 		return err
 	}
 	if bucketInfo.UsageInfo.CapacityLimitSize <= request.Info.UsageInfo.CapacityLimitSize {
@@ -80,21 +96,22 @@ func (manage *BucketManage) handleUpdateBucketRequest(request *BucketInfoRequest
 		response.Err = errors.New(fmt.Sprintf("invalid ObjectsLimitCount(%d<=%d)", bucketInfo.UsageInfo.ObjectsLimitCount, request.Info.UsageInfo.ObjectsLimitCount))
 	}
 	if response.Err != nil {
-		request.Done <- response
 		return response.Err
 	}
 	bucketInfo.UsageInfo.ObjectsLimitCount = request.Info.UsageInfo.ObjectsLimitCount
 	bucketInfo.UsageInfo.CapacityLimitSize = request.Info.UsageInfo.CapacityLimitSize
 	if _, err := manage.storeBucketInfo(bucketInfo); err != nil {
 		response.Err = err
-		request.Done <- response
 		return err
 	}
 	manage.notifyCh <- request.Info
 	return nil
 }
 func (manage *BucketManage) handleDeleteBucketRequest(request *BucketInfoRequest) error {
-	response := &BucketInfoResponse{}
+	bucketInfo :=request.Info
+	response := &BucketInfoResponse{
+		Reply:bucketInfo,
+	}
 	bucketInfo, err := manage.fetchBucketInfo(request.Info.Name)
 	if err != nil {
 		response.Err = err
@@ -112,12 +129,12 @@ func (manage *BucketManage) Run() {
 
 }
 func (manage *BucketManage) handleBucketRequest() {
-	log.Info("run BucketService handleBucketRequest")
+	log.Infoln("run BucketService handleBucketRequest")
 	manage.wg.Done()
 	for {
 		select {
 		case req := <-manage.ReqCh:
-			log.Info("recive request:", req)
+			log.Infoln("recive request:", req)
 			switch req.RequestType {
 			case CreateBucketType:
 				manage.handleCreateBucketRequest(req)

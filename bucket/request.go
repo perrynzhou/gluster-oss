@@ -2,8 +2,8 @@ package bucket
 
 import (
 	"github.com/google/uuid"
-	meta "gluster-storage-gateway/meta"
-	"gluster-storage-gateway/protocol/pb"
+	meta "glusterfs-storage-gateway/meta"
+	"glusterfs-storage-gateway/protocol/pb"
 )
 
 const (

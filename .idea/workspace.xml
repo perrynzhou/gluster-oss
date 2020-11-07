@@ -1,112 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="BranchesTreeState">
-    <expand />
-    <select />
-  </component>
-  <component name="ChangeListManager">
-    <list default="true" id="b051cf80-bfb5-4b14-a789-de05dde22070" name="默认更改列表" comment="" />
-    <option name="SHOW_DIALOG" value="false" />
-    <option name="HIGHLIGHT_CONFLICTS" value="true" />
-    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
-    <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Go File" />
-      </list>
-    </option>
-  </component>
-  <component name="GOROOT" path="/usr/local/go" />
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="GoLibraries">
-    <option name="indexEntireGoPath" value="false" />
-  </component>
-  <component name="ProjectId" id="1jbD6Q15jPNIkJ6G9HUG198nH6l" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
-    <ConfirmationsSetting value="2" id="添加" />
-  </component>
-  <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showLibraryContents" value="true" />
-  </component>
-  <component name="PropertiesComponent">
-    <property name="DefaultGoTemplateProperty" value="Go File" />
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="go.import.settings.migrated" value="true" />
-    <property name="go.sdk.automatically.set" value="true" />
-    <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../gluster-storage-gateway/conf" />
-  </component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/../gluster-storage-gateway/conf" />
-      <recent name="$PROJECT_DIR$/../gluster-storage-gateway/protocol/pb" />
-      <recent name="$PROJECT_DIR$/cmd/client/bucket" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/../gluster-storage-gateway/cmd/client/bucket" />
-      <recent name="$PROJECT_DIR$/../gluster-storage-gateway/cmd/server" />
-      <recent name="$PROJECT_DIR$/../gluster-storage-gateway/cmd/server/bucket" />
-      <recent name="$PROJECT_DIR$/bucket" />
-    </key>
-  </component>
   <component name="RunManager">
     <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
-      <module name="gluster-storage-gateway" />
-      <working_directory value="$PROJECT_DIR$/" />
+      <module name="glusterfs-storage-gateway" />
+      <working_directory value="$PROJECT_DIR$" />
       <go_parameters value="-i" />
       <kind value="FILE" />
-      <filePath value="$PROJECT_DIR$/" />
-      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$" />
+      <package value="fusion-storage-gateway" />
+      <directory value="$PROJECT_DIR$" />
       <method v="2" />
     </configuration>
     <configuration default="true" type="GoTestRunConfiguration" factoryName="Go Test">
-      <module name="gluster-storage-gateway" />
-      <working_directory value="$PROJECT_DIR$/" />
+      <module name="glusterfs-storage-gateway" />
+      <working_directory value="$PROJECT_DIR$" />
       <go_parameters value="-i" />
       <framework value="gotest" />
       <kind value="DIRECTORY" />
-      <directory value="$PROJECT_DIR$/" />
-      <filePath value="$PROJECT_DIR$/" />
+      <package value="fusion-storage-gateway" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
       <method v="2" />
     </configuration>
-  </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-  <component name="VgoProject">
-    <integration-enabled>true</integration-enabled>
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="673" y="302" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1604139775690">
-      <screen x="0" y="23" width="1680" height="941" />
-    </state>
-    <state x="673" y="302" key="#com.intellij.fileTypes.FileTypeChooser/0.23.1680.941@0.23.1680.941" timestamp="1604139775690" />
-    <state x="627" y="255" key="FileChooserDialogImpl" timestamp="1604126331996">
-      <screen x="0" y="23" width="1680" height="941" />
-    </state>
-    <state x="627" y="255" key="FileChooserDialogImpl/0.23.1680.941@0.23.1680.941" timestamp="1604126331996" />
-    <state x="539" y="82" width="601" height="823" key="find.popup" timestamp="1604140007653">
-      <screen x="0" y="23" width="1680" height="941" />
-    </state>
-    <state x="539" y="82" width="601" height="822" key="find.popup/0.23.1680.940@0.23.1680.940" timestamp="1604064477778" />
-    <state x="539" y="82" width="601" height="823" key="find.popup/0.23.1680.941@0.23.1680.941" timestamp="1604140007653" />
   </component>
 </project>

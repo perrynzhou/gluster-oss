@@ -1,11 +1,11 @@
 serviceBackend:
-  addr: 10.211.55.17
+  addr: 172.25.78.11
   grpcport: 5566
   httpport: 5567
 storageBackend:
-  addr: 10.211.55.17
+  addr: 172.25.78.11
   volume: rep_vol
   port: 24007
 metaBackend:
-  addr: 10.211.55.17
+  addr: 172.25.78.25
   port: 6379

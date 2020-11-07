@@ -1,4 +1,4 @@
-module gluster-storage-gateway
+module glusterfs-storage-gateway
 
 go 1.15
 

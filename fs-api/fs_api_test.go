@@ -9,7 +9,7 @@ import (
 
 func TestNewFsApi(t *testing.T) {
 	//172.25.78.11:rep_ssd_vol
-	fsApi, err := NewFsApi("rep_vol", "172.25.78.11", 24007, true)
+	fsApi, err := NewFsApi("test_volume", "10.193.51.144", 24007, true)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -18,7 +18,7 @@ func TestNewFsApi(t *testing.T) {
 	fsApi.Releae()
 }
 func TestOpen(t *testing.T) {
-	fsApi, err := NewFsApi("rep_vol", "172.25.78.11", 24007, true)
+	fsApi, err := NewFsApi("test_volume", "10.193.51.144", 24007, true)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -31,8 +31,9 @@ func TestOpen(t *testing.T) {
 	assert.Nil(t, err)
 	fsApi.Releae()
 }
+//test_volume 10.193.51.144
 func TestCreat(t *testing.T) {
-	fsApi, err := NewFsApi("rep_vol", "172.25.78.11", 24007, true)
+	fsApi, err := NewFsApi("test_volume", "10.193.51.144", 24007, true)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -42,7 +43,7 @@ func TestCreat(t *testing.T) {
 	fsApi.Releae()
 }
 func TestRead(t *testing.T) {
-	fsApi, err := NewFsApi("rep_vol", "10.211.55.17", 24007, true)
+	fsApi, err := NewFsApi("test_volume", "10.193.51.144", 24007, true)
 	if err != nil {
 		log.Fatal(err)
 	}

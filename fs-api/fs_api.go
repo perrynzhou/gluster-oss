@@ -33,6 +33,9 @@ type FsFd struct {
 
 //create glusterfs handler base on fstype
 func NewFsApi(volume, addr string, port int, fstype bool) (*FsApi, error) {
+	if volume == "" || addr == "" || port <= 0 {
+		return nil, fmt.Errorf("the parameter is null")
+	}
 	var fsApi *FsApi
 	var err error
 	if fstype {
@@ -83,11 +86,10 @@ func (fsApi *FsApi) RmDir(path string) error {
 }
 func (fsApi *FsApi) Open(filename string, flags int) (*FsFd, error) {
 	var err error
-
 	fd := &FsFd{}
 	cfilename := C.CString(filename)
 	defer C.free(unsafe.Pointer(cfilename))
-	if _, err := C.fs_api_open(fsApi.api, fd.Fd, cfilename, C.int(flags)); err != nil {
+	if _, err := C.fs_api_open(fsApi.api, &fd.Fd, cfilename, C.int(flags)); err != nil {
 		return nil, err
 	}
 	return fd, err
@@ -96,7 +98,7 @@ func (fsApi *FsApi) Creat(filename string, flags int, mode os.FileMode) (*FsFd, 
 	fd := &FsFd{}
 	cfilename := C.CString(filename)
 	defer C.free(unsafe.Pointer(cfilename))
-	ret, err := C.fs_api_creat(fsApi.api, fd.Fd, cfilename, C.int(flags), C.mode_t(mode))
+	ret, err := C.fs_api_creat(fsApi.api, &fd.Fd, cfilename, C.int(flags), C.mode_t(mode))
 	if int(ret) != 0 {
 		return nil, err
 	}
