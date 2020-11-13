@@ -6,7 +6,7 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-type CommonBackendConf struct {
+type MetaBackedConf struct {
 	Addr string `yaml:"addr"`
 	Port int    `yaml:"port"`
 }
@@ -26,7 +26,7 @@ type ServerConfig struct {
 	ServiceBackend ServiceBackendConfig `yaml:"serviceBackend"`
 	StoreBackend   StoreBackendConf     `yaml:"storageBackend"`
 	//metadata server address
-	MetaBacked CommonBackendConf `yaml:"metaBackend"`
+	MetaBacked MetaBackedConf `yaml:"metaBackend"`
 }
 
 func NewServerConf(confFile string) (*ServerConfig, error) {
