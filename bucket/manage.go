@@ -130,7 +130,7 @@ func (manage *BucketManage) Run() {
 }
 func (manage *BucketManage) handleBucketRequest() {
 	log.Infoln("run BucketService handleBucketRequest")
-	manage.wg.Done()
+	defer manage.wg.Done()
 	for {
 		select {
 		case req := <-manage.ReqCh:
