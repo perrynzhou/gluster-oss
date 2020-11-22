@@ -15,9 +15,11 @@ import (
 const (
 	objectMetaFile   = "object.meta"
 	blockFileMinSize = 1024 * 1024 * 256
+
 )
 
 type ObjectManage struct {
+
 	api             *fs_api.FsApi
 	conn            *redis.Conn
 	doneCh          chan struct{}
@@ -26,10 +28,14 @@ type ObjectManage struct {
 	NotifyCh        chan *meta.BucketInfo
 	// each bucket maintain object meta,that such {object_key object_name object_info}
 	ObjectMetaFile map[string]*fs_api.FsFd
-	//each bucket current max block
-	ObjectBlock map[string][]*Block
-	//each bucket maintains 128 block fd
-	ObjectBlockFile map[string][]*fs_api.FsFd
+	//how many write to one bucket Concurreny
+	writeConcurrent  int
+	//each bucket current max block,each block can support writeConcurrent writer
+	Block map[string][]*Block
+	//each bucket maintains 128 block fd and mutex
+	BlockFile map[string][]*fs_api.FsFd
+	BlockLock map[string][]*sync.Mutex
+	ObjectCache map[string][]*meta.ObjectInfo
 }
 
 func NewObjectManage(api *fs_api.FsApi, BucketInfoCache map[string]*meta.BucketInfo, NotifyCh chan *meta.BucketInfo, conn *redis.Conn) (*ObjectManage, error) {

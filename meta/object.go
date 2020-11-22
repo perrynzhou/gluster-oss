@@ -2,10 +2,12 @@ package meta
 
 import "time"
 
+
 type ObjectInfo struct {
+	Id uint64
 	// Name of the bucket.
 	Bucket string
-    BlockId int64
+    BlockId uint64
 	StartPos uint64
 	// Name of the object.
 	Name string
@@ -23,5 +25,4 @@ type ObjectInfo struct {
 	UserDefined map[string]string
 	// User-Defined object tags
 	UserTags string
-
 }

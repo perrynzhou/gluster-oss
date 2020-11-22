@@ -1,5 +1,6 @@
 package meta
 
+
 type BucketUsageInfo struct {
 	CapacityLimitSize   uint64 `json:"capacityLimitSize"`
 	CapacityCurrentSize   uint64 `json:"capacityCurrentSize"`
@@ -7,7 +8,7 @@ type BucketUsageInfo struct {
 	ObjectsCurrentCount uint64 `json:"objCurrentCount"`
 	//conatains all blocks for this bucket
 	//conatinas all object for this bucket
-	Objects             map[string][]*ObjectInfo `json:"objectInfo"`
+	ObjectCache             map[string][]*ObjectInfo `json:"objectInfo"`
 }
 
 // BucketInfo - represents bucket metadata.
