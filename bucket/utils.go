@@ -2,10 +2,12 @@ package bucket
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"glusterfs-storage-gateway/meta"
-	"go.mongodb.org/mongo-driver/bson"
+
 	log "github.com/sirupsen/logrus"
+	"go.mongodb.org/mongo-driver/bson"
 )
 
 const (
@@ -15,14 +17,14 @@ const (
 
 func (manage *BucketManage) checkBucketExist(bucketName string) bool {
 	//defer log.Errorln("checkBucketExist err:",err)
-	ret, err := manage.conn.Exists(context.Background(), bucketName).Result();
+	ret, err := manage.conn.Exists(context.Background(), bucketName).Result()
 	if err != nil || ret > 0 {
 		log.Debugf("the bucket:%v is exists", bucketName)
 		return true
 	}
 	return false
 }
-func (manage *BucketManage) handleBucketDir(bucketName,bucketDirName string, bucketDirType int) error {
+func (manage *BucketManage) handleBucketDir(bucketName, bucketDirName string, bucketDirType int) error {
 	var err error
 	bucketDir := fmt.Sprintf("%s-%s", bucketName, bucketDirName)
 	switch bucketDirType {
@@ -35,15 +37,38 @@ func (manage *BucketManage) handleBucketDir(bucketName,bucketDirName string, buc
 	}
 	return err
 }
-
-func (manage *BucketManage) storeBucketInfo(bucketInfo *meta.BucketInfo) (string, error) {
-	var result string
-	b, err := bson.Marshal(bucketInfo)
-	if err != nil {
-		return result, err
+func (manage *BucketManage) persistenceBucketInfoToDisk(bucektName string, b []byte) error {
+	s := fmt.Sprintf("%s\t%s\n", bucektName, string(b))
+	if manage.bucketInfoFile == nil {
+		log.Errorln("bucketInfoFile is nil ")
 	}
-	return manage.conn.Set(context.Background(), bucketInfo.Name, b, -1).Result()
+	if _, err := manage.api.Write(manage.bucketInfoFile, []byte(s)); err != nil {
+		return err
+	}
+
+	return nil
 }
+func (manage *BucketManage) storeBucketInfo(bucketInfo *meta.BucketInfo, OpType uint8) ([]byte, error) {
+	b, err := json.Marshal(bucketInfo)
+	if err != nil {
+		return nil, err
+	}
+	if err = manage.persistenceBucketInfoToDisk(bucketInfo.Name, b); err != nil {
+		return nil, err
+	}
+	if OpType == DeleteBucketType {
+		//remove  origin bucketinfo
+		if _, err = manage.conn.Del(context.Background(), bucketInfo.Name).Result(); err != nil {
+			return nil, err
+		}
+	} else {
+		if _, err = manage.conn.Set(context.Background(), bucketInfo.Name, b, -1).Result(); err != nil {
+			return nil, err
+		}
+	}
+	return b, nil
+}
+
 func (manage *BucketManage) fetchBucketInfo(bucket string) (*meta.BucketInfo, error) {
 	if manage.bucketInfoCache[bucket] == nil {
 		binstr, err := manage.conn.Get(context.Background(), bucket).Result()
@@ -58,9 +83,9 @@ func (manage *BucketManage) fetchBucketInfo(bucket string) (*meta.BucketInfo, er
 	}
 	return manage.bucketInfoCache[bucket], nil
 }
-func (manage *BucketManage) delBucketInfoAndBucketData(bucketInfoRequest *BucketInfoRequest, bucketDir string) error {
+func (manage *BucketManage) delBucketInfoAndBucketData(bucketInfoRequest *BucketInfoRequest, bucketInfo *meta.BucketInfo) error {
 	bucketInfoResponse := &BucketInfoResponse{}
-	if err := manage.api.RmAllFileFromPath(bucketDir); err != nil {
+	if err := manage.api.RmAllFileFromPath(bucketInfo.RealDirName); err != nil {
 		bucketInfoResponse.Err = nil
 		return err
 	}

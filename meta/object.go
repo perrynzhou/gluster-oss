@@ -5,25 +5,19 @@ import "time"
 type ObjectInfo struct {
 	// Name of the bucket.
 	Bucket string
-
+    BlockId int64
 	// Name of the object.
 	Name string
 
 	// Date and time when the object was last modified.
 	ModTime time.Time
 
+	CreatTime time.Time
+
+	AccessTime time.Time
 	// Total object size.
 	Size int64
 
-	// Hex encoded unique entity tag of the object.
-	ETag string
-
-	// Version ID of this object.
-	VersionID string
-
-	// IsLatest indicates if this is the latest current version
-	// latest can be true for delete marker or a version.
-	IsLatest bool
 
 	// A standard MIME type describing the format of the object.
 	ContentType string
@@ -37,9 +31,4 @@ type ObjectInfo struct {
 	// User-Defined object tags
 	UserTags string
 
-	// Date and time when the object was last accessed.
-	AccTime time.Time
-
-	// backendType indicates which backend filled this structure
-	backendType string
 }

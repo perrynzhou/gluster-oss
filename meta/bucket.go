@@ -4,6 +4,10 @@ type BucketUsageInfo struct {
 	CapacityLimitSize   uint64
 	ObjectsLimitCount   uint64 `json:"objectsLimitCount"`
 	ObjectsCurrentCount uint64 `json:"objectsCurrentCount"`
+	//conatains all blocks for this bucket
+	Blocks              map[int]*BlockInfo `json:"blockInfo"`
+	//conatinas all object for this bucket
+	Objects             map[string]*ObjectInfo `json:"objectInfo"`
 }
 
 // BucketInfo - represents bucket metadata.

@@ -32,14 +32,36 @@
   <component name="ChangeListManager">
     <list default="true" id="060af402-b06a-4d15-8399-99878b891f46" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/conf/server_conf.go" beforeDir="false" afterPath="$PROJECT_DIR$/conf/server_conf.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/block/bloick.go" beforeDir="false" afterPath="$PROJECT_DIR$/block/manage.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bucket/manage.go" beforeDir="false" afterPath="$PROJECT_DIR$/bucket/manage.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bucket/request.go" beforeDir="false" afterPath="$PROJECT_DIR$/bucket/request.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bucket/utils.go" beforeDir="false" afterPath="$PROJECT_DIR$/bucket/utils.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/client/bucket/client.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/client/bucket/client.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/client/conf.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/client/conf.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/server/conf.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/server/conf.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/server/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/server/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conf/client_conf.go" beforeDir="false" afterPath="$PROJECT_DIR$/conf/client_conf.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conf/client_conf.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/conf/client_conf.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/meta/block.go" beforeDir="false" afterPath="$PROJECT_DIR$/meta/block.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/meta/bucket.go" beforeDir="false" afterPath="$PROJECT_DIR$/meta/bucket.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/meta/object.go" beforeDir="false" afterPath="$PROJECT_DIR$/meta/object.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/bucket.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/bucket.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="GOROOT" path="$USER_HOME$/App/go" />
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Go File" />
+      </list>
+    </option>
+  </component>
+  <component name="GOROOT" path="/usr/local/go" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -52,7 +74,9 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DefaultGoTemplateProperty" value="Go File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
@@ -77,6 +101,15 @@
       <directory value="$PROJECT_DIR$" />
       <method v="2" />
     </configuration>
+    <configuration name="go build main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="glusterfs-storage-gateway" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="FILE" />
+      <filePath value="$PROJECT_DIR$/cmd/server/main.go" />
+      <package value="fusion-storage-gateway" />
+      <directory value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
     <configuration default="true" type="GoTestRunConfiguration" factoryName="Go Test">
       <module name="glusterfs-storage-gateway" />
       <working_directory value="$PROJECT_DIR$" />
@@ -88,8 +121,13 @@
       <filePath value="$PROJECT_DIR$" />
       <method v="2" />
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Go Build.go build main.go" />
+      </list>
+    </recent_temporary>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="060af402-b06a-4d15-8399-99878b891f46" name="Default Changelist" comment="" />
@@ -101,7 +139,7 @@
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
+    <option name="version" value="2" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -119,6 +157,34 @@
     <integration-enabled>true</integration-enabled>
   </component>
   <component name="WindowStateProjectService">
+    <state x="640" y="430" key="#GOROOT" timestamp="1606003449750">
+      <screen x="0" y="23" width="1680" height="940" />
+    </state>
+    <state x="640" y="430" key="#GOROOT/0.23.1680.940@0.23.1680.940" timestamp="1606003449750" />
+    <state x="673" y="302" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1606018868885">
+      <screen x="0" y="23" width="1680" height="940" />
+    </state>
+    <state x="673" y="302" key="#com.intellij.fileTypes.FileTypeChooser/0.23.1680.940@0.23.1680.940" timestamp="1606018868885" />
+    <state width="1638" height="251" key="GridCell.Tab.0.bottom" timestamp="1606020798786">
+      <screen x="0" y="23" width="1680" height="940" />
+    </state>
+    <state width="1638" height="251" key="GridCell.Tab.0.bottom/0.23.1680.940@0.23.1680.940" timestamp="1606020798786" />
+    <state width="1638" height="251" key="GridCell.Tab.0.center" timestamp="1606020798786">
+      <screen x="0" y="23" width="1680" height="940" />
+    </state>
+    <state width="1638" height="251" key="GridCell.Tab.0.center/0.23.1680.940@0.23.1680.940" timestamp="1606020798786" />
+    <state width="1638" height="251" key="GridCell.Tab.0.left" timestamp="1606020798785">
+      <screen x="0" y="23" width="1680" height="940" />
+    </state>
+    <state width="1638" height="251" key="GridCell.Tab.0.left/0.23.1680.940@0.23.1680.940" timestamp="1606020798785" />
+    <state width="1638" height="251" key="GridCell.Tab.0.right" timestamp="1606020798786">
+      <screen x="0" y="23" width="1680" height="940" />
+    </state>
+    <state width="1638" height="251" key="GridCell.Tab.0.right/0.23.1680.940@0.23.1680.940" timestamp="1606020798786" />
+    <state x="341" y="132" key="SettingsEditor" timestamp="1606003502371">
+      <screen x="0" y="23" width="1680" height="940" />
+    </state>
+    <state x="341" y="132" key="SettingsEditor/0.23.1680.940@0.23.1680.940" timestamp="1606003502371" />
     <state x="659" y="160" width="589" height="560" key="find.popup" timestamp="1604743063618">
       <screen x="0" y="0" width="1918" height="886" />
     </state>

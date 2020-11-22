@@ -1,14 +1,27 @@
 package bucket
 
+/*
+  gluster volume : /
+              /bucket.info
+              /bucket1
+              /bucekt2
+*/
 import (
 	"errors"
 	"fmt"
 	fs_api "glusterfs-storage-gateway/fs-api"
 	"glusterfs-storage-gateway/meta"
+	"os"
 	"sync"
+
+	"golang.org/x/net/context"
 
 	"github.com/go-redis/redis/v8"
 	log "github.com/sirupsen/logrus"
+)
+
+const (
+	bucketInfoFilePath = "/bucket.idx"
 )
 
 type BucketManage struct {
@@ -20,20 +33,34 @@ type BucketManage struct {
 	bucketInfoCache map[string]*meta.BucketInfo
 	notifyCh        chan *meta.BucketInfo
 	goFuncCount     int
+	bucketInfoFile  *fs_api.FsFd
 }
 
-func NewBucketManage(api *fs_api.FsApi, conn *redis.Conn,bucketRequestCh chan *BucketInfoRequest, wg *sync.WaitGroup) *BucketManage {
-	return &BucketManage{
-		api:         api,
-		conn:        conn,
-		ReqCh:      bucketRequestCh,
-		wg:          wg,
-		notifyCh:    make(chan *meta.BucketInfo),
-		doneCh:      make(chan struct{}),
+func NewBucketManage(api *fs_api.FsApi, conn *redis.Conn, bucketRequestCh chan *BucketInfoRequest, wg *sync.WaitGroup) (*BucketManage, error) {
+	manage := &BucketManage{
+		api:             api,
+		conn:            conn,
+		ReqCh:           bucketRequestCh,
+		wg:              wg,
+		notifyCh:        make(chan *meta.BucketInfo),
+		doneCh:          make(chan struct{}),
 		bucketInfoCache: make(map[string]*meta.BucketInfo, 0),
-		goFuncCount: 0,
+		goFuncCount:     0,
 	}
+	var bucketInfoFile *fs_api.FsFd
+	var err error
+	if err = manage.api.Stat(bucketInfoFilePath); err != nil {
+		bucketInfoFile, err = manage.api.Creat(bucketInfoFilePath, os.O_CREATE|os.O_RDWR|os.O_APPEND, os.ModePerm)
+	} else {
+		bucketInfoFile, err = manage.api.Open(bucketInfoFilePath, os.O_RDWR|os.O_APPEND)
+	}
+	if err != nil {
+		return nil, err
+	}
+	manage.bucketInfoFile = bucketInfoFile
+	return manage, nil
 }
+
 func (manage *BucketManage) refreshCache() {
 	log.Infoln("run BucketService refreshCache")
 	defer manage.wg.Done()
@@ -41,58 +68,63 @@ func (manage *BucketManage) refreshCache() {
 		select {
 		case bucketInfo := <-manage.notifyCh:
 			manage.bucketInfoCache[bucketInfo.Name] = bucketInfo
-			break
 		case <-manage.doneCh:
 			return
-		default:
-			break
 		}
 	}
 }
 func (manage *BucketManage) handleCreateBucketRequest(request *BucketInfoRequest) error {
 	response := &BucketInfoResponse{
-		Reply:request.Info,
+		Reply: request.Info,
 	}
-	defer func(request *BucketInfoRequest,response *BucketInfoResponse) {
+	defer func(request *BucketInfoRequest, response *BucketInfoResponse) {
 		request.Done <- response
-	}(request,response)
-	log.Infoln("handleCreateBucketRequest fetch request:",request)
-	if !manage.checkBucketExist(request.Info.Name){
-		if err := manage.handleBucketDir(request.Info.Name,request.Info.RealDirName, createBucketDirType); err != nil {
+	}(request, response)
+
+	log.Infoln("handleCreateBucketRequest fetch request:", request)
+	var b []byte
+	if !manage.checkBucketExist(request.Info.Name) {
+		if err := manage.handleBucketDir(request.Info.Name, request.Info.RealDirName, createBucketDirType); err != nil {
 			response.Err = err
 		} else {
-			if _, err := manage.storeBucketInfo(request.Info); err != nil {
+			if b, err = manage.storeBucketInfo(request.Info, request.RequestType); err != nil {
 				manage.handleBucketDir(request.Info.Name, request.Info.RealDirName, deleteBucketDirType)
+				request.Info.Status = DeleteBucketType
+				manage.conn.Del(context.Background(), request.Info.Name)
 				response.Err = err
 			} else {
 				response.Err = nil
-				log.Infoln("handleCreateBucketRequest resp:::",response)
+				log.Infoln("handleCreateBucketRequest resp:::", response)
+				manage.conn.Set(context.Background(), request.Info.Name, string(b), -1)
 				manage.notifyCh <- request.Info
+			}
+			if len(b) > 0 {
+				manage.persistenceBucketInfoToDisk(request.Info.Name, b)
 			}
 		}
 	}
-	if response.Err != nil{
-		log.Errorln("handleCreateBucketRequest err:",response.Err)
+	if response.Err != nil {
+		log.Errorln("handleCreateBucketRequest err:", response.Err)
 	}
 
 	return response.Err
 }
 func (manage *BucketManage) handleUpdateBucketRequest(request *BucketInfoRequest) error {
-	bucketInfo :=request.Info
-	response := &BucketInfoResponse{
-		Reply:bucketInfo,
-	}
+
 	bucketInfo, err := manage.fetchBucketInfo(request.Info.Name)
-	defer func(request *BucketInfoRequest,response *BucketInfoResponse) {
+	response := &BucketInfoResponse{}
+	defer func(request *BucketInfoRequest, response *BucketInfoResponse, bucketInfo *meta.BucketInfo) {
 		request.Done <- response
-	}(request,response)
+		response.Reply = bucketInfo
+	}(request, response, bucketInfo)
 	if err != nil {
 		response.Err = err
 		return err
 	}
-	if bucketInfo.UsageInfo.CapacityLimitSize <= request.Info.UsageInfo.CapacityLimitSize {
+	response.Reply = bucketInfo
+	if bucketInfo.UsageInfo.CapacityLimitSize > request.Info.UsageInfo.CapacityLimitSize {
 		response.Err = errors.New(fmt.Sprintf("invalid CapacityLimitSize(%d<=%d)", bucketInfo.UsageInfo.CapacityLimitSize, request.Info.UsageInfo.CapacityLimitSize))
-	} else if bucketInfo.UsageInfo.ObjectsLimitCount <= request.Info.UsageInfo.ObjectsLimitCount {
+	} else if bucketInfo.UsageInfo.ObjectsLimitCount > request.Info.UsageInfo.ObjectsLimitCount {
 		response.Err = errors.New(fmt.Sprintf("invalid ObjectsLimitCount(%d<=%d)", bucketInfo.UsageInfo.ObjectsLimitCount, request.Info.UsageInfo.ObjectsLimitCount))
 	}
 	if response.Err != nil {
@@ -100,25 +132,30 @@ func (manage *BucketManage) handleUpdateBucketRequest(request *BucketInfoRequest
 	}
 	bucketInfo.UsageInfo.ObjectsLimitCount = request.Info.UsageInfo.ObjectsLimitCount
 	bucketInfo.UsageInfo.CapacityLimitSize = request.Info.UsageInfo.CapacityLimitSize
-	if _, err := manage.storeBucketInfo(bucketInfo); err != nil {
+	var b []byte
+	if b, err = manage.storeBucketInfo(bucketInfo, request.RequestType); err != nil {
 		response.Err = err
 		return err
 	}
+	manage.conn.Set(context.Background(), request.Info.Name, string(b), -1)
+	manage.persistenceBucketInfoToDisk(request.Info.Name, b)
 	manage.notifyCh <- request.Info
 	return nil
 }
 func (manage *BucketManage) handleDeleteBucketRequest(request *BucketInfoRequest) error {
-	bucketInfo :=request.Info
-	response := &BucketInfoResponse{
-		Reply:bucketInfo,
-	}
 	bucketInfo, err := manage.fetchBucketInfo(request.Info.Name)
+	response := &BucketInfoResponse{}
+	defer func(request *BucketInfoRequest, response *BucketInfoResponse, bucketInfo *meta.BucketInfo) {
+		request.Done <- response
+		response.Reply = bucketInfo
+	}(request, response, bucketInfo)
 	if err != nil {
 		response.Err = err
-		request.Done <- response
 		return err
 	}
-	go manage.delBucketInfoAndBucketData(request, bucketInfo.RealDirName)
+	bucketInfo.Status = BucketInActiveStatus
+	manage.storeBucketInfo(bucketInfo, DeleteBucketType)
+	go manage.delBucketInfoAndBucketData(request, bucketInfo)
 	return nil
 }
 func (manage *BucketManage) Run() {
@@ -145,14 +182,9 @@ func (manage *BucketManage) handleBucketRequest() {
 			case UpdateBucketType:
 				manage.handleUpdateBucketRequest(req)
 				break
-			default:
-				break
 			}
-			break
 		case <-manage.doneCh:
 			return
-		default:
-			break
 		}
 	}
 }

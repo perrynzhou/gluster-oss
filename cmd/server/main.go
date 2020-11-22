@@ -16,7 +16,7 @@ import (
 )
 
 var (
-	confFile    = flag.String("c", "server_conf.yaml", "glusterfs-storage-gateway conf file")
+	confFile    = flag.String("c", "conf.yaml", "glusterfs-storage-gateway conf file")
 	serviceName = flag.String("n", "glusterfs-storage-gateway", "glusterfs-storage-gateway name")
 )
 
@@ -36,7 +36,7 @@ func initStoreBackend(sc *conf.ServerConfig) (*fs_api.FsApi, error) {
 func main() {
 
 	serverConf, err := conf.NewServerConf(*confFile)
-	log.Info("serverConf:",serverConf)
+	log.Info("serverConf:", serverConf)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -50,8 +50,8 @@ func main() {
 	}
 	log.Info("init glusterfs-storage-gateway success")
 	bucketService := service.NewBucketSerivce(fsApi, bucket.ServiceName, wg)
-	service := service.NewService(serverConf,wg)
-	service.RegisterService(bucketService.ServiceName,bucketService)
+	service := service.NewService(serverConf, wg)
+	service.RegisterService(bucketService.ServiceName, bucketService)
 	service.Run()
 	defer wg.Wait()
 	for {

@@ -1,9 +1,11 @@
 package bucket
 
 import (
-	"github.com/google/uuid"
+	"fmt"
 	meta "glusterfs-storage-gateway/meta"
 	"glusterfs-storage-gateway/protocol/pb"
+
+	"github.com/google/uuid"
 )
 
 const (
@@ -15,19 +17,18 @@ const (
 	ServiceName = "bucket"
 )
 const (
-	BucketActiveStatus=1
-	BucketInActiveStatus=2
-
+	BucketActiveStatus   = 1
+	BucketInActiveStatus = 2
 )
 
 type BucketInfoRequest struct {
 	RequestType uint8
-	Info *meta.BucketInfo
-	Done chan *BucketInfoResponse
+	Info        *meta.BucketInfo
+	Done        chan *BucketInfoResponse
 }
 type BucketInfoResponse struct {
 	Reply interface{}
-	Err  error
+	Err   error
 }
 
 func NewCreateBucketInfoRequest(request *pb.CreateBucketRequest) *BucketInfoRequest {
@@ -37,13 +38,13 @@ func NewCreateBucketInfoRequest(request *pb.CreateBucketRequest) *BucketInfoRequ
 			UsageInfo: &meta.BucketUsageInfo{
 				ObjectsLimitCount:   request.ObjectsLimit,
 				ObjectsCurrentCount: uint64(0),
-				CapacityLimitSize: request.Capacity,
+				CapacityLimitSize:   request.Capacity,
 			},
-			Status:BucketActiveStatus,
-			RealDirName: uuid.New().String(),
+			Status:      BucketActiveStatus,
+			RealDirName: fmt.Sprintf("%s-%s", request.Name, uuid.New().String()),
 		},
-		Done: make(chan *BucketInfoResponse),
-		RequestType:CreateBucketType,
+		Done:        make(chan *BucketInfoResponse),
+		RequestType: CreateBucketType,
 	}
 }
 func NewDeleteBucketInfoRequest(request *pb.DeleteBucketRequest) *BucketInfoRequest {
@@ -51,8 +52,8 @@ func NewDeleteBucketInfoRequest(request *pb.DeleteBucketRequest) *BucketInfoRequ
 		Info: &meta.BucketInfo{
 			Name: request.Name,
 		},
-		Done: make(chan *BucketInfoResponse),
-		RequestType:DeleteBucketType,
+		Done:        make(chan *BucketInfoResponse),
+		RequestType: DeleteBucketType,
 	}
 }
 func NewUpdateBucketInfoRequest(request *pb.UpdateBucketRequest) *BucketInfoRequest {
@@ -60,12 +61,12 @@ func NewUpdateBucketInfoRequest(request *pb.UpdateBucketRequest) *BucketInfoRequ
 		Info: &meta.BucketInfo{
 			Name: request.Name,
 			UsageInfo: &meta.BucketUsageInfo{
-				ObjectsLimitCount:   request.ObjectsLimit,
+				ObjectsLimitCount: request.ObjectsLimit,
 				CapacityLimitSize: request.Capacity,
 			},
-			Status:BucketActiveStatus,
+			Status: BucketActiveStatus,
 		},
-		Done: make(chan *BucketInfoResponse),
-		RequestType:UpdateBucketType,
+		Done:        make(chan *BucketInfoResponse),
+		RequestType: UpdateBucketType,
 	}
 }
