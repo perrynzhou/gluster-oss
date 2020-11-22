@@ -31,11 +31,9 @@ type ObjectManage struct {
 	//how many write to one bucket Concurreny
 	writeConcurrent  int
 	//each bucket current max block,each block can support writeConcurrent writer
-	Block map[string][]*Block
+	Block map[string][]*BlockInfo
 	//each bucket maintains 128 block fd and mutex
-	BlockFile map[string][]*fs_api.FsFd
-	BlockLock map[string][]*sync.Mutex
-	ObjectCache map[string][]*meta.ObjectInfo
+	BlockFile map[string][]*BlockFd
 }
 
 func NewObjectManage(api *fs_api.FsApi, BucketInfoCache map[string]*meta.BucketInfo, NotifyCh chan *meta.BucketInfo, conn *redis.Conn) (*ObjectManage, error) {
