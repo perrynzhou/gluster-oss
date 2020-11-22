@@ -1,5 +1,8 @@
 package object
 
+const (
+	BlockKey = ""
+)
 type Block struct {
 	Id uint64
 	Size  uint32
