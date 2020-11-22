@@ -7,7 +7,7 @@ type BucketUsageInfo struct {
 	ObjectsCurrentCount uint64 `json:"objCurrentCount"`
 	//conatains all blocks for this bucket
 	//conatinas all object for this bucket
-	Objects             map[string]*ObjectInfo `json:"objectInfo"`
+	Objects             map[string][]*ObjectInfo `json:"objectInfo"`
 }
 
 // BucketInfo - represents bucket metadata.
