@@ -25,7 +25,7 @@ type ObjectManage struct {
 	BucketInfoCache map[string]*meta.BucketInfo
 	NotifyCh        chan *meta.BucketInfo
 	// each bucket maintain object meta,that such {object_key object_name object_info}
-	ObjectMetalFile map[string]*fs_api.FsFd
+	ObjectMetaFile map[string]*fs_api.FsFd
 	//each bucket current max block
 	ObjectBlock map[string][]*Block
 	//each bucket maintains 128 block fd
