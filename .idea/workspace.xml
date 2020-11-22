@@ -31,8 +31,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="060af402-b06a-4d15-8399-99878b891f46" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/manage/object/manage.go" beforeDir="false" afterPath="$PROJECT_DIR$/manage/object/manage.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/pb/object.proto" beforeDir="false" afterPath="$PROJECT_DIR$/protocol/pb/object.proto" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
