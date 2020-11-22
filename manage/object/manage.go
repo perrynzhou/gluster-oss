@@ -28,6 +28,7 @@ type ObjectManage struct {
 	NotifyCh        chan *meta.BucketInfo
 	// each bucket maintain object meta,that such {object_key object_name object_info}
 	ObjectMetaFile map[string]*fs_api.FsFd
+	BlockMetaFile  map[string]*fs_api.FsFd
 	//how many write to one bucket Concurreny
 	writeConcurrent  int
 	//each bucket current max block,each block can support writeConcurrent writer
