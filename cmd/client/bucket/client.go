@@ -43,7 +43,6 @@ func NewClient(path string) (*Client, error) {
 		log.Error("grpc.Dial Failed, err:", err)
 		return nil, nil
 	}
-
 	glusterStorageGatewayClient := pb.NewGlusterStorageGatewayClient(cnn)
 	return &Client{
 		glusterStorageGatewayClient: glusterStorageGatewayClient,

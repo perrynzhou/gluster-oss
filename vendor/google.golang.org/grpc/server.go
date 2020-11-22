@@ -704,7 +704,7 @@ func (s *Server) Serve(lis net.Listener) error {
 	defer func() {
 		s.serveWG.Done()
 		if s.quit.HasFired() {
-			// Stop or GracefulStop called; block until done and return nil.
+			// Stop or GracefulStop called; object until done and return nil.
 			<-s.done.Done()
 		}
 	}()

@@ -2,8 +2,8 @@ package service
 
 import (
 	"fmt"
-	"glusterfs-storage-gateway/bucket"
 	"glusterfs-storage-gateway/conf"
+	"glusterfs-storage-gateway/manage/bucket"
 	"glusterfs-storage-gateway/protocol/pb"
 	"net"
 	"net/http"

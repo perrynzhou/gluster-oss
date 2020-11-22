@@ -1650,7 +1650,7 @@ var errorList = [...]struct {
 	{12, "ENOMEM", "cannot allocate memory"},
 	{13, "EACCES", "permission denied"},
 	{14, "EFAULT", "bad address"},
-	{15, "ENOTBLK", "block device required"},
+	{15, "ENOTBLK", "object device required"},
 	{16, "EBUSY", "device busy"},
 	{17, "EEXIST", "file exists"},
 	{18, "EXDEV", "cross-device link"},

@@ -575,7 +575,7 @@ func yaml_emitter_emit_flow_mapping_value(emitter *yaml_emitter_t, event *yaml_e
 	return yaml_emitter_emit_node(emitter, event, false, false, true, false)
 }
 
-// Expect a block item node.
+// Expect a object item node.
 func yaml_emitter_emit_block_sequence_item(emitter *yaml_emitter_t, event *yaml_event_t, first bool) bool {
 	if first {
 		if !yaml_emitter_increase_indent(emitter, false, emitter.mapping_context && !emitter.indention) {
@@ -599,7 +599,7 @@ func yaml_emitter_emit_block_sequence_item(emitter *yaml_emitter_t, event *yaml_
 	return yaml_emitter_emit_node(emitter, event, false, true, false, false)
 }
 
-// Expect a block key node.
+// Expect a object key node.
 func yaml_emitter_emit_block_mapping_key(emitter *yaml_emitter_t, event *yaml_event_t, first bool) bool {
 	if first {
 		if !yaml_emitter_increase_indent(emitter, false, false) {
@@ -627,7 +627,7 @@ func yaml_emitter_emit_block_mapping_key(emitter *yaml_emitter_t, event *yaml_ev
 	return yaml_emitter_emit_node(emitter, event, false, false, true, false)
 }
 
-// Expect a block value node.
+// Expect a object value node.
 func yaml_emitter_emit_block_mapping_value(emitter *yaml_emitter_t, event *yaml_event_t, simple bool) bool {
 	if simple {
 		if !yaml_emitter_write_indicator(emitter, []byte{':'}, false, false, false) {

@@ -48,7 +48,7 @@ const (
 	// No error is produced.
 	yaml_NO_ERROR yaml_error_type_t = iota
 
-	yaml_MEMORY_ERROR   // Cannot allocate or reallocate a block of memory.
+	yaml_MEMORY_ERROR   // Cannot allocate or reallocate a object of memory.
 	yaml_READER_ERROR   // Cannot read or decode the input stream.
 	yaml_SCANNER_ERROR  // Cannot scan the input stream.
 	yaml_PARSER_ERROR   // Cannot parse the input stream.
@@ -89,7 +89,7 @@ const (
 	// Let the emitter choose the style.
 	yaml_ANY_SEQUENCE_STYLE yaml_sequence_style_t = iota
 
-	yaml_BLOCK_SEQUENCE_STYLE // The block sequence style.
+	yaml_BLOCK_SEQUENCE_STYLE // The object sequence style.
 	yaml_FLOW_SEQUENCE_STYLE  // The flow sequence style.
 )
 
@@ -100,7 +100,7 @@ const (
 	// Let the emitter choose the style.
 	yaml_ANY_MAPPING_STYLE yaml_mapping_style_t = iota
 
-	yaml_BLOCK_MAPPING_STYLE // The block mapping style.
+	yaml_BLOCK_MAPPING_STYLE // The object mapping style.
 	yaml_FLOW_MAPPING_STYLE  // The flow mapping style.
 )
 
@@ -436,15 +436,15 @@ const (
 	yaml_PARSE_DOCUMENT_START_STATE                    // Expect DOCUMENT-START.
 	yaml_PARSE_DOCUMENT_CONTENT_STATE                  // Expect the content of a document.
 	yaml_PARSE_DOCUMENT_END_STATE                      // Expect DOCUMENT-END.
-	yaml_PARSE_BLOCK_NODE_STATE                        // Expect a block node.
-	yaml_PARSE_BLOCK_NODE_OR_INDENTLESS_SEQUENCE_STATE // Expect a block node or indentless sequence.
+	yaml_PARSE_BLOCK_NODE_STATE                        // Expect a object node.
+	yaml_PARSE_BLOCK_NODE_OR_INDENTLESS_SEQUENCE_STATE // Expect a object node or indentless sequence.
 	yaml_PARSE_FLOW_NODE_STATE                         // Expect a flow node.
-	yaml_PARSE_BLOCK_SEQUENCE_FIRST_ENTRY_STATE        // Expect the first entry of a block sequence.
-	yaml_PARSE_BLOCK_SEQUENCE_ENTRY_STATE              // Expect an entry of a block sequence.
+	yaml_PARSE_BLOCK_SEQUENCE_FIRST_ENTRY_STATE        // Expect the first entry of a object sequence.
+	yaml_PARSE_BLOCK_SEQUENCE_ENTRY_STATE              // Expect an entry of a object sequence.
 	yaml_PARSE_INDENTLESS_SEQUENCE_ENTRY_STATE         // Expect an entry of an indentless sequence.
-	yaml_PARSE_BLOCK_MAPPING_FIRST_KEY_STATE           // Expect the first key of a block mapping.
-	yaml_PARSE_BLOCK_MAPPING_KEY_STATE                 // Expect a block mapping key.
-	yaml_PARSE_BLOCK_MAPPING_VALUE_STATE               // Expect a block mapping value.
+	yaml_PARSE_BLOCK_MAPPING_FIRST_KEY_STATE           // Expect the first key of a object mapping.
+	yaml_PARSE_BLOCK_MAPPING_KEY_STATE                 // Expect a object mapping key.
+	yaml_PARSE_BLOCK_MAPPING_VALUE_STATE               // Expect a object mapping value.
 	yaml_PARSE_FLOW_SEQUENCE_FIRST_ENTRY_STATE         // Expect the first entry of a flow sequence.
 	yaml_PARSE_FLOW_SEQUENCE_ENTRY_STATE               // Expect an entry of a flow sequence.
 	yaml_PARSE_FLOW_SEQUENCE_ENTRY_MAPPING_KEY_STATE   // Expect a key of an ordered mapping.
@@ -630,12 +630,12 @@ const (
 	yaml_EMIT_FLOW_MAPPING_KEY_STATE           // Expect a key of a flow mapping.
 	yaml_EMIT_FLOW_MAPPING_SIMPLE_VALUE_STATE  // Expect a value for a simple key of a flow mapping.
 	yaml_EMIT_FLOW_MAPPING_VALUE_STATE         // Expect a value of a flow mapping.
-	yaml_EMIT_BLOCK_SEQUENCE_FIRST_ITEM_STATE  // Expect the first item of a block sequence.
-	yaml_EMIT_BLOCK_SEQUENCE_ITEM_STATE        // Expect an item of a block sequence.
-	yaml_EMIT_BLOCK_MAPPING_FIRST_KEY_STATE    // Expect the first key of a block mapping.
-	yaml_EMIT_BLOCK_MAPPING_KEY_STATE          // Expect the key of a block mapping.
-	yaml_EMIT_BLOCK_MAPPING_SIMPLE_VALUE_STATE // Expect a value for a simple key of a block mapping.
-	yaml_EMIT_BLOCK_MAPPING_VALUE_STATE        // Expect a value of a block mapping.
+	yaml_EMIT_BLOCK_SEQUENCE_FIRST_ITEM_STATE  // Expect the first item of a object sequence.
+	yaml_EMIT_BLOCK_SEQUENCE_ITEM_STATE        // Expect an item of a object sequence.
+	yaml_EMIT_BLOCK_MAPPING_FIRST_KEY_STATE    // Expect the first key of a object mapping.
+	yaml_EMIT_BLOCK_MAPPING_KEY_STATE          // Expect the key of a object mapping.
+	yaml_EMIT_BLOCK_MAPPING_SIMPLE_VALUE_STATE // Expect a value for a simple key of a object mapping.
+	yaml_EMIT_BLOCK_MAPPING_VALUE_STATE        // Expect a value of a object mapping.
 	yaml_EMIT_END_STATE                        // Expect nothing.
 )
 
@@ -715,7 +715,7 @@ type yaml_emitter_t struct {
 		value                 []byte              // The scalar value.
 		multiline             bool                // Does the scalar contain line breaks?
 		flow_plain_allowed    bool                // Can the scalar be expessed in the flow plain style?
-		block_plain_allowed   bool                // Can the scalar be expressed in the block plain style?
+		block_plain_allowed   bool                // Can the scalar be expressed in the object plain style?
 		single_quoted_allowed bool                // Can the scalar be expressed in the single quoted style?
 		block_allowed         bool                // Can the scalar be expressed in the literal or folded styles?
 		style                 yaml_scalar_style_t // The output style.

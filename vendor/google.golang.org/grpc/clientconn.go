@@ -1194,7 +1194,7 @@ func (ac *addrConn) resetTransport() {
 		// though the TRANSIENT_FAILURE state (called for by the doc) would be
 		// instantaneous.
 		//
-		// Ideally we should transition to Idle here and block until there is
+		// Ideally we should transition to Idle here and object until there is
 		// RPC activity that leads to the balancer requesting a reconnect of
 		// the associated SubConn.
 	}

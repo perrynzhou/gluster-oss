@@ -190,7 +190,7 @@ func newBidiTrie(i int) *bidiTrie {
 	return &bidiTrie{}
 }
 
-// lookupValue determines the type of block n and looks up the value for b.
+// lookupValue determines the type of object n and looks up the value for b.
 func (t *bidiTrie) lookupValue(n uint32, b byte) uint8 {
 	switch {
 	default:
@@ -199,7 +199,7 @@ func (t *bidiTrie) lookupValue(n uint32, b byte) uint8 {
 }
 
 // bidiValues: 222 blocks, 14208 entries, 14208 bytes
-// The third block is the zero block.
+// The third object is the zero object.
 var bidiValues = [14208]uint8{
 	// Block 0x0, offset 0x0
 	0x00: 0x000b, 0x01: 0x000b, 0x02: 0x000b, 0x03: 0x000b, 0x04: 0x000b, 0x05: 0x000b,
@@ -1661,7 +1661,7 @@ var bidiValues = [14208]uint8{
 }
 
 // bidiIndex: 24 blocks, 1536 entries, 1536 bytes
-// Block 0 is the zero block.
+// Block 0 is the zero object.
 var bidiIndex = [1536]uint8{
 	// Block 0x0, offset 0x0
 	// Block 0x1, offset 0x40

@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"glusterfs-storage-gateway/meta"
-
+	mgr "glusterfs-storage-gateway/manage"
 	log "github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/bson"
 )
@@ -16,13 +16,7 @@ const (
 )
 
 func (manage *BucketManage) checkBucketExist(bucketName string) bool {
-	//defer log.Errorln("checkBucketExist err:",err)
-	ret, err := manage.conn.Exists(context.Background(), bucketName).Result()
-	if err != nil || ret > 0 {
-		log.Debugf("the bucket:%v is exists", bucketName)
-		return true
-	}
-	return false
+	return mgr.CheckBucketExist(manage.conn,bucketName)
 }
 func (manage *BucketManage) handleBucketDir(bucketName, bucketDirName string, bucketDirType int) error {
 	var err error
@@ -53,6 +47,11 @@ func (manage *BucketManage) storeBucketInfo(bucketInfo *meta.BucketInfo, OpType 
 	if err != nil {
 		return nil, err
 	}
+	defer func(err error) {
+		if err != nil {
+			log.Errorln("redis:",err)
+		}
+	}(err)
 	if err = manage.persistenceBucketInfoToDisk(bucketInfo.Name, b); err != nil {
 		return nil, err
 	}
@@ -71,12 +70,8 @@ func (manage *BucketManage) storeBucketInfo(bucketInfo *meta.BucketInfo, OpType 
 
 func (manage *BucketManage) fetchBucketInfo(bucket string) (*meta.BucketInfo, error) {
 	if manage.bucketInfoCache[bucket] == nil {
-		binstr, err := manage.conn.Get(context.Background(), bucket).Result()
+		bucketInfo,err := mgr.FetchBucketInfo(manage.conn,bucket)
 		if err != nil {
-			return nil, err
-		}
-		bucketInfo := &meta.BucketInfo{}
-		if err := bson.Unmarshal([]byte(binstr), bucketInfo); err != nil {
 			return nil, err
 		}
 		manage.bucketInfoCache[bucket] = bucketInfo

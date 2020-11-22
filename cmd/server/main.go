@@ -2,9 +2,9 @@ package main
 
 import (
 	"flag"
-	"glusterfs-storage-gateway/bucket"
 	"glusterfs-storage-gateway/conf"
 	fs_api "glusterfs-storage-gateway/fs-api"
+	"glusterfs-storage-gateway/manage/bucket"
 	"glusterfs-storage-gateway/service"
 	"glusterfs-storage-gateway/utils"
 	"os"
@@ -43,7 +43,9 @@ func main() {
 	signals := make(chan os.Signal, 1)
 	signal.Notify(signals, os.Interrupt, syscall.SIGTERM, syscall.SIGINT)
 	wg := &sync.WaitGroup{}
-	utils.InitRedisClient(serverConf.MetaBacked.Addr, serverConf.MetaBacked.Port)
+	if _,err =utils.InitRedisClient(serverConf.MetaBacked.Addr, serverConf.MetaBacked.Port);err != nil {
+		log.Fatalln("conection redis erros:",err)
+	}
 	fsApi, err := initStoreBackend(serverConf)
 	if err != nil {
 		log.Fatal("init fsApi failed:", err)

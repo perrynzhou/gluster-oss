@@ -4,7 +4,7 @@ package logrus
 // `Levels()` on your implementation of the interface. Note that this is not
 // fired in a goroutine or a channel with workers, you should handle such
 // functionality yourself if your call is non-blocking and you don't wish for
-// the logging calls for levels returned from `Levels()` to block.
+// the logging calls for levels returned from `Levels()` to object.
 type Hook interface {
 	Levels() []Level
 	Fire(*Entry) error

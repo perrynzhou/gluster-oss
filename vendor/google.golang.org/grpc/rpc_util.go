@@ -260,7 +260,7 @@ func (o PeerCallOption) after(c *callInfo, attempt *csAttempt) {
 
 // WaitForReady configures the action to take when an RPC is attempted on broken
 // connections or unreachable servers. If waitForReady is false, the RPC will fail
-// immediately. Otherwise, the RPC client will block the call until a
+// immediately. Otherwise, the RPC client will object the call until a
 // connection is available (or the call is canceled or times out) and will
 // retry the call if it fails due to a transient error.  gRPC will not retry if
 // data was written to the wire unless the server indicates it did not process

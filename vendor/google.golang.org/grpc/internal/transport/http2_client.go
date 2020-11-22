@@ -1237,7 +1237,7 @@ func (t *http2Client) operateHeaders(frame *http2.MetaHeadersFrame) {
 	if atomic.CompareAndSwapUint32(&s.headerChanClosed, 0, 1) {
 		s.headerValid = true
 		if !endStream {
-			// HEADERS frame block carries a Response-Headers.
+			// HEADERS frame object carries a Response-Headers.
 			isHeader = true
 			// These values can be set without any synchronization because
 			// stream goroutine will read it only after seeing a closed
@@ -1247,7 +1247,7 @@ func (t *http2Client) operateHeaders(frame *http2.MetaHeadersFrame) {
 				s.header = state.data.mdata
 			}
 		} else {
-			// HEADERS frame block carries a Trailers-Only.
+			// HEADERS frame object carries a Trailers-Only.
 			s.noHeaders = true
 		}
 		close(s.headerChan)
@@ -1360,7 +1360,7 @@ func (t *http2Client) keepalive() {
 	// Amount of time remaining before which we should receive an ACK for the
 	// last sent ping.
 	timeoutLeft := time.Duration(0)
-	// Records the last value of t.lastRead before we go block on the timer.
+	// Records the last value of t.lastRead before we go object on the timer.
 	// This is required to check for read activity since then.
 	prevNano := time.Now().UnixNano()
 	timer := time.NewTimer(t.kp.Time)

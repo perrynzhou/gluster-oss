@@ -313,7 +313,7 @@ type Framer struct {
 
 	// TODO: track which type of frame & with which flags was sent
 	// last. Then return an error (unless AllowIllegalWrites) if
-	// we're in the middle of a header block and a
+	// we're in the middle of a header object and a
 	// non-Continuation or Continuation on a different stream is
 	// attempted to be written.
 
@@ -961,7 +961,7 @@ func (f *Framer) WriteWindowUpdate(streamID, incr uint32) error {
 }
 
 // A HeadersFrame is used to open a stream and additionally carries a
-// header block fragment.
+// header object fragment.
 type HeadersFrame struct {
 	FrameHeader
 
@@ -1032,14 +1032,14 @@ type HeadersFrameParam struct {
 	// BlockFragment is part (or all) of a Header Block.
 	BlockFragment []byte
 
-	// EndStream indicates that the header block is the last that
+	// EndStream indicates that the header object is the last that
 	// the endpoint will send for the identified stream. Setting
 	// this flag causes the stream to enter one of "half closed"
 	// states.
 	EndStream bool
 
 	// EndHeaders indicates that this frame contains an entire
-	// header block and is not followed by any
+	// header object and is not followed by any
 	// CONTINUATION frames.
 	EndHeaders bool
 
@@ -1195,7 +1195,7 @@ func (f *Framer) WriteRSTStream(streamID uint32, code ErrCode) error {
 	return f.endWrite()
 }
 
-// A ContinuationFrame is used to continue a sequence of header block fragments.
+// A ContinuationFrame is used to continue a sequence of header object fragments.
 // See http://http2.github.io/http2-spec/#rfc.section.6.10
 type ContinuationFrame struct {
 	FrameHeader
@@ -1301,7 +1301,7 @@ type PushPromiseParam struct {
 	BlockFragment []byte
 
 	// EndHeaders indicates that this frame contains an entire
-	// header block and is not followed by any
+	// header object and is not followed by any
 	// CONTINUATION frames.
 	EndHeaders bool
 

@@ -355,7 +355,7 @@ const (
 // Reject cipher suites from Appendix A.
 // "This list includes those cipher suites that do not
 // offer an ephemeral key exchange and those that are
-// based on the TLS null, stream or block cipher type"
+// based on the TLS null, stream or object cipher type"
 func isBadCipher(cipher uint16) bool {
 	switch cipher {
 	case cipher_TLS_NULL_WITH_NULL_NULL,

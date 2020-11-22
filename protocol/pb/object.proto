@@ -1,0 +1,61 @@
+syntax = "proto3";
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+package pb;
+message PutObjectRequest{
+    string bucket_name = 1;
+    string object_name =2;
+    string obeject_key = 3;
+    map<string, string> user_defined = 4;
+   	string user_tags=5;
+    uint64 objects_size = 6;
+    string contenttype=7;
+    google.protobuf.Timestamp expire_time=8;
+}
+
+message PutObjectResponse{
+   string bucket_name = 1;
+   string object_name = 2;
+   string object_key = 3;
+   map<string, string> user_defined = 4;
+   string user_tags=5;
+   string block_id=6;
+   uint64 start_pos=7;
+   uint64 objects_size = 8;
+   string contenttype=9;
+   google.protobuf.Timestamp expire_time=10;
+   string message = 4;
+
+}
+
+message GetObjectRequest{
+    //bucket name
+    string bucket_name = 1;
+    string object_name =2;
+    string object_key =3;
+}
+
+message GetObjectRequest{
+    //bucket name
+    string bucket_name = 1;
+    string object_name = 2;
+    string object_key = 3;
+    map<string, string> user_defined = 4;
+    string user_tags=5;
+    string block_id=6;
+    uint64 start_pos=7;
+    uint64 objects_size = 8;
+    string contenttype=9;
+    google.protobuf.Timestamp expire_time=10;
+    string message = 4;
+}
+
+message DeleteObjectResponse{
+    string bucket_name = 1;
+    string object_name =2;
+    string object_key =3;
+    string message = 4;
+}
+
+
+

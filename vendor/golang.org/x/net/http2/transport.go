@@ -104,7 +104,7 @@ type Transport struct {
 	// server as needed to keep each under the per-connection
 	// SETTINGS_MAX_CONCURRENT_STREAMS limit. If true, the
 	// server's SETTINGS_MAX_CONCURRENT_STREAMS is interpreted as
-	// a global limit and callers of RoundTrip block when needed,
+	// a global limit and callers of RoundTrip object when needed,
 	// waiting for their turn.
 	StrictMaxConcurrentStreams bool
 
@@ -764,7 +764,7 @@ func (cc *ClientConn) idleStateLocked() (st clientConnIdleState) {
 	if cc.t.StrictMaxConcurrentStreams {
 		// We'll tell the caller we can take a new request to
 		// prevent the caller from dialing a new TCP
-		// connection, but then we'll block later before
+		// connection, but then we'll object later before
 		// writing it.
 		maxConcurrentOkay = true
 	} else {
@@ -1261,7 +1261,7 @@ func (cc *ClientConn) writeHeaders(streamID uint32, endStream bool, maxFrameSize
 			cc.fr.WriteContinuation(streamID, endHeaders, chunk)
 		}
 	}
-	// TODO(bradfitz): this Flush could potentially block (as
+	// TODO(bradfitz): this Flush could potentially object (as
 	// could the WriteHeaders call(s) above), which means they
 	// wouldn't respond to Request.Cancel being readable. That's
 	// rare, but this should probably be in a goroutine.

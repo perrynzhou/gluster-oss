@@ -236,7 +236,7 @@ func yaml_emitter_increase_indent(emitter *yaml_emitter_t, flow, indentless bool
 		}
 	} else if !indentless {
 		emitter.indent += emitter.best_indent
-		// [Go] If inside a block sequence item, discount the space taken by the indicator.
+		// [Go] If inside a object sequence item, discount the space taken by the indicator.
 		if emitter.best_indent > 2 && emitter.states[len(emitter.states)-1] == yaml_EMIT_BLOCK_SEQUENCE_ITEM_STATE {
 			emitter.indent -= 2
 		}
@@ -722,7 +722,7 @@ func yaml_emitter_emit_flow_mapping_value(emitter *yaml_emitter_t, event *yaml_e
 	return true
 }
 
-// Expect a block item node.
+// Expect a object item node.
 func yaml_emitter_emit_block_sequence_item(emitter *yaml_emitter_t, event *yaml_event_t, first bool) bool {
 	if first {
 		// [Go] The original logic here would not indent the sequence when inside a mapping.
@@ -765,7 +765,7 @@ func yaml_emitter_emit_block_sequence_item(emitter *yaml_emitter_t, event *yaml_
 	return true
 }
 
-// Expect a block key node.
+// Expect a object key node.
 func yaml_emitter_emit_block_mapping_key(emitter *yaml_emitter_t, event *yaml_event_t, first bool) bool {
 	if first {
 		if !yaml_emitter_increase_indent(emitter, false, false) {
@@ -796,7 +796,7 @@ func yaml_emitter_emit_block_mapping_key(emitter *yaml_emitter_t, event *yaml_ev
 	return yaml_emitter_emit_node(emitter, event, false, false, true, false)
 }
 
-// Expect a block value node.
+// Expect a object value node.
 func yaml_emitter_emit_block_mapping_value(emitter *yaml_emitter_t, event *yaml_event_t, simple bool) bool {
 	if simple {
 		if !yaml_emitter_write_indicator(emitter, []byte{':'}, false, false, false) {

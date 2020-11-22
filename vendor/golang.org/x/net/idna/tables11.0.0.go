@@ -553,7 +553,7 @@ func newIdnaTrie(i int) *idnaTrie {
 	return &idnaTrie{}
 }
 
-// lookupValue determines the type of block n and looks up the value for b.
+// lookupValue determines the type of object n and looks up the value for b.
 func (t *idnaTrie) lookupValue(n uint32, b byte) uint16 {
 	switch {
 	case n < 125:
@@ -565,7 +565,7 @@ func (t *idnaTrie) lookupValue(n uint32, b byte) uint16 {
 }
 
 // idnaValues: 127 blocks, 8128 entries, 16256 bytes
-// The third block is the zero block.
+// The third object is the zero object.
 var idnaValues = [8128]uint16{
 	// Block 0x0, offset 0x0
 	0x00: 0x0080, 0x01: 0x0080, 0x02: 0x0080, 0x03: 0x0080, 0x04: 0x0080, 0x05: 0x0080,
@@ -2083,7 +2083,7 @@ var idnaValues = [8128]uint16{
 }
 
 // idnaIndex: 36 blocks, 2304 entries, 4608 bytes
-// Block 0 is the zero block.
+// Block 0 is the zero object.
 var idnaIndex = [2304]uint16{
 	// Block 0x0, offset 0x0
 	// Block 0x1, offset 0x40

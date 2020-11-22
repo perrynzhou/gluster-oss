@@ -1,8 +1,8 @@
 package service
 
 import (
-	"glusterfs-storage-gateway/bucket"
 	fs_api "glusterfs-storage-gateway/fs-api"
+	"glusterfs-storage-gateway/manage/bucket"
 	"glusterfs-storage-gateway/meta"
 	"glusterfs-storage-gateway/protocol/pb"
 	"glusterfs-storage-gateway/utils"

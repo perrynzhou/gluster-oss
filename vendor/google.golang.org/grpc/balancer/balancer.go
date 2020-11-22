@@ -137,7 +137,7 @@ type State struct {
 // gRPC to add new methods to this interface.
 type ClientConn interface {
 	// NewSubConn is called by balancer to create a new SubConn.
-	// It doesn't block and wait for the connections to be established.
+	// It doesn't object and wait for the connections to be established.
 	// Behaviors of the SubConn can be controlled by options.
 	NewSubConn([]resolver.Address, NewSubConnOptions) (SubConn, error)
 	// RemoveSubConn removes the SubConn from ClientConn.
@@ -226,10 +226,10 @@ type DoneInfo struct {
 
 var (
 	// ErrNoSubConnAvailable indicates no SubConn is available for pick().
-	// gRPC will block the RPC until a new picker is available via UpdateState().
+	// gRPC will object the RPC until a new picker is available via UpdateState().
 	ErrNoSubConnAvailable = errors.New("no SubConn is available")
 	// ErrTransientFailure indicates all SubConns are in TransientFailure.
-	// WaitForReady RPCs will block, non-WaitForReady RPCs will fail.
+	// WaitForReady RPCs will object, non-WaitForReady RPCs will fail.
 	//
 	// Deprecated: return an appropriate error based on the last resolution or
 	// connection attempt instead.  The behavior is the same for any non-gRPC
@@ -240,7 +240,7 @@ var (
 // PickResult contains information related to a connection chosen for an RPC.
 type PickResult struct {
 	// SubConn is the connection to use for this pick, if its state is Ready.
-	// If the state is not Ready, gRPC will block the RPC until a new Picker is
+	// If the state is not Ready, gRPC will object the RPC until a new Picker is
 	// provided by the balancer (using ClientConn.UpdateState).  The SubConn
 	// must be one returned by ClientConn.NewSubConn.
 	SubConn SubConn
@@ -267,14 +267,14 @@ func TransientFailureError(e error) error { return e }
 type Picker interface {
 	// Pick returns the connection to use for this RPC and related information.
 	//
-	// Pick should not block.  If the balancer needs to do I/O or any blocking
+	// Pick should not object.  If the balancer needs to do I/O or any blocking
 	// or time-consuming work to service this call, it should return
 	// ErrNoSubConnAvailable, and the Pick call will be repeated by gRPC when
 	// the Picker is updated (using ClientConn.UpdateState).
 	//
 	// If an error is returned:
 	//
-	// - If the error is ErrNoSubConnAvailable, gRPC will block until a new
+	// - If the error is ErrNoSubConnAvailable, gRPC will object until a new
 	//   Picker is provided by the balancer (using ClientConn.UpdateState).
 	//
 	// - If the error is a status error (implemented by the grpc/status

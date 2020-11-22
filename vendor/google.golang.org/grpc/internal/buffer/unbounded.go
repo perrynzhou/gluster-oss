@@ -24,7 +24,7 @@ import "sync"
 // extra goroutines. This is typically used for passing updates from one entity
 // to another within gRPC.
 //
-// All methods on this type are thread-safe and don't block on anything except
+// All methods on this type are thread-safe and don't object on anything except
 // the underlying mutex used for synchronization.
 //
 // Unbounded supports values of any type to be stored in it by using a channel

@@ -85,7 +85,7 @@ type Decoder struct {
 
 	// buf is the unparsed buffer. It's only written to
 	// saveBuf if it was truncated in the middle of a header
-	// block. Because it's usually not owned, we can only
+	// object. Because it's usually not owned, we can only
 	// process it under Write.
 	buf []byte // not owned; only valid during Write
 
@@ -93,7 +93,7 @@ type Decoder struct {
 	// to fully parse before. Unlike buf, we own this data.
 	saveBuf bytes.Buffer
 
-	firstField bool // processing the first field of the header block
+	firstField bool // processing the first field of the header object
 }
 
 // NewDecoder returns a new decoder with the provided maximum dynamic
@@ -211,7 +211,7 @@ func (d *Decoder) at(i uint64) (hf HeaderField, ok bool) {
 	return dt.ents[dt.len()-(int(i)-staticTable.len())], true
 }
 
-// Decode decodes an entire block.
+// Decode decodes an entire object.
 //
 // TODO: remove this method and make it incremental later? This is
 // easier for debugging now.
@@ -230,7 +230,7 @@ func (d *Decoder) DecodeFull(p []byte) ([]HeaderField, error) {
 }
 
 // Close declares that the decoding is complete and resets the Decoder
-// to be reused again for a new header block. If there is any remaining
+// to be reused again for a new header object. If there is any remaining
 // data in the decoder's buffer, Close returns an error.
 func (d *Decoder) Close() error {
 	if d.saveBuf.Len() > 0 {
@@ -249,7 +249,7 @@ func (d *Decoder) Write(p []byte) (n int, err error) {
 		return
 	}
 	// Only copy the data if we have to. Optimistically assume
-	// that p will contain a complete header block.
+	// that p will contain a complete header object.
 	if d.saveBuf.Len() == 0 {
 		d.buf = p
 	} else {
@@ -398,9 +398,9 @@ func (d *Decoder) callEmit(hf HeaderField) error {
 // (same invariants and behavior as parseHeaderFieldRepr)
 func (d *Decoder) parseDynamicTableSizeUpdate() error {
 	// RFC 7541, sec 4.2: This dynamic table size update MUST occur at the
-	// beginning of the first header block following the change to the dynamic table size.
+	// beginning of the first header object following the change to the dynamic table size.
 	if !d.firstField && d.dynTab.size > 0 {
-		return DecodingError{errors.New("dynamic table size update MUST occur at the beginning of a header block")}
+		return DecodingError{errors.New("dynamic table size update MUST occur at the beginning of a header object")}
 	}
 
 	buf := d.buf

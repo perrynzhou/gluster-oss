@@ -194,7 +194,7 @@ func (m *SequenceMatcher) isBJunk(s string) bool {
 	return ok
 }
 
-// Find longest matching block in a[alo:ahi] and b[blo:bhi].
+// Find longest matching object in a[alo:ahi] and b[blo:bhi].
 //
 // If IsJunk is not defined:
 //
@@ -210,11 +210,11 @@ func (m *SequenceMatcher) isBJunk(s string) bool {
 // starts earliest in a, and of all those maximal matching blocks that
 // start earliest in a, return the one that starts earliest in b.
 //
-// If IsJunk is defined, first the longest matching block is
+// If IsJunk is defined, first the longest matching object is
 // determined as above, but with the additional restriction that no
-// junk element appears in the block.  Then that block is extended as
+// junk element appears in the object.  Then that object is extended as
 // far as possible by matching (only) junk elements on both sides.  So
-// the resulting block never matches on junk except as identical junk
+// the resulting object never matches on junk except as identical junk
 // happens to be adjacent to an "interesting" match.
 //
 // If no blocks match, return (alo, blo, 0).
@@ -223,7 +223,7 @@ func (m *SequenceMatcher) findLongestMatch(alo, ahi, blo, bhi int) Match {
 	// E.g.,
 	//    ab
 	//    acab
-	// Longest matching block is "ab", but if common prefix is
+	// Longest matching object is "ab", but if common prefix is
 	// stripped, it's "a" (tied with "b").  UNIX(tm) diff does so
 	// strip, so ends up claiming that ab is changed to acab by
 	// inserting "ca" in the middle.  That's minimal but unintuitive:
@@ -329,17 +329,17 @@ func (m *SequenceMatcher) GetMatchingBlocks() []Match {
 	nonAdjacent := []Match{}
 	i1, j1, k1 := 0, 0, 0
 	for _, b := range matched {
-		// Is this block adjacent to i1, j1, k1?
+		// Is this object adjacent to i1, j1, k1?
 		i2, j2, k2 := b.A, b.B, b.Size
 		if i1+k1 == i2 && j1+k1 == j2 {
 			// Yes, so collapse them -- this just increases the length of
-			// the first block by the length of the second, and the first
-			// block so lengthened remains the block to compare against.
+			// the first object by the length of the second, and the first
+			// object so lengthened remains the object to compare against.
 			k1 += k2
 		} else {
-			// Not adjacent.  Remember the first block (k1==0 means it's
-			// the dummy we started with), and make the second block the
-			// new block to compare against.
+			// Not adjacent.  Remember the first object (k1==0 means it's
+			// the dummy we started with), and make the second object the
+			// new object to compare against.
 			if k1 > 0 {
 				nonAdjacent = append(nonAdjacent, Match{i1, j1, k1})
 			}
@@ -379,10 +379,10 @@ func (m *SequenceMatcher) GetOpCodes() []OpCode {
 	opCodes := make([]OpCode, 0, len(matching))
 	for _, m := range matching {
 		//  invariant:  we've pumped out correct diffs to change
-		//  a[:i] into b[:j], and the next matching block is
+		//  a[:i] into b[:j], and the next matching object is
 		//  a[ai:ai+size] == b[bj:bj+size]. So we need to pump
 		//  out a diff to change a[i:ai] into b[j:bj], pump out
-		//  the matching block, and move (i,j) beyond the match
+		//  the matching object, and move (i,j) beyond the match
 		ai, bj, size := m.A, m.B, m.Size
 		tag := byte(0)
 		if i < ai && j < bj {

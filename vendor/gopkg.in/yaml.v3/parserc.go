@@ -453,7 +453,7 @@ func yaml_parser_set_event_comments(parser *yaml_parser_t, event *yaml_event_t) 
 // flow_content         ::= flow_collection | SCALAR
 //                                            ******
 func yaml_parser_parse_node(parser *yaml_parser_t, event *yaml_event_t, block, indentless_sequence bool) bool {
-	//defer trace("yaml_parser_parse_node", "block:", block, "indentless_sequence:", indentless_sequence)()
+	//defer trace("yaml_parser_parse_node", "object:", object, "indentless_sequence:", indentless_sequence)()
 
 	token := peek_token(parser)
 	if token == nil {
@@ -669,7 +669,7 @@ func yaml_parser_parse_node(parser *yaml_parser_t, event *yaml_event_t, block, i
 
 	context := "while parsing a flow node"
 	if block {
-		context = "while parsing a block node"
+		context = "while parsing a object node"
 	}
 	yaml_parser_set_parser_error_context(parser, context, start_mark,
 		"did not find expected node content", token.start_mark)
@@ -739,7 +739,7 @@ func yaml_parser_parse_block_sequence_entry(parser *yaml_parser_t, event *yaml_e
 	context_mark := parser.marks[len(parser.marks)-1]
 	parser.marks = parser.marks[:len(parser.marks)-1]
 	return yaml_parser_set_parser_error_context(parser,
-		"while parsing a block collection", context_mark,
+		"while parsing a object collection", context_mark,
 		"did not find expected '-' indicator", token.start_mark)
 }
 
@@ -848,7 +848,7 @@ func yaml_parser_parse_block_mapping_key(parser *yaml_parser_t, event *yaml_even
 	context_mark := parser.marks[len(parser.marks)-1]
 	parser.marks = parser.marks[:len(parser.marks)-1]
 	return yaml_parser_set_parser_error_context(parser,
-		"while parsing a block mapping", context_mark,
+		"while parsing a object mapping", context_mark,
 		"did not find expected key", token.start_mark)
 }
 

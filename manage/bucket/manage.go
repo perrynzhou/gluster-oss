@@ -30,7 +30,7 @@ type BucketManage struct {
 	ReqCh           chan *BucketInfoRequest
 	doneCh          chan struct{}
 	wg              *sync.WaitGroup
-	bucketInfoCache map[string]*meta.BucketInfo
+	BucketInfoCache map[string]*meta.BucketInfo
 	notifyCh        chan *meta.BucketInfo
 	goFuncCount     int
 	bucketInfoFile  *fs_api.FsFd
@@ -44,7 +44,7 @@ func NewBucketManage(api *fs_api.FsApi, conn *redis.Conn, bucketRequestCh chan *
 		wg:              wg,
 		notifyCh:        make(chan *meta.BucketInfo),
 		doneCh:          make(chan struct{}),
-		bucketInfoCache: make(map[string]*meta.BucketInfo, 0),
+		BucketInfoCache: make(map[string]*meta.BucketInfo, 0),
 		goFuncCount:     0,
 	}
 	var bucketInfoFile *fs_api.FsFd
@@ -67,7 +67,7 @@ func (manage *BucketManage) refreshCache() {
 	for {
 		select {
 		case bucketInfo := <-manage.notifyCh:
-			manage.bucketInfoCache[bucketInfo.Name] = bucketInfo
+			manage.BucketInfoCache[bucketInfo.Name] = bucketInfo
 		case <-manage.doneCh:
 			return
 		}
@@ -77,34 +77,33 @@ func (manage *BucketManage) handleCreateBucketRequest(request *BucketInfoRequest
 	response := &BucketInfoResponse{
 		Reply: request.Info,
 	}
+
 	defer func(request *BucketInfoRequest, response *BucketInfoResponse) {
+		if response.Err != nil {
+			log.Errorln(response.Err)
+		}
 		request.Done <- response
 	}(request, response)
-
+	if manage.checkBucketExist(request.Info.Name) {
+		response.Err = errors.New(fmt.Sprintf("%s already exists", request.Info.Name))
+		return response.Err
+	}
 	log.Infoln("handleCreateBucketRequest fetch request:", request)
 	var b []byte
-	if !manage.checkBucketExist(request.Info.Name) {
-		if err := manage.handleBucketDir(request.Info.Name, request.Info.RealDirName, createBucketDirType); err != nil {
+	if err := manage.handleBucketDir(request.Info.Name, request.Info.RealDirName, createBucketDirType); err != nil {
+		response.Err = err
+	} else {
+		if b, err = manage.storeBucketInfo(request.Info, request.RequestType); err != nil {
+			manage.handleBucketDir(request.Info.Name, request.Info.RealDirName, deleteBucketDirType)
+			request.Info.Status = DeleteBucketType
+			manage.conn.Del(context.Background(), request.Info.Name)
 			response.Err = err
 		} else {
-			if b, err = manage.storeBucketInfo(request.Info, request.RequestType); err != nil {
-				manage.handleBucketDir(request.Info.Name, request.Info.RealDirName, deleteBucketDirType)
-				request.Info.Status = DeleteBucketType
-				manage.conn.Del(context.Background(), request.Info.Name)
-				response.Err = err
-			} else {
-				response.Err = nil
-				log.Infoln("handleCreateBucketRequest resp:::", response)
-				manage.conn.Set(context.Background(), request.Info.Name, string(b), -1)
-				manage.notifyCh <- request.Info
-			}
-			if len(b) > 0 {
-				manage.persistenceBucketInfoToDisk(request.Info.Name, b)
-			}
+			response.Err = nil
+			log.Infoln("handleCreateBucketRequest resp:::", response)
+			manage.conn.Set(context.Background(), request.Info.Name, string(b), -1)
+			manage.notifyCh <- request.Info
 		}
-	}
-	if response.Err != nil {
-		log.Errorln("handleCreateBucketRequest err:", response.Err)
 	}
 
 	return response.Err

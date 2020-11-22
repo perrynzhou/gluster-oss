@@ -281,7 +281,7 @@ var (
 
 	// TODO: profiles
 	// Register: recommended for approving domain names: don't do any mappings
-	// but rather reject on invalid input. Bundle or block deviation characters.
+	// but rather reject on invalid input. Bundle or object deviation characters.
 )
 
 type labelError struct{ label, code_ string }

@@ -128,7 +128,7 @@ type serverHandlerTransport struct {
 	// when WriteStatus is called.
 	writes chan func()
 
-	// block concurrent WriteStatus calls
+	// object concurrent WriteStatus calls
 	// e.g. grpc/(*serverStream).SendMsg/RecvMsg
 	writeStatusMu sync.Mutex
 

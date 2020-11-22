@@ -355,7 +355,7 @@ func (s *Stream) Done() <-chan struct{} {
 // metadata or iii) the stream is canceled/expired.
 //
 // On server side, it returns the out header after t.WriteHeader is called.  It
-// does not block and must not be called until after WriteHeader.
+// does not object and must not be called until after WriteHeader.
 func (s *Stream) Header() (metadata.MD, error) {
 	if s.headerChan == nil {
 		// On server side, return the header in stream. It will be the out
@@ -623,7 +623,7 @@ type ClientTransport interface {
 	// accepting new RPCs and NewStream will return error. Once all streams are
 	// finished, the transport will close.
 	//
-	// It does not block.
+	// It does not object.
 	GracefulClose()
 
 	// Write sends the data for the given stream. A nil stream indicates

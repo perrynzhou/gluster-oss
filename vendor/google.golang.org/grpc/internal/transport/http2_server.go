@@ -959,7 +959,7 @@ func (t *http2Server) keepalive() {
 	// Amount of time remaining before which we should receive an ACK for the
 	// last sent ping.
 	kpTimeoutLeft := time.Duration(0)
-	// Records the last value of t.lastRead before we go block on the timer.
+	// Records the last value of t.lastRead before we go object on the timer.
 	// This is required to check for read activity since then.
 	prevNano := time.Now().UnixNano()
 	// Initialize the different timers to their default values.

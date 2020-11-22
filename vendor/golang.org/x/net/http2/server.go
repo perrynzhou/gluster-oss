@@ -1058,7 +1058,7 @@ func (sc *serverConn) writeFrameFromHandler(wr FrameWriteRequest) error {
 // already being written.
 //
 // There is no pushback here (the serve goroutine never blocks). It's
-// the http.Handlers that block, waiting for their previous frames to
+// the http.Handlers that object, waiting for their previous frames to
 // make it onto the wire
 //
 // If you're not on the serve goroutine, use writeFrameFromHandler instead.
@@ -1124,7 +1124,7 @@ func (sc *serverConn) writeFrame(wr FrameWriteRequest) {
 }
 
 // startFrameWrite starts a goroutine to write wr (in a separate
-// goroutine since that might block on the network), and updates the
+// goroutine since that might object on the network), and updates the
 // serve goroutine's state about the world, updated from info in wr.
 func (sc *serverConn) startFrameWrite(wr FrameWriteRequest) {
 	sc.serveG.check()
@@ -2154,7 +2154,7 @@ func (sc *serverConn) runHandler(rw *responseWriter, req *http.Request, handler 
 
 func handleHeaderListTooLong(w http.ResponseWriter, r *http.Request) {
 	// 10.5.1 Limits on Header Block Size:
-	// .. "A server that receives a larger header block than it is
+	// .. "A server that receives a larger header object than it is
 	// willing to handle can send an HTTP 431 (Request Header Fields Too
 	// Large) status code"
 	const statusRequestHeaderFieldsTooLarge = 431 // only in Go 1.6+
@@ -2168,7 +2168,7 @@ func (sc *serverConn) writeHeaders(st *stream, headerData *writeResHeaders) erro
 	sc.serveG.checkNotOn() // NOT on
 	var errc chan error
 	if headerData.h != nil {
-		// If there's a header map (which we don't own), so we have to block on
+		// If there's a header map (which we don't own), so we have to object on
 		// waiting for this frame to be written, so an http.Flush mid-handler
 		// writes out the correct value of keys, before a handler later potentially
 		// mutates it.
@@ -2609,9 +2609,9 @@ func (w *responseWriter) Header() http.Header {
 func checkWriteHeaderCode(code int) {
 	// Issue 22880: require valid WriteHeader status codes.
 	// For now we only enforce that it's three digits.
-	// In the future we might block things over 599 (600 and above aren't defined
+	// In the future we might object things over 599 (600 and above aren't defined
 	// at http://httpwg.org/specs/rfc7231.html#status.codes)
-	// and we might block under 200 (once we have more mature 1xx support).
+	// and we might object under 200 (once we have more mature 1xx support).
 	// But for now any three digits.
 	//
 	// We used to send "HTTP/1.1 000 0" on the wire in responses but there's

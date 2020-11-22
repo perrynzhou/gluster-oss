@@ -46,7 +46,7 @@ import (
 // LL(1) parser, as it is usually called).
 //
 // Actually there are two issues of Scanning that might be called "clever", the
-// rest is quite straightforward.  The issues are "block collection start" and
+// rest is quite straightforward.  The issues are "object collection start" and
 // "simple keys".  Both issues are explained below in details.
 //
 // Here the Scanning step is explained and implemented.  We start with the list
@@ -60,8 +60,8 @@ import (
 //      TAG-DIRECTIVE(handle,prefix)    # The '%TAG' directive.
 //      DOCUMENT-START                  # '---'
 //      DOCUMENT-END                    # '...'
-//      BLOCK-SEQUENCE-START            # Indentation increase denoting a block
-//      BLOCK-MAPPING-START             # sequence or a block mapping.
+//      BLOCK-SEQUENCE-START            # Indentation increase denoting a object
+//      BLOCK-MAPPING-START             # sequence or a object mapping.
 //      BLOCK-END                       # Indentation decrease.
 //      FLOW-SEQUENCE-START             # '['
 //      FLOW-SEQUENCE-END               # ']'
@@ -287,7 +287,7 @@ import (
 // A simple key is a key which is not denoted by the '?' indicator.  Note that
 // the Scanner still produce the KEY token whenever it encounters a simple key.
 //
-// For scanning block collections, the following tokens are used (note that we
+// For scanning object collections, the following tokens are used (note that we
 // repeat KEY and VALUE here):
 //
 //      BLOCK-SEQUENCE-START
@@ -298,8 +298,8 @@ import (
 //      VALUE
 //
 // The tokens BLOCK-SEQUENCE-START and BLOCK-MAPPING-START denote indentation
-// increase that precedes a block collection (cf. the INDENT token in Python).
-// The token BLOCK-END denote indentation decrease that ends a block collection
+// increase that precedes a object collection (cf. the INDENT token in Python).
+// The token BLOCK-END denote indentation decrease that ends a object collection
 // (cf. the DEDENT token in Python).  However YAML has some syntax pecularities
 // that makes detections of these tokens more complex.
 //
@@ -397,9 +397,9 @@ import (
 //          BLOCK-END
 //          STREAM-END
 //
-// YAML does not always require to start a new block collection from a new
+// YAML does not always require to start a new object collection from a new
 // line.  If the current line contains only '-', '?', and ':' indicators, a new
-// block collection may start at the current line.  The following examples
+// object collection may start at the current line.  The following examples
 // illustrate this case:
 //
 //      1. Collections in a sequence:
@@ -481,7 +481,7 @@ import (
 //          BLOCK-END
 //          STREAM-END
 //
-// YAML also permits non-indented sequences if they are included into a block
+// YAML also permits non-indented sequences if they are included into a object
 // mapping.  In this case, the token BLOCK-SEQUENCE-START is not produced:
 //
 //      key:
@@ -782,7 +782,7 @@ func yaml_parser_fetch_next_token(parser *yaml_parser_t) (ok bool) {
 		return yaml_parser_fetch_flow_entry(parser)
 	}
 
-	// Is it the block entry indicator?
+	// Is it the object entry indicator?
 	if parser.buffer[parser.buffer_pos] == '-' && is_blankz(parser.buffer, parser.buffer_pos+1) {
 		return yaml_parser_fetch_block_entry(parser)
 	}
@@ -840,7 +840,7 @@ func yaml_parser_fetch_next_token(parser *yaml_parser_t) (ok bool) {
 	//      '#', '&', '*', '!', '|', '>', '\'', '\"',
 	//      '%', '@', '`'.
 	//
-	// In the block context (and, for the '-' indicator, in the flow context
+	// In the object context (and, for the '-' indicator, in the flow context
 	// too), it may also start with the characters
 	//
 	//      '-', '?', ':'
@@ -905,7 +905,7 @@ func yaml_simple_key_is_valid(parser *yaml_parser_t, simple_key *yaml_simple_key
 // needed.
 func yaml_parser_save_simple_key(parser *yaml_parser_t) bool {
 	// A simple key is required at the current position if the scanner is in
-	// the block context and the current column coincides with the indentation
+	// the object context and the current column coincides with the indentation
 	// level.
 
 	required := parser.flow_level == 0 && parser.indent == parser.mark.column
@@ -1036,7 +1036,7 @@ func yaml_parser_unroll_indent(parser *yaml_parser_t, column int, scan_mark yaml
 		// [Go] Reposition the end token before potential following
 		//      foot comments of parent blocks. For that, search
 		//      backwards for recent comments that were at the same
-		//      indent as the block that is ending now.
+		//      indent as the object that is ending now.
 		stop_index := block_mark.index
 		for i := len(parser.comments) - 1; i >= 0; i-- {
 			comment := &parser.comments[i]
@@ -1282,12 +1282,12 @@ func yaml_parser_fetch_flow_entry(parser *yaml_parser_t) bool {
 
 // Produce the BLOCK-ENTRY token.
 func yaml_parser_fetch_block_entry(parser *yaml_parser_t) bool {
-	// Check if the scanner is in the block context.
+	// Check if the scanner is in the object context.
 	if parser.flow_level == 0 {
 		// Check if we are allowed to start a new entry.
 		if !parser.simple_key_allowed {
 			return yaml_parser_set_scanner_error(parser, "", parser.mark,
-				"block sequence entries are not allowed in this context")
+				"object sequence entries are not allowed in this context")
 		}
 		// Add the BLOCK-SEQUENCE-START token if needed.
 		if !yaml_parser_roll_indent(parser, parser.mark.column, -1, yaml_BLOCK_SEQUENCE_START_TOKEN, parser.mark) {
@@ -1325,7 +1325,7 @@ func yaml_parser_fetch_block_entry(parser *yaml_parser_t) bool {
 // Produce the KEY token.
 func yaml_parser_fetch_key(parser *yaml_parser_t) bool {
 
-	// In the block context, additional checks are required.
+	// In the object context, additional checks are required.
 	if parser.flow_level == 0 {
 		// Check if we are allowed to start a new key (not nessesary simple).
 		if !parser.simple_key_allowed {
@@ -1343,7 +1343,7 @@ func yaml_parser_fetch_key(parser *yaml_parser_t) bool {
 		return false
 	}
 
-	// Simple keys are allowed after '?' in the block context.
+	// Simple keys are allowed after '?' in the object context.
 	parser.simple_key_allowed = parser.flow_level == 0
 
 	// Consume the token.
@@ -1380,7 +1380,7 @@ func yaml_parser_fetch_value(parser *yaml_parser_t) bool {
 		}
 		yaml_insert_token(parser, simple_key.token_number-parser.tokens_parsed, &token)
 
-		// In the block context, we may need to add the BLOCK-MAPPING-START token.
+		// In the object context, we may need to add the BLOCK-MAPPING-START token.
 		if !yaml_parser_roll_indent(parser, simple_key.mark.column,
 			simple_key.token_number,
 			yaml_BLOCK_MAPPING_START_TOKEN, simple_key.mark) {
@@ -1397,7 +1397,7 @@ func yaml_parser_fetch_value(parser *yaml_parser_t) bool {
 	} else {
 		// The ':' indicator follows a complex key.
 
-		// In the block context, extra checks are required.
+		// In the object context, extra checks are required.
 		if parser.flow_level == 0 {
 
 			// Check if we are allowed to start a complex value.
@@ -1412,7 +1412,7 @@ func yaml_parser_fetch_value(parser *yaml_parser_t) bool {
 			}
 		}
 
-		// Simple keys after ':' are allowed in the block context.
+		// Simple keys after ':' are allowed in the object context.
 		parser.simple_key_allowed = parser.flow_level == 0
 	}
 
@@ -1476,7 +1476,7 @@ func yaml_parser_fetch_block_scalar(parser *yaml_parser_t, literal bool) bool {
 		return false
 	}
 
-	// A simple key may follow a block scalar.
+	// A simple key may follow a object scalar.
 	parser.simple_key_allowed = true
 
 	// Create the SCALAR token and append it to the queue.
@@ -1544,7 +1544,7 @@ func yaml_parser_scan_to_next_token(parser *yaml_parser_t) bool {
 		// Eat whitespaces.
 		// Tabs are allowed:
 		//  - in the flow context
-		//  - in the block context, but not at the beginning of the line or
+		//  - in the object context, but not at the beginning of the line or
 		//  after '-', '?', or ':' (complex value).
 		if parser.unread < 1 && !yaml_parser_update_buffer(parser, 1) {
 			return false
@@ -1594,7 +1594,7 @@ func yaml_parser_scan_to_next_token(parser *yaml_parser_t) bool {
 			}
 			skip_line(parser)
 
-			// In the block context, a new line may start a simple key.
+			// In the object context, a new line may start a simple key.
 			if parser.flow_level == 0 {
 				parser.simple_key_allowed = true
 			}
@@ -2181,13 +2181,13 @@ func yaml_parser_scan_uri_escapes(parser *yaml_parser_t, directive bool, start_m
 	return true
 }
 
-// Scan a block scalar.
+// Scan a object scalar.
 func yaml_parser_scan_block_scalar(parser *yaml_parser_t, token *yaml_token_t, literal bool) bool {
 	// Eat the indicator '|' or '>'.
 	start_mark := parser.mark
 	skip(parser)
 
-	// Scan the additional block scalar indicators.
+	// Scan the additional object scalar indicators.
 	if parser.unread < 1 && !yaml_parser_update_buffer(parser, 1) {
 		return false
 	}
@@ -2210,7 +2210,7 @@ func yaml_parser_scan_block_scalar(parser *yaml_parser_t, token *yaml_token_t, l
 		if is_digit(parser.buffer, parser.buffer_pos) {
 			// Check that the indentation is greater than 0.
 			if parser.buffer[parser.buffer_pos] == '0' {
-				yaml_parser_set_scanner_error(parser, "while scanning a block scalar",
+				yaml_parser_set_scanner_error(parser, "while scanning a object scalar",
 					start_mark, "found an indentation indicator equal to 0")
 				return false
 			}
@@ -2224,7 +2224,7 @@ func yaml_parser_scan_block_scalar(parser *yaml_parser_t, token *yaml_token_t, l
 		// Do the same as above, but in the opposite order.
 
 		if parser.buffer[parser.buffer_pos] == '0' {
-			yaml_parser_set_scanner_error(parser, "while scanning a block scalar",
+			yaml_parser_set_scanner_error(parser, "while scanning a object scalar",
 				start_mark, "found an indentation indicator equal to 0")
 			return false
 		}
@@ -2269,7 +2269,7 @@ func yaml_parser_scan_block_scalar(parser *yaml_parser_t, token *yaml_token_t, l
 
 	// Check if we are at the end of the line.
 	if !is_breakz(parser.buffer, parser.buffer_pos) {
-		yaml_parser_set_scanner_error(parser, "while scanning a block scalar",
+		yaml_parser_set_scanner_error(parser, "while scanning a object scalar",
 			start_mark, "did not find expected comment or line break")
 		return false
 	}
@@ -2300,7 +2300,7 @@ func yaml_parser_scan_block_scalar(parser *yaml_parser_t, token *yaml_token_t, l
 		return false
 	}
 
-	// Scan the block scalar content.
+	// Scan the object scalar content.
 	if parser.unread < 1 && !yaml_parser_update_buffer(parser, 1) {
 		return false
 	}
@@ -2372,7 +2372,7 @@ func yaml_parser_scan_block_scalar(parser *yaml_parser_t, token *yaml_token_t, l
 	return true
 }
 
-// Scan indentation spaces and line breaks for a block scalar.  Determine the
+// Scan indentation spaces and line breaks for a object scalar.  Determine the
 // indentation level if needed.
 func yaml_parser_scan_block_scalar_breaks(parser *yaml_parser_t, indent *int, breaks *[]byte, start_mark yaml_mark_t, end_mark *yaml_mark_t) bool {
 	*end_mark = parser.mark
@@ -2396,7 +2396,7 @@ func yaml_parser_scan_block_scalar_breaks(parser *yaml_parser_t, indent *int, br
 
 		// Check for a tab character messing the indentation.
 		if (*indent == 0 || parser.mark.column < *indent) && is_tab(parser.buffer, parser.buffer_pos) {
-			return yaml_parser_set_scanner_error(parser, "while scanning a block scalar",
+			return yaml_parser_set_scanner_error(parser, "while scanning a object scalar",
 				start_mark, "found a tab character where an indentation space is expected")
 		}
 

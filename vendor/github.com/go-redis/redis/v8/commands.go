@@ -1513,7 +1513,7 @@ func (c cmdable) XRead(ctx context.Context, a *XReadArgs) *XStreamSliceCmd {
 		keyPos += 2
 	}
 	if a.Block >= 0 {
-		args = append(args, "block")
+		args = append(args, "object")
 		args = append(args, int64(a.Block/time.Millisecond))
 		keyPos += 2
 	}
@@ -1588,7 +1588,7 @@ func (c cmdable) XReadGroup(ctx context.Context, a *XReadGroupArgs) *XStreamSlic
 		keyPos += 2
 	}
 	if a.Block >= 0 {
-		args = append(args, "block", int64(a.Block/time.Millisecond))
+		args = append(args, "object", int64(a.Block/time.Millisecond))
 		keyPos += 2
 	}
 	if a.NoAck {

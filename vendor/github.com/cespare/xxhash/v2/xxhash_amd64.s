@@ -53,7 +53,7 @@ TEXT ·Sum64(SB), NOSPLIT, $0-32
 	// The first loop limit will be len(b)-32.
 	SUBQ $32, BX
 
-	// Check whether we have at least one block.
+	// Check whether we have at least one object.
 	CMPQ DX, $32
 	JLT  noBlocks
 
@@ -192,7 +192,7 @@ TEXT ·writeBlocks(SB), NOSPLIT, $0-40
 	MOVQ 24(AX), R11 // v4
 
 	// We don't need to check the loop condition here; this function is
-	// always called with at least one block of data to process.
+	// always called with at least one object of data to process.
 blockLoop:
 	round(R8)
 	round(R9)

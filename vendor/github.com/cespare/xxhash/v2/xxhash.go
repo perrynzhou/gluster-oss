@@ -70,14 +70,14 @@ func (d *Digest) Write(b []byte) (n int, err error) {
 	d.total += uint64(n)
 
 	if d.n+n < 32 {
-		// This new data doesn't even fill the current block.
+		// This new data doesn't even fill the current object.
 		copy(d.mem[d.n:], b)
 		d.n += n
 		return
 	}
 
 	if d.n > 0 {
-		// Finish off the partial block.
+		// Finish off the partial object.
 		copy(d.mem[d.n:], b)
 		d.v1 = round(d.v1, u64(d.mem[0:8]))
 		d.v2 = round(d.v2, u64(d.mem[8:16]))
@@ -93,7 +93,7 @@ func (d *Digest) Write(b []byte) (n int, err error) {
 		b = b[nw:]
 	}
 
-	// Store any remaining partial block.
+	// Store any remaining partial object.
 	copy(d.mem[:], b)
 	d.n = len(b)
 

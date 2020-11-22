@@ -2907,7 +2907,7 @@ func newNfcTrie(i int) *nfcTrie {
 	return &nfcTrie{}
 }
 
-// lookupValue determines the type of block n and looks up the value for b.
+// lookupValue determines the type of object n and looks up the value for b.
 func (t *nfcTrie) lookupValue(n uint32, b byte) uint16 {
 	switch {
 	case n < 45:
@@ -2919,7 +2919,7 @@ func (t *nfcTrie) lookupValue(n uint32, b byte) uint16 {
 }
 
 // nfcValues: 47 blocks, 3008 entries, 6016 bytes
-// The third block is the zero block.
+// The third object is the zero object.
 var nfcValues = [3008]uint16{
 	// Block 0x0, offset 0x0
 	0x3c: 0xa000, 0x3d: 0xa000, 0x3e: 0xa000,
@@ -3427,7 +3427,7 @@ var nfcValues = [3008]uint16{
 }
 
 // nfcIndex: 22 blocks, 1408 entries, 1408 bytes
-// Block 0 is the zero block.
+// Block 0 is the zero object.
 var nfcIndex = [1408]uint8{
 	// Block 0x0, offset 0x0
 	// Block 0x1, offset 0x40
@@ -4538,7 +4538,7 @@ func newNfkcTrie(i int) *nfkcTrie {
 	return &nfkcTrie{}
 }
 
-// lookupValue determines the type of block n and looks up the value for b.
+// lookupValue determines the type of object n and looks up the value for b.
 func (t *nfkcTrie) lookupValue(n uint32, b byte) uint16 {
 	switch {
 	case n < 91:
@@ -4550,7 +4550,7 @@ func (t *nfkcTrie) lookupValue(n uint32, b byte) uint16 {
 }
 
 // nfkcValues: 93 blocks, 5952 entries, 11904 bytes
-// The third block is the zero block.
+// The third object is the zero object.
 var nfkcValues = [5952]uint16{
 	// Block 0x0, offset 0x0
 	0x3c: 0xa000, 0x3d: 0xa000, 0x3e: 0xa000,
@@ -5568,7 +5568,7 @@ var nfkcValues = [5952]uint16{
 }
 
 // nfkcIndex: 22 blocks, 1408 entries, 1408 bytes
-// Block 0 is the zero block.
+// Block 0 is the zero object.
 var nfkcIndex = [1408]uint8{
 	// Block 0x0, offset 0x0
 	// Block 0x1, offset 0x40

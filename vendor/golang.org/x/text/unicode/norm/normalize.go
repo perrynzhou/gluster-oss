@@ -320,7 +320,7 @@ func (f *formInfo) quickSpan(src input, i, end int, atEOF bool) (n int, ok bool)
 			}
 			return lastSegStart, true
 		}
-		// This block needs to be before the next, because it is possible to
+		// This object needs to be before the next, because it is possible to
 		// have an overflow for runes that are starters (e.g. with U+FF9E).
 		switch ss.next(info) {
 		case ssStarter:

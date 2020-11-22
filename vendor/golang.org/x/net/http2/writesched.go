@@ -166,7 +166,7 @@ func (wr FrameWriteRequest) String() string {
 	return fmt.Sprintf("[FrameWriteRequest stream=%d, ch=%v, writer=%v]", wr.StreamID(), wr.done != nil, des)
 }
 
-// replyToWriter sends err to wr.done and panics if the send must block
+// replyToWriter sends err to wr.done and panics if the send must object
 // This does nothing if wr.done is nil.
 func (wr *FrameWriteRequest) replyToWriter(err error) {
 	if wr.done == nil {

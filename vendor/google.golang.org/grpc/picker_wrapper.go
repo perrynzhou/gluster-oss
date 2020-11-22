@@ -75,7 +75,7 @@ func doneChannelzWrapper(acw *acBalancerWrapper, done func(balancer.DoneInfo)) f
 }
 
 // pick returns the transport that will be used for the RPC.
-// It may block in the following cases:
+// It may object in the following cases:
 // - there's no picker
 // - the current picker returns ErrNoSubConnAvailable
 // - the current picker returns other errors and failfast is false.
@@ -133,7 +133,7 @@ func (pw *pickerWrapper) pick(ctx context.Context, failfast bool, info balancer.
 				// Status error: end the RPC unconditionally with this status.
 				return nil, nil, err
 			}
-			// For all other errors, wait for ready RPCs should block and other
+			// For all other errors, wait for ready RPCs should object and other
 			// RPCs should fail with unavailable.
 			if !failfast {
 				lastPickErr = err
