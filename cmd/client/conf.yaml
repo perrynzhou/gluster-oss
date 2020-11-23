@@ -1,3 +1,4 @@
 storageGateway:
-  addr: 172.25.78.25
+  addr:  10.211.55.11
   port: 5566
+  timeout: 1000

@@ -100,11 +100,11 @@ interfaces:
               body:
               - loop:
                   collection: page.blocks
-                  variable: block
+                  variable: object
                   body:
-                  - print: ["\nBlock confidence: %s", block.confidence]
+                  - print: ["\nBlock confidence: %s", object.confidence]
                   - loop:
-                      collection: block.paragraphs
+                      collection: object.paragraphs
                       variable: par
                       body:
                       - print: ["\tParagraph confidence: %s", par.confidence]
@@ -149,11 +149,11 @@ interfaces:
               body:
               - loop:
                   collection: page.blocks
-                  variable: block
+                  variable: object
                   body:
-                  - print: ["\nBlock confidence: %s", block.confidence]
+                  - print: ["\nBlock confidence: %s", object.confidence]
                   - loop:
-                      collection: block.paragraphs
+                      collection: object.paragraphs
                       variable: par
                       body:
                       - print: ["\tParagraph confidence: %s", par.confidence]

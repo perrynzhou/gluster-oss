@@ -1,8 +1,8 @@
 package service
 
 import (
-	"glusterfs-storage-gateway/bucket"
 	fs_api "glusterfs-storage-gateway/fs-api"
+	"glusterfs-storage-gateway/manage/bucket"
 	"glusterfs-storage-gateway/meta"
 	"glusterfs-storage-gateway/protocol/pb"
 	"glusterfs-storage-gateway/utils"
@@ -21,22 +21,26 @@ type BucketService struct {
 }
 
 func NewBucketSerivce(api *fs_api.FsApi, serviceName string, wg *sync.WaitGroup) *BucketService {
+	var err error
 	bucketService := &BucketService{
 		fsApi:           api,
 		ServiceName:     serviceName,
 		bucketRequestCh: make(chan *bucket.BucketInfoRequest),
 		wg:              wg,
 	}
-	redisCon :=utils.RedisClient.Conn(context.Background())
-	bucketService.bucketMange=bucket.NewBucketManage(api, redisCon,bucketService.bucketRequestCh, wg)
+	redisCon := utils.RedisClient.Conn(context.Background())
+	bucketService.bucketMange, err = bucket.NewBucketManage(api, redisCon, bucketService.bucketRequestCh, wg)
+	if err != nil {
+		return nil
+	}
 	log.Info("init BucketService success")
 	return bucketService
 }
 
-func (s *BucketService)Run() {
+func (s *BucketService) Run() {
 	s.bucketMange.Run()
 }
-func (s *BucketService)Stop() {
+func (s *BucketService) Stop() {
 	s.bucketMange.Stop()
 }
 func (s *BucketService) CreateBucket(ctx context.Context, createBucketRequest *pb.CreateBucketRequest) (*pb.CreateBucketResponse, error) {
