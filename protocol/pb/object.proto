@@ -1,6 +1,4 @@
 syntax = "proto3";
-import "google/api/annotations.proto";
-import "google/protobuf/timestamp.proto";
 package pb;
 message PutObjectRequest{
     string bucket_name = 1;
@@ -8,54 +6,55 @@ message PutObjectRequest{
     map<string, string> user_defined = 4;
    	string user_tags=5;
     uint64 objects_size = 6;
-    string contenttype=7;
-    google.protobuf.Timestamp expire_time=8;
+    string content_type=7;
+    string message = 8;
+
 }
 
 message PutObjectResponse{
    string bucket_name = 1;
    string object_name = 2;
-   string object_id = 3;
+   uint64 object_id = 3;
    map<string, string> user_defined = 4;
    string user_tags=5;
    string block_id=6;
    uint64 start_pos=7;
    uint64 objects_size = 8;
    string content_type=9;
-   google.protobuf.Timestamp expire_time=10;
-   string message = 4;
+   string message = 10;
 
 }
 
 message GetObjectRequest{
     //bucket name
     string bucket_name = 1;
-    string object_id =3;
+    //format: {bucket-name}.id
+    uint64 object_id =2;
+    string message = 3;
 }
 
 message GetObjectReponse{
     //bucket name
     string bucket_name = 1;
-    string object_id = 2;
+    uint64 object_id = 2;
     map<string, string> user_defined = 3;
     string user_tags=4;
     string block_id=5;
     uint64 start_pos=6;
     uint64 objects_size = 7;
-    string contenttype=8;
-    google.protobuf.Timestamp expire_time=9;
-    string message = 10;
+    string content_type=8;
+    string message = 9;
 }
 
 message DeleteObjectRequest{
     string bucket_name = 1;
-    string object_id =2;
+    uint64 object_id =2;
     string message = 3;
 }
 
 message DeleteObjectResponse{
     string bucket_name = 1;
-    string object_id =2;
+    uint64 object_id =2;
     string message = 3;
 }
 
