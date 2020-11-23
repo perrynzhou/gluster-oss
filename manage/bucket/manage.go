@@ -37,7 +37,7 @@ type BucketManage struct {
 }
 
 func NewBucketManage(api *fs_api.FsApi, conn *redis.Conn, bucketRequestCh chan *BucketInfoRequest, wg *sync.WaitGroup) (*BucketManage, error) {
-	manage := &BucketManage{
+	bucketManage := &BucketManage{
 		api:             api,
 		conn:            conn,
 		ReqCh:           bucketRequestCh,
@@ -49,31 +49,31 @@ func NewBucketManage(api *fs_api.FsApi, conn *redis.Conn, bucketRequestCh chan *
 	}
 	var bucketInfoFile *fs_api.FsFd
 	var err error
-	if err = manage.api.Stat(bucketInfoFilePath); err != nil {
-		bucketInfoFile, err = manage.api.Creat(bucketInfoFilePath, os.O_CREATE|os.O_RDWR|os.O_APPEND, os.ModePerm)
+	if err = bucketManage.api.Stat(bucketInfoFilePath); err != nil {
+		bucketInfoFile, err = bucketManage.api.Creat(bucketInfoFilePath, os.O_CREATE|os.O_RDWR|os.O_APPEND, os.ModePerm)
 	} else {
-		bucketInfoFile, err = manage.api.Open(bucketInfoFilePath, os.O_RDWR|os.O_APPEND)
+		bucketInfoFile, err = bucketManage.api.Open(bucketInfoFilePath, os.O_RDWR|os.O_APPEND)
 	}
 	if err != nil {
 		return nil, err
 	}
-	manage.bucketInfoFile = bucketInfoFile
-	return manage, nil
+	bucketManage.bucketInfoFile = bucketInfoFile
+	return bucketManage, nil
 }
 
-func (manage *BucketManage) refreshCache() {
+func (bucketManage *BucketManage) refreshCache() {
 	log.Infoln("run BucketService refreshCache")
-	defer manage.wg.Done()
+	defer bucketManage.wg.Done()
 	for {
 		select {
-		case bucketInfo := <-manage.notifyCh:
-			manage.BucketInfoCache[bucketInfo.Name] = bucketInfo
-		case <-manage.doneCh:
+		case bucketInfo := <-bucketManage.notifyCh:
+			bucketManage.BucketInfoCache[bucketInfo.Name] = bucketInfo
+		case <-bucketManage.doneCh:
 			return
 		}
 	}
 }
-func (manage *BucketManage) handleCreateBucketRequest(request *BucketInfoRequest) error {
+func (bucketManage *BucketManage) handleCreateBucketRequest(request *BucketInfoRequest) error {
 	response := &BucketInfoResponse{
 		Reply: request.Info,
 	}
@@ -84,33 +84,33 @@ func (manage *BucketManage) handleCreateBucketRequest(request *BucketInfoRequest
 		}
 		request.Done <- response
 	}(request, response)
-	if manage.checkBucketExist(request.Info.Name) {
+	if bucketManage.checkBucketExist(request.Info.Name) {
 		response.Err = errors.New(fmt.Sprintf("%s already exists", request.Info.Name))
 		return response.Err
 	}
 	log.Infoln("handleCreateBucketRequest fetch request:", request)
 	var b []byte
-	if err := manage.handleBucketDir(request.Info.Name, request.Info.RealDirName, createBucketDirType); err != nil {
+	if err := bucketManage.handleBucketDir(request.Info.Name, request.Info.RealDirName, createBucketDirType); err != nil {
 		response.Err = err
 	} else {
-		if b, err = manage.storeBucketInfo(request.Info, request.RequestType); err != nil {
-			manage.handleBucketDir(request.Info.Name, request.Info.RealDirName, deleteBucketDirType)
+		if b, err = bucketManage.storeBucketInfo(request.Info, request.RequestType); err != nil {
+			bucketManage.handleBucketDir(request.Info.Name, request.Info.RealDirName, deleteBucketDirType)
 			request.Info.Status = DeleteBucketType
-			manage.conn.Del(context.Background(), request.Info.Name)
+			bucketManage.conn.Del(context.Background(), request.Info.Name)
 			response.Err = err
 		} else {
 			response.Err = nil
 			log.Infoln("handleCreateBucketRequest resp:::", response)
-			manage.conn.Set(context.Background(), request.Info.Name, string(b), -1)
-			manage.notifyCh <- request.Info
+			bucketManage.conn.Set(context.Background(), request.Info.Name, string(b), -1)
+			bucketManage.notifyCh <- request.Info
 		}
 	}
 
 	return response.Err
 }
-func (manage *BucketManage) handleUpdateBucketRequest(request *BucketInfoRequest) error {
+func (bucketManage *BucketManage) handleUpdateBucketRequest(request *BucketInfoRequest) error {
 
-	bucketInfo, err := manage.fetchBucketInfo(request.Info.Name)
+	bucketInfo, err := bucketManage.fetchBucketInfo(request.Info.Name)
 	response := &BucketInfoResponse{}
 	defer func(request *BucketInfoRequest, response *BucketInfoResponse, bucketInfo *meta.BucketInfo) {
 		request.Done <- response
@@ -132,17 +132,17 @@ func (manage *BucketManage) handleUpdateBucketRequest(request *BucketInfoRequest
 	bucketInfo.UsageInfo.ObjectsLimitCount = request.Info.UsageInfo.ObjectsLimitCount
 	bucketInfo.UsageInfo.CapacityLimitSize = request.Info.UsageInfo.CapacityLimitSize
 	var b []byte
-	if b, err = manage.storeBucketInfo(bucketInfo, request.RequestType); err != nil {
+	if b, err = bucketManage.storeBucketInfo(bucketInfo, request.RequestType); err != nil {
 		response.Err = err
 		return err
 	}
-	manage.conn.Set(context.Background(), request.Info.Name, string(b), -1)
-	manage.persistenceBucketInfoToDisk(request.Info.Name, b)
-	manage.notifyCh <- request.Info
+	bucketManage.conn.Set(context.Background(), request.Info.Name, string(b), -1)
+	bucketManage.persistenceBucketInfoToDisk(request.Info.Name, b)
+	bucketManage.notifyCh <- request.Info
 	return nil
 }
-func (manage *BucketManage) handleDeleteBucketRequest(request *BucketInfoRequest) error {
-	bucketInfo, err := manage.fetchBucketInfo(request.Info.Name)
+func (bucketManage *BucketManage) handleDeleteBucketRequest(request *BucketInfoRequest) error {
+	bucketInfo, err := bucketManage.fetchBucketInfo(request.Info.Name)
 	response := &BucketInfoResponse{}
 	defer func(request *BucketInfoRequest, response *BucketInfoResponse, bucketInfo *meta.BucketInfo) {
 		request.Done <- response
@@ -153,42 +153,42 @@ func (manage *BucketManage) handleDeleteBucketRequest(request *BucketInfoRequest
 		return err
 	}
 	bucketInfo.Status = BucketInActiveStatus
-	manage.storeBucketInfo(bucketInfo, DeleteBucketType)
-	go manage.delBucketInfoAndBucketData(request, bucketInfo)
+	bucketManage.storeBucketInfo(bucketInfo, DeleteBucketType)
+	go bucketManage.delBucketInfoAndBucketData(request, bucketInfo)
 	return nil
 }
-func (manage *BucketManage) Run() {
-	manage.goFuncCount = 2
-	manage.wg.Add(manage.goFuncCount)
-	go manage.handleBucketRequest()
-	go manage.refreshCache()
+func (bucketManage *BucketManage) Run() {
+	bucketManage.goFuncCount = 2
+	bucketManage.wg.Add(bucketManage.goFuncCount)
+	go bucketManage.handleBucketRequest()
+	go bucketManage.refreshCache()
 
 }
-func (manage *BucketManage) handleBucketRequest() {
+func (bucketManage *BucketManage) handleBucketRequest() {
 	log.Infoln("run BucketService handleBucketRequest")
-	manage.wg.Done()
+	bucketManage.wg.Done()
 	for {
 		select {
-		case req := <-manage.ReqCh:
+		case req := <-bucketManage.ReqCh:
 			log.Infoln("recive request:", req)
 			switch req.RequestType {
 			case CreateBucketType:
-				manage.handleCreateBucketRequest(req)
+				bucketManage.handleCreateBucketRequest(req)
 				break
 			case DeleteBucketType:
-				manage.handleDeleteBucketRequest(req)
+				bucketManage.handleDeleteBucketRequest(req)
 				break
 			case UpdateBucketType:
-				manage.handleUpdateBucketRequest(req)
+				bucketManage.handleUpdateBucketRequest(req)
 				break
 			}
-		case <-manage.doneCh:
+		case <-bucketManage.doneCh:
 			return
 		}
 	}
 }
-func (manage *BucketManage) Stop() {
-	for i := 0; i < manage.goFuncCount; i++ {
-		manage.doneCh <- struct{}{}
+func (bucketManage *BucketManage) Stop() {
+	for i := 0; i < bucketManage.goFuncCount; i++ {
+		bucketManage.doneCh <- struct{}{}
 	}
 }

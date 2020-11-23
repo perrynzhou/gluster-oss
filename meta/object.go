@@ -16,7 +16,7 @@ type ObjectInfo struct {
 	CreatTime time.Time
 	AccessTime time.Time
 	// Total object size.
-	Size int64
+	Size uint64
 	// A standard MIME type describing the format of the object.
 	ContentType string
 	// Date and time at which the object is no longer able to be cached
@@ -25,4 +25,5 @@ type ObjectInfo struct {
 	UserDefined map[string]string
 	// User-Defined object tags
 	UserTags string
+	Status uint8
 }

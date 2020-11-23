@@ -5,9 +5,7 @@ import (
 	"sync"
 )
 
-const (
-	BlockKey = ""
-)
+
 type BlockFd struct {
 	Fd *fs_api.FsFd
 	Index  uint64
