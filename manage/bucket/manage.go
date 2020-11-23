@@ -1,11 +1,5 @@
 package bucket
 
-/*
-  gluster volume : /
-              /bucket.info
-              /bucket1
-              /bucekt2
-*/
 import (
 	"errors"
 	"fmt"
