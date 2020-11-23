@@ -3,18 +3,19 @@ package object
 import (
 	"errors"
 	"fmt"
+	"github.com/go-redis/redis/v8"
+	log "github.com/sirupsen/logrus"
 	fs_api "glusterfs-storage-gateway/fs-api"
 	"glusterfs-storage-gateway/manage/bucket"
 	"glusterfs-storage-gateway/meta"
 	"os"
 	"sync"
-	log "github.com/sirupsen/logrus"
-	"github.com/go-redis/redis/v8"
 )
 
 const (
 	objectMetaFileName   = "object.meta"
 	blockMetaFileName = "block.meta"
+	blockIndexFileName = "block.index"
 	blockFileMinSize = 1024 * 1024 * 256
 
 )
@@ -30,12 +31,11 @@ type ObjectManage struct {
 	// each bucket maintain object meta,that such {object_key object_name object_info}
 	ObjectMetaFile map[string]*fs_api.FsFd
 	BlockMetaFile  map[string]*fs_api.FsFd
+	BlockIndexFile  map[string]*fs_api.FsFd
 	//how many write to one bucket Concurreny
 	writeConcurrent  int
-	//each bucket current max block,each block can support writeConcurrent writer
-	BlockCache map[string][]*BlockInfo
 	//each bucket maintains 128 block fd and mutex
-	BlockFileCache map[string][]*BlockFd
+	BlockCache map[string][]*BlockFd
 }
 
 func NewObjectManage(api *fs_api.FsApi, BucketInfoCache map[string]*meta.BucketInfo, NotifyCh chan *meta.BucketInfo, conn *redis.Conn) (*ObjectManage, error) {
@@ -50,15 +50,13 @@ func NewObjectManage(api *fs_api.FsApi, BucketInfoCache map[string]*meta.BucketI
 		BucketInfoCache: BucketInfoCache,
 		NotifyCh:        NotifyCh,
 		ObjectMetaFile:make(map[string]*fs_api.FsFd),
+		BlockIndexFile:make(map[string]*fs_api.FsFd),
 		BlockMetaFile:make(map[string]*fs_api.FsFd),
-		BlockCache:make(map[string][]*BlockInfo),
 		//each bucket maintains 128 block fd and mutex
-		BlockFileCache:make(map[string][]*BlockFd),
+		BlockCache:make(map[string][]*BlockFd),
 	}, nil
 }
-func (objectManage *ObjectManage) createObjectBlock(bucketName string) error {
-	return nil
-}
+
 func (objectManage *ObjectManage) Run() {
 	objectManage.wg.Add(1)
     go objectManage.handleObjectRequest()
@@ -69,6 +67,7 @@ func (objectManage *ObjectManage) Stop() {
 
 }
 func (objectManage *ObjectManage) handlePutObjectRequest(request *ObjectInfoRequest) error {
+
 	return nil
 }
 func (objectManage *ObjectManage) handleGetObjectRequest(request *ObjectInfoRequest) error {
