@@ -4,7 +4,7 @@ import (
 	"flag"
 	"glusterfs-storage-gateway/conf"
 	fs_api "glusterfs-storage-gateway/fs-api"
-	"glusterfs-storage-gateway/manage/bucket"
+	"glusterfs-storage-gateway/manage"
 	"glusterfs-storage-gateway/service"
 	"glusterfs-storage-gateway/utils"
 	"os"
@@ -51,7 +51,7 @@ func main() {
 		log.Fatal("init fsApi failed:", err)
 	}
 	log.Info("init glusterfs-storage-gateway success")
-	bucketService := service.NewBucketSerivce(fsApi, bucket.ServiceName, wg)
+	bucketService := service.NewBucketSerivce(fsApi, manage.ServiceName, wg)
 	service := service.NewService(serverConf, wg)
 	service.RegisterService(bucketService.ServiceName, bucketService)
 	service.Run()

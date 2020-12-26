@@ -48,7 +48,7 @@
       </list>
     </option>
   </component>
-  <component name="GOROOT" path="$USER_HOME$/App/go" />
+  <component name="GOROOT" path="/usr/local/go" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -79,12 +79,13 @@
     <property name="settings.editor.selected.configurable" value="go.sdk" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/manage" />
+      <recent name="$PROJECT_DIR$/meta" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/protocol/pb" />
       <recent name="$PROJECT_DIR$/manage/object" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/manage" />
     </key>
   </component>
   <component name="RunManager">
@@ -124,7 +125,7 @@
       </list>
     </recent_temporary>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="060af402-b06a-4d15-8399-99878b891f46" name="Default Changelist" comment="" />
@@ -154,11 +155,12 @@
     <integration-enabled>true</integration-enabled>
   </component>
   <component name="WindowStateProjectService">
-    <state x="729" y="382" key="#GOROOT" timestamp="1606094391576">
-      <screen x="0" y="0" width="1914" height="882" />
+    <state x="640" y="429" key="#GOROOT" timestamp="1608951377262">
+      <screen x="0" y="25" width="1680" height="933" />
     </state>
     <state x="729" y="382" key="#GOROOT/0.0.1914.882@0.0.1914.882" timestamp="1606094391576" />
     <state x="640" y="430" key="#GOROOT/0.23.1680.940@0.23.1680.940" timestamp="1606003449750" />
+    <state x="640" y="429" key="#GOROOT/0.25.1680.933@0.25.1680.933" timestamp="1608951377262" />
     <state x="673" y="302" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1606018868885">
       <screen x="0" y="23" width="1680" height="940" />
     </state>
@@ -184,11 +186,12 @@
     </state>
     <state x="388" y="102" key="SettingsEditor/0.0.1914.882@0.0.1914.882" timestamp="1606096698329" />
     <state x="341" y="132" key="SettingsEditor/0.23.1680.940@0.23.1680.940" timestamp="1606003502371" />
-    <state x="658" y="159" width="588" height="560" key="find.popup" timestamp="1606095300795">
-      <screen x="0" y="0" width="1914" height="882" />
+    <state x="578" y="194" width="576" height="595" key="find.popup" timestamp="1608963704557">
+      <screen x="0" y="25" width="1680" height="937" />
     </state>
     <state x="658" y="159" width="588" height="560" key="find.popup/0.0.1914.882@0.0.1914.882" timestamp="1606095300795" />
     <state x="659" y="160" width="589" height="560" key="find.popup/0.0.1918.886@0.0.1918.886" timestamp="1604743063618" />
+    <state x="578" y="194" width="576" height="595" key="find.popup/0.25.1680.937@0.25.1680.937" timestamp="1608963704557" />
     <state x="505" y="229" width="670" height="676" key="search.everywhere.popup" timestamp="1606050699068">
       <screen x="0" y="23" width="1680" height="940" />
     </state>

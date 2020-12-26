@@ -2,7 +2,7 @@ package service
 
 import (
 	fs_api "glusterfs-storage-gateway/fs-api"
-	"glusterfs-storage-gateway/manage/bucket"
+	"glusterfs-storage-gateway/manage"
 	"glusterfs-storage-gateway/meta"
 	"glusterfs-storage-gateway/protocol/pb"
 	"glusterfs-storage-gateway/utils"
@@ -11,12 +11,14 @@ import (
 	log "github.com/sirupsen/logrus"
 	"golang.org/x/net/context"
 )
-
+const (
+	BucketObjectMetaSubffix  = ".obj.meta"
+)
 type BucketService struct {
 	fsApi           *fs_api.FsApi
 	ServiceName     string
-	bucketRequestCh chan *bucket.BucketInfoRequest
-	bucketMange     *bucket.BucketManage
+	bucketRequestCh chan *manage.BucketRequest
+	bucketMange     *manage.BucketManage
 	wg              *sync.WaitGroup
 }
 
@@ -25,11 +27,11 @@ func NewBucketSerivce(api *fs_api.FsApi, serviceName string, wg *sync.WaitGroup)
 	bucketService := &BucketService{
 		fsApi:           api,
 		ServiceName:     serviceName,
-		bucketRequestCh: make(chan *bucket.BucketInfoRequest),
+		bucketRequestCh: make(chan *manage.BucketRequest),
 		wg:              wg,
 	}
 	redisCon := utils.RedisClient.Conn(context.Background())
-	bucketService.bucketMange, err = bucket.NewBucketManage(api, redisCon, bucketService.bucketRequestCh, wg)
+	bucketService.bucketMange, err = manage.NewBucketManage(api, redisCon, bucketService.bucketRequestCh, wg)
 	if err != nil {
 		return nil
 	}
@@ -44,7 +46,7 @@ func (s *BucketService) Stop() {
 	s.bucketMange.Stop()
 }
 func (s *BucketService) CreateBucket(ctx context.Context, createBucketRequest *pb.CreateBucketRequest) (*pb.CreateBucketResponse, error) {
-	req := bucket.NewCreateBucketInfoRequest(createBucketRequest)
+	req := manage.NewCreateBucketRequest(createBucketRequest)
 	log.Infoln("get CreateBucket request:", createBucketRequest)
 	s.bucketRequestCh <- req
 	resp := <-req.Done
@@ -54,9 +56,9 @@ func (s *BucketService) CreateBucket(ctx context.Context, createBucketRequest *p
 	createBucketResponse := &pb.CreateBucketResponse{
 		Name: bucketInfo.Name,
 		//request storage capacity
-		Capacity: bucketInfo.UsageInfo.CapacityLimitSize,
+		Capacity: bucketInfo.LimitSize,
 		//obejcts limits
-		ObjectsLimit: bucketInfo.UsageInfo.ObjectsLimitCount,
+		ObjectsLimit: bucketInfo.LimitCount,
 		BucketDir:    bucketInfo.RealDirName,
 		Message:      "success",
 	}
@@ -67,7 +69,7 @@ func (s *BucketService) CreateBucket(ctx context.Context, createBucketRequest *p
 }
 
 func (s *BucketService) DeleteBucket(ctx context.Context, deleteBucketRequest *pb.DeleteBucketRequest) (*pb.DeleteBucketResponse, error) {
-	req := bucket.NewDeleteBucketInfoRequest(deleteBucketRequest)
+	req := manage.NewDeleteBucketRequest(deleteBucketRequest)
 	log.Infoln("get DeleteBucket request:", deleteBucketRequest)
 
 	s.bucketRequestCh <- req
@@ -77,9 +79,9 @@ func (s *BucketService) DeleteBucket(ctx context.Context, deleteBucketRequest *p
 
 	deleteBucketResponse := &pb.DeleteBucketResponse{
 		Name:         bucketInfo.Name,
-		ObjectsLimit: bucketInfo.UsageInfo.ObjectsLimitCount,
-		Capacity:     bucketInfo.UsageInfo.CapacityLimitSize,
-		ObjectCount:  bucketInfo.UsageInfo.ObjectsCurrentCount,
+		ObjectsLimit: bucketInfo.LimitCount,
+		Capacity:     bucketInfo.LimitSize,
+		ObjectCount:  bucketInfo.CurrentCount,
 	}
 	if resp.Err != nil {
 		deleteBucketResponse.Message = resp.Err.Error()
@@ -87,7 +89,7 @@ func (s *BucketService) DeleteBucket(ctx context.Context, deleteBucketRequest *p
 	return deleteBucketResponse, resp.Err
 }
 func (s *BucketService) UpdateBucket(ctx context.Context, updateBucketRequest *pb.UpdateBucketRequest) (*pb.UpdateBucketResponse, error) {
-	req := bucket.NewUpdateBucketInfoRequest(updateBucketRequest)
+	req := manage.NewUpdateBucketRequest(updateBucketRequest)
 	log.Infoln("get UpdateBucket request:", updateBucketRequest)
 
 	s.bucketRequestCh <- req
@@ -97,9 +99,9 @@ func (s *BucketService) UpdateBucket(ctx context.Context, updateBucketRequest *p
 
 	updateBucketResponse := &pb.UpdateBucketResponse{
 		Name:         bucketInfo.Name,
-		ObjectsLimit: bucketInfo.UsageInfo.ObjectsLimitCount,
-		Capacity:     bucketInfo.UsageInfo.CapacityLimitSize,
-		ObjectCount:  bucketInfo.UsageInfo.ObjectsCurrentCount,
+		ObjectsLimit: bucketInfo.LimitCount,
+		Capacity:     bucketInfo.LimitSize,
+		ObjectCount:  bucketInfo.CurrentCount,
 		BucketDir:    bucketInfo.RealDirName,
 	}
 	updateBucketResponse.Message = "success"
