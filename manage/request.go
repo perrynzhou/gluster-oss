@@ -16,10 +16,6 @@ const (
 const (
 	ServiceName = "bucket"
 )
-const (
-	BucketActiveStatus   = 1
-	BucketInActiveStatus = 2
-)
 
 type BucketRequest struct {
 	RequestType uint8
@@ -38,7 +34,7 @@ func NewCreateBucketRequest(request *pb.CreateBucketRequest) *BucketRequest {
 			LimitCount:   request.ObjectsLimit,
 			CurrentCount: uint64(0),
 			LimitSize:    request.Capacity,
-			Status:       BucketActiveStatus,
+			Status:       meta.ActiveBucket,
 			RealDirName:  fmt.Sprintf("%s-%s", request.Name, uuid.New().String()),
 		},
 		Done:        make(chan *BucketResponse),
@@ -48,7 +44,8 @@ func NewCreateBucketRequest(request *pb.CreateBucketRequest) *BucketRequest {
 func NewDeleteBucketRequest(request *pb.DeleteBucketRequest) *BucketRequest {
 	return &BucketRequest{
 		Info: &meta.BucketInfo{
-			Name: request.Name,
+			Name:   request.Name,
+			Status: meta.InactiveBucket,
 		},
 		Done:        make(chan *BucketResponse),
 		RequestType: DeleteBucketType,
@@ -60,7 +57,7 @@ func NewUpdateBucketRequest(request *pb.UpdateBucketRequest) *BucketRequest {
 			Name:       request.Name,
 			LimitCount: request.ObjectsLimit,
 			LimitSize:  request.Capacity,
-			Status:     BucketActiveStatus,
+			Status:     meta.ActiveBucket,
 		},
 		Done:        make(chan *BucketResponse),
 		RequestType: UpdateBucketType,

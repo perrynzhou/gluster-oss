@@ -8,6 +8,7 @@ import (
 	"fmt"
 	fs_api "glusterfs-storage-gateway/fs-api"
 	"glusterfs-storage-gateway/meta"
+	"io"
 	"os"
 	"sync"
 
@@ -54,19 +55,27 @@ func InitBucketManage(api *fs_api.FsApi, bucketMetaFilePath string, bucketReques
 	data := make([]byte, 1024*1024*256)
 	api.Read(bucketMetaFile, data)
 	buf := bytes.NewBuffer(data)
-	scanner := bufio.NewScanner(buf)
-	for scanner.Scan() {
-		buketMeta := scanner.Text()
-		buketMeta = buketMeta[0 : len(buketMeta)-1]
+	reader := bufio.NewReader(buf)
+	var line string
+	for {
+		line, err = reader.ReadString('\n')
+		if err != nil && err != io.EOF {
+			break
+		}
 		bucket := &Bucket{}
-		if err := json.Unmarshal([]byte(buketMeta), bucket); err != nil {
+		if err := json.Unmarshal([]byte(data), bucket); err != nil {
 			return nil, err
 		}
 		bucket.Load(api)
 		bucketManage.BucketCache[bucket.Meta.Name] = bucket
+		// Process the line here.
+		log.Printf(" > Read %d characters\n", len(line))
+		if err != nil {
+			break
+		}
 	}
-	if err := scanner.Err(); err != nil {
-		fmt.Fprintln(os.Stderr, "reading standard input:", err)
+	if err != io.EOF {
+		log.Printf(" > Failed with error: %v\n", err)
 		return nil, err
 	}
 	return bucketManage, nil
@@ -91,6 +100,8 @@ func (bucketManage *BucketManage) refreshCache() {
 		select {
 		case bucket := <-bucketManage.notifyCh:
 			bucketManage.BucketCache[bucket.Meta.Name] = bucket
+			bucket.StoreMeta(bucketManage.api, bucketManage.bucketMetaFile)
+			break
 		case <-bucketManage.doneCh:
 			return
 		}
@@ -99,46 +110,62 @@ func (bucketManage *BucketManage) refreshCache() {
 func (bucketManage *BucketManage) handleCreateBucketRequest(request *BucketRequest) error {
 	var err error
 	var bucket *Bucket
-	response := &bucket.BucketResponse{}
-	defer bucketManage.handleError(request, response, err)
-	if bucket, err = bucketManage.checkBucket(request.Info.Name); err != nil {
-		log.Infoln("handleCreateBucketRequest fetch request:", request)
-		bucketDirName := fmt.Sprintf("%s-%s", request.Info.Name, uuid.New().String())
-		if bucket = NewBucket(bucketManage.api, request.Info.LimitSize, request.Info.LimitCount, request.Info.Name, bucketDirName); bucket == nil {
-			response.Err = errors.New("create bucket faild")
-		}
-		bucketManage.notifyCh <- bucket
-		return nil
+	var ok bool
+	response := &BucketResponse{
+		Reply: request.Info,
 	}
-	return err
+	defer func(request *BucketRequest) {
+		request.Done <- response
+	}(request)
+	if bucket, ok = bucketManage.BucketCache[request.Info.Name]; ok {
+		err = errors.New(fmt.Sprintf("bucket %s  exists", request.Info.Name))
+		response.Err = err
+		return err
+	}
+	log.Infoln("handleCreateBucketRequest fetch request:", request)
+	bucketDirName := fmt.Sprintf("%s-%s", request.Info.Name, uuid.New().String())
+	if bucket, err = NewBucket(bucketManage.api, request.Info.LimitSize, request.Info.LimitCount, request.Info.Name, bucketDirName); err != nil {
+		err = errors.New("create bucket faild")
+		return err
+	}
+	bucketManage.notifyCh <- bucket
+	return nil
+
 }
 func (bucketManage *BucketManage) handleError(request *BucketRequest, response *BucketResponse, err error) {
 	response.Reply = request.Info
 	response.Err = err
+	if err != nil {
+		log.Errorln("happen err:", err)
+	}
 	request.Done <- response
-}
-func (bucketManage *BucketManage) checkBucket(bucketName string) (*Bucket, error) {
-	var bucket *Bucket
-	var err error
-	var ok bool
-	// check bucket is exists
-	if bucket, ok = bucketManage.BucketCache[bucketName]; !ok {
-		err = errors.New(fmt.Sprintf("%s not exists", bucketName))
-		return nil, err
-	}
-	// check bucket is invalid
-	if err = bucket.IsPermit(); err != nil {
-		return nil, err
-	}
-	return bucket, nil
 }
 func (bucketManage *BucketManage) handleUpdateBucketRequest(request *BucketRequest) error {
 	var bucket *Bucket
 	var err error
 	var isChange bool
-	response := &bucket.BucketResponse{}
-	defer bucketManage.handleError(request, response, err)
-	if bucket, err = bucketManage.checkBucket(request.Info.Name); err != nil {
+	var ok bool
+	response := &BucketResponse{
+		Reply: request.Info,
+		Err:   nil,
+	}
+	defer func(request *BucketRequest) {
+		request.Done <- response
+	}(request)
+	if bucket, ok = bucketManage.BucketCache[request.Info.Name]; !ok {
+		err = errors.New(fmt.Sprintf("bucket %s not exists", request.Info.Name))
+		response.Err = err
+		return err
+	}
+
+	if err = bucket.checkStatus(); err != nil {
+		err = errors.New(fmt.Sprintf("bucket %s is  inactive", request.Info.Name))
+		response.Err = err
+		return err
+	}
+	if err = bucket.CheckLimit(); err != nil {
+		err = errors.New(fmt.Sprintf("bucket %s over limits", request.Info.Name))
+		response.Err = err
 		return err
 	}
 	if bucket.Meta.LimitCount < request.Info.LimitCount {
@@ -150,25 +177,36 @@ func (bucketManage *BucketManage) handleUpdateBucketRequest(request *BucketReque
 		isChange = true
 	}
 	if isChange {
-		StoreBucket(bucketManage.api, bucketManage.bucketMetaFile, bucket)
 		bucketManage.notifyCh <- bucket
 	}
+
 	return nil
 }
 func (bucketManage *BucketManage) handleDeleteBucketRequest(request *BucketRequest) error {
 	var err error
-	var bucketInfo *meta.BucketInfo
 	var bucket *Bucket
-	bucketInfo, err = bucketManage.fetchBucketInfo(request.Info.Name)
-	response := &bucket.BucketResponse{}
-	defer bucketManage.handleError(request, response, err)
-	bucket, err = bucketManage.checkBucket(request.Info.Name)
-	if err != nil {
+	var ok bool
+	response := &BucketResponse{
+		Reply: request.Info,
+	}
+	defer func(request *BucketRequest) {
+		request.Done <- response
+	}(request)
+	if bucket, ok = bucketManage.BucketCache[request.Info.Name]; !ok {
+		err = errors.New(fmt.Sprintf("bucket %s not exists", request.Info.Name))
+		response.Err = err
 		return err
 	}
-	bucketInfo.Status = bucket.BucketInActiveStatus
-	StoreBucket(bucketManage.api, bucketManage.bucketMetaFile, bucket)
-	go bucketManage.delBucketInfoAndBucketData(request, bucketInfo)
+	if err = bucket.checkStatus(); err != nil {
+		response.Err = err
+		return err
+	}
+	if err = bucket.CheckLimit(); err != nil {
+		response.Err = err
+		return err
+	}
+	bucket.Meta.Status = meta.InactiveBucket
+	bucketManage.notifyCh <- bucket
 	return nil
 }
 func (bucketManage *BucketManage) Run() {

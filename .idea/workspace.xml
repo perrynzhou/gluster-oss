@@ -80,6 +80,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/cmd/client" />
       <recent name="$PROJECT_DIR$/manage" />
       <recent name="$PROJECT_DIR$/meta" />
     </key>
@@ -161,10 +162,11 @@
     <state x="729" y="382" key="#GOROOT/0.0.1914.882@0.0.1914.882" timestamp="1606094391576" />
     <state x="640" y="430" key="#GOROOT/0.23.1680.940@0.23.1680.940" timestamp="1606003449750" />
     <state x="640" y="429" key="#GOROOT/0.25.1680.933@0.25.1680.933" timestamp="1608951377262" />
-    <state x="673" y="302" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1606018868885">
-      <screen x="0" y="23" width="1680" height="940" />
+    <state x="673" y="305" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1608990255142">
+      <screen x="0" y="25" width="1680" height="942" />
     </state>
     <state x="673" y="302" key="#com.intellij.fileTypes.FileTypeChooser/0.23.1680.940@0.23.1680.940" timestamp="1606018868885" />
+    <state x="673" y="305" key="#com.intellij.fileTypes.FileTypeChooser/0.25.1680.942@0.25.1680.942" timestamp="1608990255142" />
     <state width="1638" height="251" key="GridCell.Tab.0.bottom" timestamp="1606050158903">
       <screen x="0" y="23" width="1680" height="940" />
     </state>

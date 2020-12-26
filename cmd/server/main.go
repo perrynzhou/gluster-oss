@@ -25,7 +25,7 @@ func init() {
 	utils.InitLogFormat()
 }
 func initStoreBackend(sc *conf.ServerConfig) (*fs_api.FsApi, error) {
-
+	log.Debugf("****volume:%s,addr:%s,port:%d*****\n",sc.StoreBackend.Volume,sc.StoreBackend.Addr,sc.StoreBackend.Port)
 	api, err := fs_api.NewFsApi(sc.StoreBackend.Volume, sc.StoreBackend.Addr, sc.StoreBackend.Port, true)
 	if err != nil {
 		log.Errorln("new metaApi failed")
@@ -43,15 +43,21 @@ func main() {
 	signals := make(chan os.Signal, 1)
 	signal.Notify(signals, os.Interrupt, syscall.SIGTERM, syscall.SIGINT)
 	wg := &sync.WaitGroup{}
+	/*
 	if _,err =utils.InitRedisClient(serverConf.MetaBacked.Addr, serverConf.MetaBacked.Port);err != nil {
 		log.Fatalln("conection redis erros:",err)
 	}
+
+	 */
 	fsApi, err := initStoreBackend(serverConf)
 	if err != nil {
 		log.Fatal("init fsApi failed:", err)
 	}
 	log.Info("init glusterfs-storage-gateway success")
 	bucketService := service.NewBucketSerivce(fsApi, manage.ServiceName, wg)
+	if bucketService == nil {
+		log.Fatalln("start gatway failed");
+	}
 	service := service.NewService(serverConf, wg)
 	service.RegisterService(bucketService.ServiceName, bucketService)
 	service.Run()

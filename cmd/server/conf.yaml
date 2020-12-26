@@ -1,10 +1,10 @@
 serviceBackend:
-  addr: 10.211.55.11
+  addr: 10.211.55.3
   grpcport: 5566
   httpport: 5567
 storageBackend:
-  addr: 10.211.55.11
-  volume: dht
+  addr: 10.211.55.3
+  volume: dht-vol
   port: 24007
 metaBackend:
   addr: 10.211.55.10

@@ -5,7 +5,6 @@ import (
 	"glusterfs-storage-gateway/manage"
 	"glusterfs-storage-gateway/meta"
 	"glusterfs-storage-gateway/protocol/pb"
-	"glusterfs-storage-gateway/utils"
 	"sync"
 
 	log "github.com/sirupsen/logrus"
@@ -30,9 +29,9 @@ func NewBucketSerivce(api *fs_api.FsApi, serviceName string, wg *sync.WaitGroup)
 		bucketRequestCh: make(chan *manage.BucketRequest),
 		wg:              wg,
 	}
-	redisCon := utils.RedisClient.Conn(context.Background())
-	bucketService.bucketMange, err = manage.NewBucketManage(api, redisCon, bucketService.bucketRequestCh, wg)
+	bucketService.bucketMange, err = manage.NewBucketManage(api, bucketService.bucketRequestCh, wg)
 	if err != nil {
+		log.Errorln("new NewBucketManage failed")
 		return nil
 	}
 	log.Info("init BucketService success")
