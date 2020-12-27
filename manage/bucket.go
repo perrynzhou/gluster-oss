@@ -8,8 +8,10 @@ import (
 	"fmt"
 	fs_api "glusterfs-storage-gateway/fs-api"
 	"glusterfs-storage-gateway/meta"
+	"io"
 	"os"
 	"strconv"
+	"sync"
 	"sync/atomic"
 
 	log "github.com/sirupsen/logrus"
@@ -28,15 +30,12 @@ type Bucket struct {
 	BlockFiles         map[uint64]*meta.BlockFile
 	ObjectMetaFile     *fs_api.FsFd
 	BlockIndexMetaFile *fs_api.FsFd
+	Locker       *sync.Mutex
 }
 
-func (bucket *Bucket) Load(fsApi *fs_api.FsApi) *Bucket {
+func (bucket *Bucket) Load(fsApi *fs_api.FsApi) (*Bucket, error) {
 	var err error
-	defer func(err error) {
-		if err != nil {
-			log.Error(err)
-		}
-	}(err)
+	var blockFile *meta.BlockFile
 	bucket.BlockCount = BucketDefauleBlockCount
 	blockIndexFile, err := fsApi.Open(fmt.Sprintf("/%s/%s.%s", bucket.Meta.Name, bucket.Meta.Name, BucketBlockIndexFileSubffix), os.O_RDWR|os.O_APPEND)
 	buf := make([]byte, 4096)
@@ -44,40 +43,40 @@ func (bucket *Bucket) Load(fsApi *fs_api.FsApi) *Bucket {
 	bucket.MaxIndex, err = strconv.ParseUint(string(buf), 10, 64)
 
 	for i := uint64(0); i < bucket.MaxIndex; i++ {
-		blockFilePath := fmt.Sprintf("/%s/block/%s.block.%d", bucket.Meta.Name, bucket.Meta.Name, i)
-		blockFile, err := fsApi.Open(blockFilePath, os.O_RDWR|os.O_APPEND)
-		if err != nil {
-			return nil
+		if blockFile, err = meta.NewBlockFile(fsApi, uint64(i), bucket.Meta.RealDirName, true); err != nil {
+			log.Errorln("load ", bucket.Meta.RealDirName, ",index %d", i, ",err:", err)
+			continue
 		}
-		if file := meta.NewBlockFile(uint64(i), blockFile); file != nil {
-			file.LockFlag = false
-			bucket.BlockFiles[uint64(i)] = file
-		}
+		blockFile.IsLock = false
+		bucket.BlockFiles[uint64(i)] = blockFile
 	}
 	// create object meta file
 	objMetaFile, err := fsApi.Open(fmt.Sprintf("/%s/%s.%s", bucket.Meta.Name, bucket.Meta.Name, BucketObjectIndexFileSubffix), os.O_RDWR|os.O_APPEND)
 	if err != nil {
-		return nil
+		return nil, err
 	}
 	data := make([]byte, 1024*1024)
 	fsApi.Read(objMetaFile, data)
-	reader := bytes.NewBuffer(data)
-	scanner := bufio.NewScanner(reader)
-	for scanner.Scan() {
-		buketMeta := scanner.Text()
-		buketMeta = buketMeta[0 : len(buketMeta)-1]
+	buffer := bytes.NewBuffer(data)
+	reader := bufio.NewReader(buffer)
+	var line string
+	for {
+		line, err = reader.ReadString('\n')
+		if err != nil && err != io.EOF {
+			break
+		}
 		meta := meta.BucketInfo{}
-		if err := json.Unmarshal([]byte(buketMeta), &meta); err != nil {
-			return nil
+		if err := json.Unmarshal([]byte(line), &meta); err != nil {
+			return nil, err
 		}
 	}
-	if err := scanner.Err(); err != nil {
-		fmt.Fprintln(os.Stderr, "reading standard input:", err)
-		return nil
+	if err != io.EOF {
+		log.Printf(" > Failed with error: %v\n", err)
+		return nil, err
 	}
 	bucket.ObjectMetaFile = objMetaFile
 	bucket.BlockIndexMetaFile = blockIndexFile
-	return bucket
+	return bucket, nil
 }
 
 func NewBucket(fsApi *fs_api.FsApi, cap, limit uint64, bucketName, refDirName string) (*Bucket, error) {
@@ -91,27 +90,28 @@ func NewBucket(fsApi *fs_api.FsApi, cap, limit uint64, bucketName, refDirName st
 		BlockCount: BucketDefauleBlockCount,
 		Meta:       meta.NewBucketInfo(cap, limit, bucketName, refDirName),
 		BlockFiles: make(map[uint64]*meta.BlockFile),
+		Locker:&sync.Mutex{},
 	}
 	// create bucket path
-	err = fsApi.Mkdir(fmt.Sprintf("/%s", bucketName), os.ModePerm)
+	err = fsApi.Mkdir(fmt.Sprintf("/%s", bucket.Meta.RealDirName), os.ModePerm)
 	if err != nil {
 		return nil, err
 	}
 
 	// create bucket block path
-	err = fsApi.Mkdir(fmt.Sprintf("/%s/block", bucketName), os.ModePerm)
+	err = fsApi.Mkdir(fmt.Sprintf("/%s/block", bucket.Meta.RealDirName), os.ModePerm)
 	if err != nil {
 		return nil, err
 	}
 	// create block index
-	blockIndexFile, err := fsApi.Creat(fmt.Sprintf("/%s/%s.%s", bucketName, bucketName, BucketBlockIndexFileSubffix), os.O_RDWR|os.O_APPEND, os.ModePerm)
+	blockIndexFile, err := fsApi.Creat(fmt.Sprintf("/%s/%s.%s", bucket.Meta.RealDirName, bucket.Meta.RealDirName, BucketBlockIndexFileSubffix), os.O_RDWR|os.O_APPEND, os.ModePerm)
 	if err != nil {
 		return nil, err
 	}
 	// fsApi.Close(blockIndexFile)
 
 	// create object meta file
-	objMetaFile, err := fsApi.Creat(fmt.Sprintf("/%s/%s.%s", bucketName, bucketName, BucketObjectIndexFileSubffix), os.O_RDWR|os.O_APPEND, os.ModePerm)
+	objMetaFile, err := fsApi.Creat(fmt.Sprintf("/%s/%s.%s", bucket.Meta.RealDirName, bucket.Meta.RealDirName, BucketObjectIndexFileSubffix), os.O_RDWR|os.O_APPEND, os.ModePerm)
 	if err != nil {
 		return nil, err
 	}
@@ -120,16 +120,10 @@ func NewBucket(fsApi *fs_api.FsApi, cap, limit uint64, bucketName, refDirName st
 	bucket.BlockIndexMetaFile = blockIndexFile
 	//
 	for i := 0; i < bucket.BlockCount; i++ {
-		blockFilePath := fmt.Sprintf("/%s/block/%s.block.%d", bucketName, bucketName, i)
-		blockFile, err := fsApi.Creat(blockFilePath, os.O_RDWR|os.O_APPEND, os.ModePerm)
-		if err != nil {
-			return nil, err
-		}
-		if file := meta.NewBlockFile(uint64(i), blockFile); file != nil {
-			file.LockFlag = false
+		if file, err := meta.NewBlockFile(fsApi, uint64(i), bucket.Meta.RealDirName, false); err == nil {
+			file.IsLock = meta.BlockFileUnlock
 			bucket.BlockFiles[uint64(i)] = file
 		}
-
 	}
 	index := []byte(fmt.Sprintf("%d\n", bucket.BlockCount-1))
 	fsApi.Write(bucket.BlockIndexMetaFile, index)
@@ -142,11 +136,11 @@ func (bucket *Bucket) checkStatus() error {
 	return nil
 }
 func (bucket *Bucket) CheckLimit() error {
-	if bucket.Meta.CurrentCount >= bucket.Meta.LimitCount {
-		return errors.New(fmt.Sprintf("current count %d over limit count %d", bucket.Meta.CurrentCount, bucket.Meta.LimitCount))
+	if bucket.Meta.CurrentObjectCount >= bucket.Meta.MaxObjectCount {
+		return errors.New(fmt.Sprintf("current count %d over limit count %d", bucket.Meta.CurrentObjectCount, bucket.Meta.MaxObjectCount))
 	}
-	if bucket.Meta.CurrentSize >= bucket.Meta.LimitSize {
-		return errors.New(fmt.Sprintf("current size %d over limit size %d", bucket.Meta.CurrentSize, bucket.Meta.LimitSize))
+	if bucket.Meta.CurrentStorageBytes >= bucket.Meta.MaxStorageBytes {
+		return errors.New(fmt.Sprintf("current size %d over limit size %d", bucket.Meta.CurrentStorageBytes, bucket.Meta.MaxStorageBytes))
 	}
 	return nil
 }
@@ -159,9 +153,9 @@ func (bucket *Bucket) ModifyObjectMeta(api *fs_api.FsApi, obj *meta.ObjectInfo) 
 	api.Write(bucket.ObjectMetaFile, []byte(objStr))
 	return nil
 }
-func (bucket *Bucket) AllocStorage() *meta.BlockFile {
+func (bucket *Bucket) GetBlockFile() *meta.BlockFile {
 	for _, blockFile := range bucket.BlockFiles {
-		if !blockFile.LockFlag {
+		if !blockFile.IsLock {
 			return blockFile
 		}
 	}
@@ -177,11 +171,17 @@ func (bucket *Bucket) StoreMeta(api *fs_api.FsApi, fd *fs_api.FsFd) error {
 	return nil
 
 }
+func (bucket *Bucket) AllocBlockFile() error {
+	bucket.Locker.Lock()
+	// create tmp file
+	defer bucket.Locker.Unlock()
+	return nil
+}
 func (bucket *Bucket) SummarySize(size uint64) {
-	atomic.AddUint64(&bucket.Meta.CurrentSize, size)
+	atomic.AddUint64(&bucket.Meta.CurrentStorageBytes, size)
 }
 func (bucket *Bucket) SummaryCount() {
-	atomic.AddUint64(&bucket.Meta.CurrentCount, 1)
+	atomic.AddUint64(&bucket.Meta.CurrentObjectCount, 1)
 }
 func ReleaseBucket(bucket *Bucket) {
 	bucket.Meta.Status = meta.InactiveBucket

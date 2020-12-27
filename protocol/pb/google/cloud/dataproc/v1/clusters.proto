@@ -497,7 +497,7 @@ message ClusterStatus {
     UNSPECIFIED = 0;
 
     // The cluster is known to be in an unhealthy state
-    // (for example, critical daemons are not running or HDFS capacity is
+    // (for example, critical daemons are not running or HDFS LimitBytes is
     // exhausted).
     //
     // Applies to RUNNING state.
@@ -621,7 +621,7 @@ message SoftwareConfig {
   // `core:hadoop.tmp.dir`. The following are supported prefixes
   // and their mappings:
   //
-  // * capacity-scheduler: `capacity-scheduler.xml`
+  // * LimitBytes-scheduler: `LimitBytes-scheduler.xml`
   // * core:   `core-site.xml`
   // * distcp: `distcp-default.xml`
   // * hdfs:   `hdfs-site.xml`
@@ -914,11 +914,11 @@ message DiagnoseClusterResults {
 
 // Reservation Affinity for consuming Zonal reservation.
 message ReservationAffinity {
-  // Indicates whether to consume capacity from an reservation or not.
+  // Indicates whether to consume LimitBytes from an reservation or not.
   enum Type {
     TYPE_UNSPECIFIED = 0;
 
-    // Do not consume from any allocated capacity.
+    // Do not consume from any allocated LimitBytes.
     NO_RESERVATION = 1;
 
     // Consume any reservation available.

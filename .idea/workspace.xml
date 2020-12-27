@@ -69,7 +69,7 @@
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
     <property name="go.vendoring.notification.had.been.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/manage" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -85,6 +85,7 @@
       <recent name="$PROJECT_DIR$/meta" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/manage" />
       <recent name="$PROJECT_DIR$/protocol/pb" />
       <recent name="$PROJECT_DIR$/manage/object" />
     </key>
@@ -167,6 +168,14 @@
     </state>
     <state x="673" y="302" key="#com.intellij.fileTypes.FileTypeChooser/0.23.1680.940@0.23.1680.940" timestamp="1606018868885" />
     <state x="673" y="305" key="#com.intellij.fileTypes.FileTypeChooser/0.25.1680.942@0.25.1680.942" timestamp="1608990255142" />
+    <state width="927" height="514" key="#com.intellij.structuralsearch.plugin.ui.StructuralReplaceDialog" timestamp="1609028261363">
+      <screen x="0" y="25" width="1680" height="942" />
+    </state>
+    <state width="927" height="514" key="#com.intellij.structuralsearch.plugin.ui.StructuralReplaceDialog/0.25.1680.942@0.25.1680.942" timestamp="1609028261363" />
+    <state x="376" y="234" key="#com.intellij.structuralsearch.plugin.ui.StructuralSearchDialog" timestamp="1609028261361">
+      <screen x="0" y="25" width="1680" height="942" />
+    </state>
+    <state x="376" y="234" key="#com.intellij.structuralsearch.plugin.ui.StructuralSearchDialog/0.25.1680.942@0.25.1680.942" timestamp="1609028261361" />
     <state width="1638" height="251" key="GridCell.Tab.0.bottom" timestamp="1606050158903">
       <screen x="0" y="23" width="1680" height="940" />
     </state>
@@ -188,12 +197,13 @@
     </state>
     <state x="388" y="102" key="SettingsEditor/0.0.1914.882@0.0.1914.882" timestamp="1606096698329" />
     <state x="341" y="132" key="SettingsEditor/0.23.1680.940@0.23.1680.940" timestamp="1606003502371" />
-    <state x="578" y="194" width="576" height="595" key="find.popup" timestamp="1608963704557">
-      <screen x="0" y="25" width="1680" height="937" />
+    <state x="578" y="195" width="576" height="599" key="find.popup" timestamp="1609032928206">
+      <screen x="0" y="25" width="1680" height="942" />
     </state>
     <state x="658" y="159" width="588" height="560" key="find.popup/0.0.1914.882@0.0.1914.882" timestamp="1606095300795" />
     <state x="659" y="160" width="589" height="560" key="find.popup/0.0.1918.886@0.0.1918.886" timestamp="1604743063618" />
     <state x="578" y="194" width="576" height="595" key="find.popup/0.25.1680.937@0.25.1680.937" timestamp="1608963704557" />
+    <state x="578" y="195" width="576" height="599" key="find.popup/0.25.1680.942@0.25.1680.942" timestamp="1609032928206" />
     <state x="505" y="229" width="670" height="676" key="search.everywhere.popup" timestamp="1606050699068">
       <screen x="0" y="23" width="1680" height="940" />
     </state>

@@ -54,7 +54,7 @@ func main() {
 		log.Fatal("init fsApi failed:", err)
 	}
 	log.Info("init glusterfs-storage-gateway success")
-	bucketService := service.NewBucketSerivce(fsApi, manage.ServiceName, wg)
+	bucketService := service.NewBucketSerivce(fsApi, manage.BucketServiceName, wg)
 	if bucketService == nil {
 		log.Fatalln("start gatway failed");
 	}

@@ -318,7 +318,7 @@ message AlertPolicy {
   // this policy. Best practice is for the documentation to include information
   // to help responders understand, mitigate, escalate, and correct the
   // underlying problems detected by the alerting policy. Notification channels
-  // that have limited capacity might not show this documentation.
+  // that have limited LimitBytes might not show this documentation.
   Documentation documentation = 13;
 
   // User-supplied key/value data to be used for organizing and

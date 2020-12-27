@@ -6,21 +6,20 @@ message CreateBucketRequest{
     string name = 1;
     //access privileges
     string key = 2;
-    //request storage capacity
-    uint64 capacity = 3;
-    //obejcts limits
-    uint64 objects_limit = 4;
+    //request storage LimitBytes
+  uint64 max_storage_bytes = 3;
+  //limit object count
+  uint64 max_object_count = 4;
 }
 
 message CreateBucketResponse{
-     //request bucket name
-        string name = 1;
-     //request storage capacity
-        uint64 capacity = 3;
-        //obejcts limits
-        uint64 objects_limit = 4;
-        string bucket_dir=5;
-    string message = 6;
+    string name = 1;
+    //limit bytes for bucket
+  uint64 max_storage_bytes = 2;
+  //limit object count
+  uint64 max_object_count = 3;
+    string bucket_dir=4;
+    string message = 5;
 
 }
 
@@ -30,29 +29,44 @@ message DeleteBucketRequest{
 }
 
 message DeleteBucketResponse{
-       string name = 1;
-       string key = 2;
-       uint64 capacity = 3;
-       uint64 objects_limit = 4;
-       uint64 object_count = 5;
-       string bucket_dir=6;
-       string message = 7;
+    string name = 1;
+    string bucket_dir=2;
+    string key = 3;
+    uint64 current_storage_bytes = 4;
+    //obejcts limits
+    uint64 current_object_count = 5;
+    string message = 6;
 }
 
 message UpdateBucketRequest{
-       string name = 1;
-       string key = 2;
-       uint64 capacity = 3;
-       uint64 objects_limit = 4;
+    string name = 1;
+    string key = 2;
+    uint64 max_storage_bytes = 3;
+  //limit object count
+   uint64 max_object_count = 4;
 }
 
 message UpdateBucketResponse {
       string name = 1;
-      uint64 capacity = 2;
-      uint64 objects_limit = 3;
-      uint64 object_count = 4;
-      string bucket_dir=5;
-      string message = 6;
+      string bucket_dir=2;
+  uint64 max_storage_bytes = 3;
+  //limit object count
+  uint64 max_object_count = 4;
+      string message = 5;
+}
+
+message StatusBucketRequest{
+  string name = 1;
+  string key = 2;
+}
+
+message StatusBucketResponse {
+  string name = 1;
+  string bucket_dir=2;
+  uint64 max_storage_bytes = 3;
+  //limit object count
+  uint64 max_object_count = 4;
+  string message = 5;
 }
 
 

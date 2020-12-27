@@ -12,15 +12,15 @@
         },
         {
           "service": "google.cloud.bigquery.reservation.v1beta1.ReservationService",
-          "method": "UpdateCapacityCommitment"
+          "method": "UpdateLimitBytesCommitment"
         },
         {
           "service": "google.cloud.bigquery.reservation.v1beta1.ReservationService",
-          "method": "SplitCapacityCommitment"
+          "method": "SplitLimitBytesCommitment"
         },
         {
           "service": "google.cloud.bigquery.reservation.v1beta1.ReservationService",
-          "method": "MergeCapacityCommitments"
+          "method": "MergeLimitBytesCommitments"
         },
         {
           "service": "google.cloud.bigquery.reservation.v1beta1.ReservationService",
@@ -53,15 +53,15 @@
         },
         {
           "service": "google.cloud.bigquery.reservation.v1beta1.ReservationService",
-          "method": "ListCapacityCommitments"
+          "method": "ListLimitBytesCommitments"
         },
         {
           "service": "google.cloud.bigquery.reservation.v1beta1.ReservationService",
-          "method": "GetCapacityCommitment"
+          "method": "GetLimitBytesCommitment"
         },
         {
           "service": "google.cloud.bigquery.reservation.v1beta1.ReservationService",
-          "method": "DeleteCapacityCommitment"
+          "method": "DeleteLimitBytesCommitment"
         },
         {
           "service": "google.cloud.bigquery.reservation.v1beta1.ReservationService",

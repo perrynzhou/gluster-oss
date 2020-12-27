@@ -39,11 +39,11 @@ option java_package = "com.google.cloud.bigquery.reservation.v1beta1";
 // resource of the admin project and location, e.g.:
 //   projects/myproject/locations/US/reservations/reservationName.
 //
-// A capacity commitment is a way to purchase compute capacity for BigQuery jobs
-// (in the form of slots) with some committed period of usage. A capacity
+// A LimitBytes commitment is a way to purchase compute LimitBytes for BigQuery jobs
+// (in the form of slots) with some committed period of usage. A LimitBytes
 // commitment resource exists as a child resource of the admin project and
 // location, e.g.:
-//   projects/myproject/locations/US/capacityCommitments/id.
+//   projects/myproject/locations/US/LimitBytesCommitments/id.
 service ReservationService {
   option (google.api.default_host) = "bigqueryreservation.googleapis.com";
   option (google.api.oauth_scopes) =
@@ -96,72 +96,72 @@ service ReservationService {
     option (google.api.method_signature) = "reservation,update_mask";
   }
 
-  // Lists all the capacity commitments for the admin project.
-  rpc ListCapacityCommitments(ListCapacityCommitmentsRequest)
-      returns (ListCapacityCommitmentsResponse) {
+  // Lists all the LimitBytes commitments for the admin project.
+  rpc ListLimitBytesCommitments(ListLimitBytesCommitmentsRequest)
+      returns (ListLimitBytesCommitmentsResponse) {
     option (google.api.http) = {
-      get: "/v1beta1/{parent=projects/*/locations/*}/capacityCommitments"
+      get: "/v1beta1/{parent=projects/*/locations/*}/LimitBytesCommitments"
     };
     option (google.api.method_signature) = "parent";
   }
 
-  // Returns information about the capacity commitment.
-  rpc GetCapacityCommitment(GetCapacityCommitmentRequest)
-      returns (CapacityCommitment) {
+  // Returns information about the LimitBytes commitment.
+  rpc GetLimitBytesCommitment(GetLimitBytesCommitmentRequest)
+      returns (LimitBytesCommitment) {
     option (google.api.http) = {
-      get: "/v1beta1/{name=projects/*/locations/*/capacityCommitments/*}"
+      get: "/v1beta1/{name=projects/*/locations/*/LimitBytesCommitments/*}"
     };
     option (google.api.method_signature) = "name";
   }
 
-  // Deletes a capacity commitment. Attempting to delete capacity commitment
+  // Deletes a LimitBytes commitment. Attempting to delete LimitBytes commitment
   // before its commitment_end_time will fail with the error code
   // `google.rpc.Code.FAILED_PRECONDITION`.
-  rpc DeleteCapacityCommitment(DeleteCapacityCommitmentRequest)
+  rpc DeleteLimitBytesCommitment(DeleteLimitBytesCommitmentRequest)
       returns (google.protobuf.Empty) {
     option (google.api.http) = {
-      delete: "/v1beta1/{name=projects/*/locations/*/capacityCommitments/*}"
+      delete: "/v1beta1/{name=projects/*/locations/*/LimitBytesCommitments/*}"
     };
     option (google.api.method_signature) = "name";
   }
 
-  // Updates an existing capacity commitment.
+  // Updates an existing LimitBytes commitment.
   //
   // Only renewal_plan field can be updated.
-  rpc UpdateCapacityCommitment(UpdateCapacityCommitmentRequest)
-      returns (CapacityCommitment) {
+  rpc UpdateLimitBytesCommitment(UpdateLimitBytesCommitmentRequest)
+      returns (LimitBytesCommitment) {
     option (google.api.http) = {
-      patch: "/v1beta1/{capacity_commitment.name=projects/*/locations/*/capacityCommitments/*}"
-      body: "capacity_commitment"
+      patch: "/v1beta1/{LimitBytes_commitment.name=projects/*/locations/*/LimitBytesCommitments/*}"
+      body: "LimitBytes_commitment"
     };
-    option (google.api.method_signature) = "capacity_commitment,update_mask";
+    option (google.api.method_signature) = "LimitBytes_commitment,update_mask";
   }
 
-  // Splits capacity commitment to two commitments of the same plan and
+  // Splits LimitBytes commitment to two commitments of the same plan and
   // commitment_end_time. A common use case to do that is to perform a downgrade
   // e.g., in order to downgrade from 10000 slots to 8000, one might split 10000
-  // capacity commitment to 2000 and 8000, change the plan of the first one to
+  // LimitBytes commitment to 2000 and 8000, change the plan of the first one to
   // flex and then delete it.
-  rpc SplitCapacityCommitment(SplitCapacityCommitmentRequest)
-      returns (SplitCapacityCommitmentResponse) {
+  rpc SplitLimitBytesCommitment(SplitLimitBytesCommitmentRequest)
+      returns (SplitLimitBytesCommitmentResponse) {
     option (google.api.http) = {
-      post: "/v1beta1/{name=projects/*/locations/*/capacityCommitments/*}:split"
+      post: "/v1beta1/{name=projects/*/locations/*/LimitBytesCommitments/*}:split"
       body: "*"
     };
     option (google.api.method_signature) = "name,slot_count";
   }
 
-  // Merges capacity commitments of the same plan into one. Resulting capacity
+  // Merges LimitBytes commitments of the same plan into one. Resulting LimitBytes
   // commitment has the longer commitment_end_time out of the two. Attempting to
-  // merge capacity commitments of different plan will fail with the error code
+  // merge LimitBytes commitments of different plan will fail with the error code
   // `google.rpc.Code.FAILED_PRECONDITION`.
-  rpc MergeCapacityCommitments(MergeCapacityCommitmentsRequest)
-      returns (CapacityCommitment) {
+  rpc MergeLimitBytesCommitments(MergeLimitBytesCommitmentsRequest)
+      returns (LimitBytesCommitment) {
     option (google.api.http) = {
-      post: "/v1beta1/{parent=projects/*/locations/*}/capacityCommitments:merge"
+      post: "/v1beta1/{parent=projects/*/locations/*}/LimitBytesCommitments:merge"
       body: "*"
     };
-    option (google.api.method_signature) = "parent,capacity_commitment_ids";
+    option (google.api.method_signature) = "parent,LimitBytes_commitment_ids";
   }
 
   // Returns `google.rpc.Code.PERMISSION_DENIED` if user does not have
@@ -264,8 +264,8 @@ service ReservationService {
   // Updates a BI reservation.
   // Only fields specified in the field_mask are updated.
   // Singleton BI reservation always exists with default size 0.
-  // In order to reserve BI capacity it needs to be updated to an amount
-  // greater than 0. In order to release BI capacity reservation size
+  // In order to reserve BI LimitBytes it needs to be updated to an amount
+  // greater than 0. In order to release BI LimitBytes reservation size
   // must be set to 0.
   rpc UpdateBiReservation(UpdateBiReservationRequest) returns (BiReservation) {
     option (google.api.http) = {
@@ -291,33 +291,33 @@ message Reservation {
   // computational power in BigQuery, and serves as the unit of parallelism.
   // Queries using this reservation might use more slots during runtime if
   // ignore_idle_slots is set to false.
-  // If the new reservation's slot capacity exceed the parent's slot capacity or
-  // if total slot capacity of the new reservation and its siblings exceeds the
-  // parent's slot capacity, the request will fail with
+  // If the new reservation's slot LimitBytes exceed the parent's slot LimitBytes or
+  // if total slot LimitBytes of the new reservation and its siblings exceeds the
+  // parent's slot LimitBytes, the request will fail with
   // `google.rpc.Code.RESOURCE_EXHAUSTED`.
-  int64 slot_capacity = 2;
+  int64 slot_LimitBytes = 2;
 
   // If false, any query using this reservation will use idle slots from other
   // reservations within the same admin project. If true, a query using this
-  // reservation will execute with the slot capacity specified above at most.
+  // reservation will execute with the slot LimitBytes specified above at most.
   bool ignore_idle_slots = 4;
 }
 
-// Capacity commitment is a way to purchase compute capacity for BigQuery jobs
+// LimitBytes commitment is a way to purchase compute LimitBytes for BigQuery jobs
 // (in the form of slots) with some committed period of usage. Monthly and
 // annual commitments renew by default. Only flex commitments can be removed. In
 // order to remove monthly or annual commitments, their plan needs to be changed
 // to flex first.
 //
-// A capacity commitment resource exists as a child resource of the admin
+// A LimitBytes commitment resource exists as a child resource of the admin
 // project.
-message CapacityCommitment {
+message LimitBytesCommitment {
   option (google.api.resource) = {
-    type: "bigqueryreservation.googleapis.com/CapacityCommitment"
-    pattern: "projects/{project}/locations/{location}/capacityCommitments/{capacity_commitment}"
+    type: "bigqueryreservation.googleapis.com/LimitBytesCommitment"
+    pattern: "projects/{project}/locations/{location}/LimitBytesCommitments/{LimitBytes_commitment}"
   };
 
-  // Commitment plan defines the current committed period. Capacity commitment
+  // Commitment plan defines the current committed period. LimitBytes commitment
   // cannot be deleted during it's committed period.
   enum CommitmentPlan {
     // Invalid plan value. Requests with this value will be rejected with
@@ -338,39 +338,39 @@ message CapacityCommitment {
     ANNUAL = 4;
   }
 
-  // Capacity commitment can either become ACTIVE right away or transition
+  // LimitBytes commitment can either become ACTIVE right away or transition
   // from PENDING to ACTIVE or FAILED.
   enum State {
     // Invalid state value.
     STATE_UNSPECIFIED = 0;
 
-    // Capacity commitment is pending provisioning. Pending capacity commitment
-    // does not contribute to the parent's slot_capacity.
+    // LimitBytes commitment is pending provisioning. Pending LimitBytes commitment
+    // does not contribute to the parent's slot_LimitBytes.
     PENDING = 1;
 
-    // Once slots are provisioned, capacity commitment becomes active.
-    // slot_count is added to the parent's slot_capacity.
+    // Once slots are provisioned, LimitBytes commitment becomes active.
+    // slot_count is added to the parent's slot_LimitBytes.
     ACTIVE = 2;
 
-    // Capacity commitment is failed to be activated by the backend.
+    // LimitBytes commitment is failed to be activated by the backend.
     FAILED = 3;
   }
 
-  // Output only. The resource name of the capacity commitment, e.g.,
-  //    projects/myproject/locations/US/capacityCommitments/123
+  // Output only. The resource name of the LimitBytes commitment, e.g.,
+  //    projects/myproject/locations/US/LimitBytesCommitments/123
   string name = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
 
   // Number of slots in this commitment.
   int64 slot_count = 2;
 
-  // Capacity commitment commitment plan.
+  // LimitBytes commitment commitment plan.
   CommitmentPlan plan = 3;
 
   // Output only. State of the commitment.
   State state = 4 [(google.api.field_behavior) = OUTPUT_ONLY];
 
   // Output only. The end of the current commitment period. It is applicable
-  // only for ACTIVE capacity commitments.
+  // only for ACTIVE LimitBytes commitments.
   google.protobuf.Timestamp commitment_end_time = 5
       [(google.api.field_behavior) = OUTPUT_ONLY];
 
@@ -378,7 +378,7 @@ message CapacityCommitment {
   google.rpc.Status failure_status = 7
       [(google.api.field_behavior) = OUTPUT_ONLY];
 
-  // The plan this capacity commitment is converted to after commitment_end_time
+  // The plan this LimitBytes commitment is converted to after commitment_end_time
   // passes. Once the plan is changed, committed period is extended according to
   // commitment plan. Only applicable for MONTHLY and ANNUAL commitments.
   CommitmentPlan renewal_plan = 8;
@@ -422,8 +422,8 @@ message ListReservationsRequest {
   // The next_page_token value returned from a previous List request, if any.
   string page_token = 3;
 
-  // Can be used to filter out reservations based on names, capacity, etc, e.g.:
-  // filter="reservation.slot_capacity > 200"
+  // Can be used to filter out reservations based on names, LimitBytes, etc, e.g.:
+  // filter="reservation.slot_LimitBytes > 200"
   // filter="reservation.name = \"*dev/*\""
   // Advanced filtering syntax can be
   // [here](https://cloud.google.com/logging/docs/view/advanced-filters).
@@ -478,14 +478,14 @@ message UpdateReservationRequest {
 }
 
 // The request for
-// [ReservationService.ListCapacityCommitments][google.cloud.bigquery.reservation.v1beta1.ReservationService.ListCapacityCommitments].
-message ListCapacityCommitmentsRequest {
+// [ReservationService.ListLimitBytesCommitments][google.cloud.bigquery.reservation.v1beta1.ReservationService.ListLimitBytesCommitments].
+message ListLimitBytesCommitmentsRequest {
   // Required. Resource name of the parent reservation. E.g.,
   //    projects/myproject/locations/US
   string parent = 1 [
     (google.api.field_behavior) = REQUIRED,
     (google.api.resource_reference) = {
-      child_type: "bigqueryreservation.googleapis.com/CapacityCommitment"
+      child_type: "bigqueryreservation.googleapis.com/LimitBytesCommitment"
     }
   ];
 
@@ -497,10 +497,10 @@ message ListCapacityCommitmentsRequest {
 }
 
 // The response for
-// [ReservationService.ListCapacityCommitments][google.cloud.bigquery.reservation.v1beta1.ReservationService.ListCapacityCommitments].
-message ListCapacityCommitmentsResponse {
-  // List of capacity commitments visible to the user.
-  repeated CapacityCommitment capacity_commitments = 1;
+// [ReservationService.ListLimitBytesCommitments][google.cloud.bigquery.reservation.v1beta1.ReservationService.ListLimitBytesCommitments].
+message ListLimitBytesCommitmentsResponse {
+  // List of LimitBytes commitments visible to the user.
+  repeated LimitBytesCommitment LimitBytes_commitments = 1;
 
   // Token to retrieve the next page of results, or empty if there are no
   // more results in the list.
@@ -508,83 +508,83 @@ message ListCapacityCommitmentsResponse {
 }
 
 // The request for
-// [ReservationService.GetCapacityCommitment][google.cloud.bigquery.reservation.v1beta1.ReservationService.GetCapacityCommitment].
-message GetCapacityCommitmentRequest {
-  // Required. Resource name of the capacity commitment to retrieve. E.g.,
-  //    projects/myproject/locations/US/capacityCommitments/123
+// [ReservationService.GetLimitBytesCommitment][google.cloud.bigquery.reservation.v1beta1.ReservationService.GetLimitBytesCommitment].
+message GetLimitBytesCommitmentRequest {
+  // Required. Resource name of the LimitBytes commitment to retrieve. E.g.,
+  //    projects/myproject/locations/US/LimitBytesCommitments/123
   string name = 1 [
     (google.api.field_behavior) = REQUIRED,
     (google.api.resource_reference) = {
-      type: "bigqueryreservation.googleapis.com/CapacityCommitment"
+      type: "bigqueryreservation.googleapis.com/LimitBytesCommitment"
     }
   ];
 }
 
 // The request for
-// [ReservationService.DeleteCapacityCommitment][google.cloud.bigquery.reservation.v1beta1.ReservationService.DeleteCapacityCommitment].
-message DeleteCapacityCommitmentRequest {
-  // Required. Resource name of the capacity commitment to delete. E.g.,
-  //    projects/myproject/locations/US/capacityCommitments/123
+// [ReservationService.DeleteLimitBytesCommitment][google.cloud.bigquery.reservation.v1beta1.ReservationService.DeleteLimitBytesCommitment].
+message DeleteLimitBytesCommitmentRequest {
+  // Required. Resource name of the LimitBytes commitment to delete. E.g.,
+  //    projects/myproject/locations/US/LimitBytesCommitments/123
   string name = 1 [
     (google.api.field_behavior) = REQUIRED,
     (google.api.resource_reference) = {
-      type: "bigqueryreservation.googleapis.com/CapacityCommitment"
+      type: "bigqueryreservation.googleapis.com/LimitBytesCommitment"
     }
   ];
 }
 
 // The request for
-// [ReservationService.UpdateCapacityCommitment][google.cloud.bigquery.reservation.v1beta1.ReservationService.UpdateCapacityCommitment].
-message UpdateCapacityCommitmentRequest {
-  // Content of the capacity commitment to update.
-  CapacityCommitment capacity_commitment = 1;
+// [ReservationService.UpdateLimitBytesCommitment][google.cloud.bigquery.reservation.v1beta1.ReservationService.UpdateLimitBytesCommitment].
+message UpdateLimitBytesCommitmentRequest {
+  // Content of the LimitBytes commitment to update.
+  LimitBytesCommitment LimitBytes_commitment = 1;
 
   // Standard field mask for the set of fields to be updated.
   google.protobuf.FieldMask update_mask = 2;
 }
 
 // The request for
-// [ReservationService.SplitCapacityCommitment][google.cloud.bigquery.reservation.v1beta1.ReservationService.SplitCapacityCommitment].
-message SplitCapacityCommitmentRequest {
+// [ReservationService.SplitLimitBytesCommitment][google.cloud.bigquery.reservation.v1beta1.ReservationService.SplitLimitBytesCommitment].
+message SplitLimitBytesCommitmentRequest {
   // Required. The resource name e.g.,:
-  //   projects/myproject/locations/US/capacityCommitments/123
+  //   projects/myproject/locations/US/LimitBytesCommitments/123
   string name = 1 [
     (google.api.field_behavior) = REQUIRED,
     (google.api.resource_reference) = {
-      type: "bigqueryreservation.googleapis.com/CapacityCommitment"
+      type: "bigqueryreservation.googleapis.com/LimitBytesCommitment"
     }
   ];
 
-  // Number of slots in the capacity commitment after the split.
+  // Number of slots in the LimitBytes commitment after the split.
   int64 slot_count = 2;
 }
 
 // The response for
-// [ReservationService.SplitCapacityCommitment][google.cloud.bigquery.reservation.v1beta1.ReservationService.SplitCapacityCommitment].
-message SplitCapacityCommitmentResponse {
-  // First capacity commitment, result of a split.
-  CapacityCommitment first = 1;
+// [ReservationService.SplitLimitBytesCommitment][google.cloud.bigquery.reservation.v1beta1.ReservationService.SplitLimitBytesCommitment].
+message SplitLimitBytesCommitmentResponse {
+  // First LimitBytes commitment, result of a split.
+  LimitBytesCommitment first = 1;
 
-  // Second capacity commitment, result of a split.
-  CapacityCommitment second = 2;
+  // Second LimitBytes commitment, result of a split.
+  LimitBytesCommitment second = 2;
 }
 
 // The request for
-// [ReservationService.MergeCapacityCommitments][google.cloud.bigquery.reservation.v1beta1.ReservationService.MergeCapacityCommitments].
-message MergeCapacityCommitmentsRequest {
+// [ReservationService.MergeLimitBytesCommitments][google.cloud.bigquery.reservation.v1beta1.ReservationService.MergeLimitBytesCommitments].
+message MergeLimitBytesCommitmentsRequest {
   // Parent resource that identifies admin project and location e.g.,
   // projects/myproject/locations/us
   string parent = 1 [
     (google.api.field_behavior) = REQUIRED,
     (google.api.resource_reference) = {
-      child_type: "bigqueryreservation.googleapis.com/CapacityCommitment"
+      child_type: "bigqueryreservation.googleapis.com/LimitBytesCommitment"
     }
   ];
 
-  // Ids of capacity commitments to merge.
-  // These capacity commitments must exist under admin project and location
+  // Ids of LimitBytes commitments to merge.
+  // These LimitBytes commitments must exist under admin project and location
   // specified in the parent.
-  repeated string capacity_commitment_ids = 2;
+  repeated string LimitBytes_commitment_ids = 2;
 }
 
 // A Assignment allows a project to submit jobs
@@ -608,8 +608,8 @@ message Assignment {
     QUERY = 2;
   }
 
-  // Assignment will remain in PENDING state if no active capacity commitment is
-  // present. It will become ACTIVE when some capacity commitment becomes
+  // Assignment will remain in PENDING state if no active LimitBytes commitment is
+  // present. It will become ACTIVE when some LimitBytes commitment becomes
   // active.
   enum State {
     // Invalid state value.

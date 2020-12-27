@@ -95,7 +95,7 @@ message Location {
   //     {"cloud.googleapis.com/region": "us-east1"}
   map<string, string> labels = 2;
 
-  // Service-specific metadata. For example the available capacity at the given
+  // Service-specific metadata. For example the available LimitBytes at the given
   // location.
   google.protobuf.Any metadata = 3;
 }
