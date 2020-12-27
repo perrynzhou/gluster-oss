@@ -1,21 +1,30 @@
 package meta
 
-
-type BucketUsageInfo struct {
-	CapacityLimitSize   uint64 `json:"capacityLimitSize"`
-	CapacityCurrentSize   uint64 `json:"capacityCurrentSize"`
-	ObjectsLimitCount   uint64 `json:"objLimitCount"`
-	ObjectsCurrentCount uint64 `json:"objCurrentCount"`
-	//conatains all blocks for this bucket
-	//conatinas all object for this bucket
-	ObjectCache             map[string][]*ObjectInfo `json:"objectInfo"`
-}
+const (
+	ActiveBucket   = 0
+	InactiveBucket = 1
+)
 
 // BucketInfo - represents bucket metadata.
 type BucketInfo struct {
 	// Name of the bucket.
-	Name        string
-	RealDirName string
-	UsageInfo   *BucketUsageInfo
-	Status      uint8
+	Name                string
+	RealDirName         string
+	Status              uint8
+	MaxStorageBytes     uint64 `json:"LimitBytesMaxStorageBytes"`
+	CurrentStorageBytes uint64 `json:"LimitBytesCurrentStorageBytes"`
+	MaxObjectCount      uint64 `json:"objMaxObjectCount"`
+	CurrentObjectCount  uint64 `json:"objCurrentObjectCount"`
+}
+
+func NewBucketInfo(limitBytes, MaxObjectCount uint64, bucketName, refDirName string) *BucketInfo {
+	return &BucketInfo{
+		Name:                bucketName,
+		RealDirName:         refDirName,
+		Status:              ActiveBucket,
+		MaxStorageBytes:     limitBytes,
+		CurrentStorageBytes: 0,
+		MaxObjectCount:      MaxObjectCount,
+		CurrentObjectCount:  0,
+	}
 }

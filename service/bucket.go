@@ -2,21 +2,19 @@ package service
 
 import (
 	fs_api "glusterfs-storage-gateway/fs-api"
-	"glusterfs-storage-gateway/manage/bucket"
+	"glusterfs-storage-gateway/manage"
 	"glusterfs-storage-gateway/meta"
 	"glusterfs-storage-gateway/protocol/pb"
-	"glusterfs-storage-gateway/utils"
 	"sync"
 
 	log "github.com/sirupsen/logrus"
 	"golang.org/x/net/context"
 )
-
 type BucketService struct {
 	fsApi           *fs_api.FsApi
 	ServiceName     string
-	bucketRequestCh chan *bucket.BucketInfoRequest
-	bucketMange     *bucket.BucketManage
+	bucketRequestCh chan *manage.BucketRequest
+	bucketMange     *manage.BucketManage
 	wg              *sync.WaitGroup
 }
 
@@ -25,12 +23,12 @@ func NewBucketSerivce(api *fs_api.FsApi, serviceName string, wg *sync.WaitGroup)
 	bucketService := &BucketService{
 		fsApi:           api,
 		ServiceName:     serviceName,
-		bucketRequestCh: make(chan *bucket.BucketInfoRequest),
+		bucketRequestCh: make(chan *manage.BucketRequest),
 		wg:              wg,
 	}
-	redisCon := utils.RedisClient.Conn(context.Background())
-	bucketService.bucketMange, err = bucket.NewBucketManage(api, redisCon, bucketService.bucketRequestCh, wg)
+	bucketService.bucketMange, err = manage.NewBucketManage(api, bucketService.bucketRequestCh, wg)
 	if err != nil {
+		log.Errorln("new NewBucketManage failed")
 		return nil
 	}
 	log.Info("init BucketService success")
@@ -44,7 +42,7 @@ func (s *BucketService) Stop() {
 	s.bucketMange.Stop()
 }
 func (s *BucketService) CreateBucket(ctx context.Context, createBucketRequest *pb.CreateBucketRequest) (*pb.CreateBucketResponse, error) {
-	req := bucket.NewCreateBucketInfoRequest(createBucketRequest)
+	req := manage.NewCreateBucketRequest(createBucketRequest)
 	log.Infoln("get CreateBucket request:", createBucketRequest)
 	s.bucketRequestCh <- req
 	resp := <-req.Done
@@ -53,10 +51,10 @@ func (s *BucketService) CreateBucket(ctx context.Context, createBucketRequest *p
 	log.Infoln("finish CreateBucket request:", bucketInfo, ",err:", resp.Err)
 	createBucketResponse := &pb.CreateBucketResponse{
 		Name: bucketInfo.Name,
-		//request storage capacity
-		Capacity: bucketInfo.UsageInfo.CapacityLimitSize,
+		//request storage LimitBytes
+		MaxStorageBytes: bucketInfo.MaxStorageBytes,
 		//obejcts limits
-		ObjectsLimit: bucketInfo.UsageInfo.ObjectsLimitCount,
+		MaxObjectCount: bucketInfo.MaxObjectCount,
 		BucketDir:    bucketInfo.RealDirName,
 		Message:      "success",
 	}
@@ -67,7 +65,7 @@ func (s *BucketService) CreateBucket(ctx context.Context, createBucketRequest *p
 }
 
 func (s *BucketService) DeleteBucket(ctx context.Context, deleteBucketRequest *pb.DeleteBucketRequest) (*pb.DeleteBucketResponse, error) {
-	req := bucket.NewDeleteBucketInfoRequest(deleteBucketRequest)
+	req := manage.NewDeleteBucketRequest(deleteBucketRequest)
 	log.Infoln("get DeleteBucket request:", deleteBucketRequest)
 
 	s.bucketRequestCh <- req
@@ -75,11 +73,26 @@ func (s *BucketService) DeleteBucket(ctx context.Context, deleteBucketRequest *p
 	bucketInfo := resp.Reply.(*meta.BucketInfo)
 	log.Infoln("finish DeleteBucket request:", bucketInfo, ",err:", resp.Err)
 
+	/*
+	type DeleteBucketResponse struct {
+		state         protoimpl.MessageState
+		sizeCache     protoimpl.SizeCache
+		unknownFields protoimpl.UnknownFields
+
+		Name         string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+		BucketDir    string `protobuf:"bytes,2,opt,name=bucket_dir,json=bucketDir,proto3" json:"bucket_dir,omitempty"`
+		Key          string `protobuf:"bytes,3,opt,name=key,proto3" json:"key,omitempty"`
+		CurrentStorageBytes uint64 `protobuf:"varint,4,opt,name=current_bytes,json=CurrentStorageBytes,proto3" json:"current_bytes,omitempty"`
+		//obejcts limits
+		CurrentObjectCount uint64 `protobuf:"varint,5,opt,name=current_count,json=CurrentObjectCount,proto3" json:"current_count,omitempty"`
+		Message      string `protobuf:"bytes,6,opt,name=message,proto3" json:"message,omitempty"`
+	}
+	 */
 	deleteBucketResponse := &pb.DeleteBucketResponse{
 		Name:         bucketInfo.Name,
-		ObjectsLimit: bucketInfo.UsageInfo.ObjectsLimitCount,
-		Capacity:     bucketInfo.UsageInfo.CapacityLimitSize,
-		ObjectCount:  bucketInfo.UsageInfo.ObjectsCurrentCount,
+		BucketDir: bucketInfo.RealDirName,
+		CurrentStorageBytes:     bucketInfo.CurrentStorageBytes,
+		CurrentObjectCount:  bucketInfo.CurrentObjectCount,
 	}
 	if resp.Err != nil {
 		deleteBucketResponse.Message = resp.Err.Error()
@@ -87,7 +100,7 @@ func (s *BucketService) DeleteBucket(ctx context.Context, deleteBucketRequest *p
 	return deleteBucketResponse, resp.Err
 }
 func (s *BucketService) UpdateBucket(ctx context.Context, updateBucketRequest *pb.UpdateBucketRequest) (*pb.UpdateBucketResponse, error) {
-	req := bucket.NewUpdateBucketInfoRequest(updateBucketRequest)
+	req := manage.NewUpdateBucketRequest(updateBucketRequest)
 	log.Infoln("get UpdateBucket request:", updateBucketRequest)
 
 	s.bucketRequestCh <- req
@@ -97,9 +110,8 @@ func (s *BucketService) UpdateBucket(ctx context.Context, updateBucketRequest *p
 
 	updateBucketResponse := &pb.UpdateBucketResponse{
 		Name:         bucketInfo.Name,
-		ObjectsLimit: bucketInfo.UsageInfo.ObjectsLimitCount,
-		Capacity:     bucketInfo.UsageInfo.CapacityLimitSize,
-		ObjectCount:  bucketInfo.UsageInfo.ObjectsCurrentCount,
+		MaxObjectCount: bucketInfo.MaxObjectCount,
+		MaxStorageBytes:     bucketInfo.MaxStorageBytes,
 		BucketDir:    bucketInfo.RealDirName,
 	}
 	updateBucketResponse.Message = "success"

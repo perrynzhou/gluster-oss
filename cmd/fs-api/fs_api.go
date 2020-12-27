@@ -7,7 +7,7 @@ import (
 )
 
 func ReadData() {
-	fsApi, err := fs_api.NewFsApi("test_volume", "10.193.51.144", 24007, true)
+	fsApi, err := fs_api.NewFsApi("dht-vol", "10.211.55.3", 24007, true)
 	if err != nil {
 		log.Fatal(err)
 	}

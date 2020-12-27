@@ -3,13 +3,13 @@ package service
 import (
 	"fmt"
 	"glusterfs-storage-gateway/conf"
-	"glusterfs-storage-gateway/manage/bucket"
+	"glusterfs-storage-gateway/manage"
 	"glusterfs-storage-gateway/protocol/pb"
 	"net"
 	"net/http"
 	"sync"
 
-	"github.com/grpc-ecosystem/grpc-gateway/runtime"
+	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	log "github.com/sirupsen/logrus"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
@@ -45,15 +45,15 @@ func (s *Service)RegisterService(serviceName string,service IService) {
 		s.services[serviceName]=service
 	}}
 func (s *Service) CreateBucket(ctx context.Context, createBucketRequest *pb.CreateBucketRequest) (*pb.CreateBucketResponse, error) {
-	bucketService := s.services[bucket.ServiceName].(*BucketService)
+	bucketService := s.services[manage.BucketServiceName].(*BucketService)
 	return bucketService.CreateBucket(ctx, createBucketRequest)
 }
 func (s *Service) DeleteBucket(ctx context.Context, deleteBucketRequest *pb.DeleteBucketRequest) (*pb.DeleteBucketResponse, error) {
-	bucketService := s.services[bucket.ServiceName].(*BucketService)
+	bucketService := s.services[manage.BucketServiceName].(*BucketService)
 	return bucketService.DeleteBucket(ctx, deleteBucketRequest)
 }
 func (s *Service) UpdateBucket(ctx context.Context, updateBucketRequest *pb.UpdateBucketRequest) (*pb.UpdateBucketResponse, error) {
-	bucketService := s.services[bucket.ServiceName].(*BucketService)
+	bucketService := s.services[manage.BucketServiceName].(*BucketService)
 	return bucketService.UpdateBucket(ctx, updateBucketRequest)
 
 }

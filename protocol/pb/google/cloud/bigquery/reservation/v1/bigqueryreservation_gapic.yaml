@@ -33,8 +33,8 @@ interfaces:
   collections:
   - name_pattern: projects/{project}/locations/{location}
     entity_name: location
-  - name_pattern: projects/{project}/locations/{location}/capacityCommitments/{capacity_commitment}
-    entity_name: capacity_commitment
+  - name_pattern: projects/{project}/locations/{location}/LimitBytesCommitments/{LimitBytes_commitment}
+    entity_name: LimitBytes_commitment
   - name_pattern: projects/{project}/locations/{location}/reservations/{reservation}
     entity_name: reservation
   - name_pattern: projects/{project}/locations/{location}/reservations/{reservation}/assignments/{assignment}
@@ -202,7 +202,7 @@ interfaces:
     field_name_patterns:
       reservation.name: reservation
     timeout_millis: 60000
-  - name: ListCapacityCommitments
+  - name: ListLimitBytesCommitments
     flattening:
       groups:
       - parameters:
@@ -215,13 +215,13 @@ interfaces:
         token_field: page_token
       response:
         token_field: next_page_token
-        resources_field: capacity_commitments
+        resources_field: LimitBytes_commitments
     retry_codes_name: idempotent
     retry_params_name: default
     field_name_patterns:
       parent: location
     timeout_millis: 60000
-  - name: GetCapacityCommitment
+  - name: GetLimitBytesCommitment
     flattening:
       groups:
       - parameters:
@@ -231,23 +231,23 @@ interfaces:
     retry_codes_name: idempotent
     retry_params_name: default
     field_name_patterns:
-      name: capacity_commitment
+      name: LimitBytes_commitment
     timeout_millis: 60000
-  - name: UpdateCapacityCommitment
+  - name: UpdateLimitBytesCommitment
     flattening:
       groups:
       - parameters:
-        - capacity_commitment
+        - LimitBytes_commitment
         - update_mask
     required_fields:
-    - capacity_commitment
+    - LimitBytes_commitment
     - update_mask
     retry_codes_name: non_idempotent
     retry_params_name: default
     field_name_patterns:
-      capacity_commitment.name: capacity_commitment
+      LimitBytes_commitment.name: LimitBytes_commitment
     timeout_millis: 60000
-  - name: SplitCapacityCommitment
+  - name: SplitLimitBytesCommitment
     flattening:
       groups:
       - parameters:
@@ -259,23 +259,23 @@ interfaces:
     retry_codes_name: non_idempotent
     retry_params_name: default
     field_name_patterns:
-      name: capacity_commitment
+      name: LimitBytes_commitment
     timeout_millis: 60000
-  - name: MergeCapacityCommitments
+  - name: MergeLimitBytesCommitments
     flattening:
       groups:
       - parameters:
         - parent
-        - capacity_commitment_ids
+        - LimitBytes_commitment_ids
     required_fields:
     - parent
-    - capacity_commitment_ids
+    - LimitBytes_commitment_ids
     retry_codes_name: non_idempotent
     retry_params_name: default
     field_name_patterns:
       parent: location
     timeout_millis: 6000
-  - name: DeleteCapacityCommitment
+  - name: DeleteLimitBytesCommitment
     flattening:
       groups:
       - parameters:
@@ -285,7 +285,7 @@ interfaces:
     retry_codes_name: idempotent
     retry_params_name: default
     field_name_patterns:
-      name: capacity_commitment
+      name: LimitBytes_commitment
     timeout_millis: 60000
   - name: CreateAssignment
     flattening:
