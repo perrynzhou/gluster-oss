@@ -123,7 +123,7 @@ func (fsApi *FsApi) RmAllFileFromPath(path string) error {
 	}
 	return nil
 }
-func (fsApi *FsApi) Seek(fd *FsFd, offset uint64, whence int) (*FsFd, error) {
+func (fsApi *FsApi) Seek(fd *FsFd, offset int64, whence int) (*FsFd, error) {
 	coffset := C.off_t(offset)
 	if fd == nil {
 		return nil, errors.New("fd is nil")

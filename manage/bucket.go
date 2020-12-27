@@ -79,7 +79,7 @@ func (bucket *Bucket) Load(fsApi *fs_api.FsApi) (*Bucket, error) {
 	return bucket, nil
 }
 
-func NewBucket(fsApi *fs_api.FsApi, cap, limit uint64, bucketName, refDirName string) (*Bucket, error) {
+func NewBucket(fsApi *fs_api.FsApi, cap, limit int64, bucketName, refDirName string) (*Bucket, error) {
 	var err error
 	defer func(err error) {
 		if err != nil {
@@ -177,11 +177,14 @@ func (bucket *Bucket) AllocBlockFile() error {
 	defer bucket.Locker.Unlock()
 	return nil
 }
-func (bucket *Bucket) SummarySize(size uint64) {
-	atomic.AddUint64(&bucket.Meta.CurrentStorageBytes, size)
+func (bucket *Bucket) ModifyObjectBytes(size int64) {
+		atomic.AddInt64(&bucket.Meta.CurrentStorageBytes, size)
 }
-func (bucket *Bucket) SummaryCount() {
-	atomic.AddUint64(&bucket.Meta.CurrentObjectCount, 1)
+func (bucket *Bucket) AddObjectCounter() {
+	atomic.AddInt64(&bucket.Meta.CurrentObjectCount, 1)
+}
+func (bucket *Bucket) SubObjectCounter() {
+	atomic.AddInt64(&bucket.Meta.CurrentObjectCount, -1)
 }
 func ReleaseBucket(bucket *Bucket) {
 	bucket.Meta.Status = meta.InactiveBucket

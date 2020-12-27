@@ -11,13 +11,13 @@ type BucketInfo struct {
 	Name                string
 	RealDirName         string
 	Status              uint8
-	MaxStorageBytes     uint64 `json:"LimitBytesMaxStorageBytes"`
-	CurrentStorageBytes uint64 `json:"LimitBytesCurrentStorageBytes"`
-	MaxObjectCount      uint64 `json:"objMaxObjectCount"`
-	CurrentObjectCount  uint64 `json:"objCurrentObjectCount"`
+	MaxStorageBytes     int64 `json:"LimitBytesMaxStorageBytes"`
+	CurrentStorageBytes int64 `json:"LimitBytesCurrentStorageBytes"`
+	MaxObjectCount      int64 `json:"objMaxObjectCount"`
+	CurrentObjectCount  int64 `json:"objCurrentObjectCount"`
 }
 
-func NewBucketInfo(limitBytes, MaxObjectCount uint64, bucketName, refDirName string) *BucketInfo {
+func NewBucketInfo(limitBytes, MaxObjectCount int64, bucketName, refDirName string) *BucketInfo {
 	return &BucketInfo{
 		Name:                bucketName,
 		RealDirName:         refDirName,

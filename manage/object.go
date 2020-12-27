@@ -9,7 +9,7 @@ import (
 
 type Object struct {
 	BlockFile  *meta.BlockFile
-	TotalBytes uint64
+	TotalBytes int64
 	bucket     *Bucket
 	Meta       *meta.ObjectInfo
 }
@@ -45,5 +45,15 @@ func (obj *Object) Write(api *fs_api.FsApi, data []byte) (int64, error) {
 }
 
 func (obj *Object) Read(api *fs_api.FsApi, data []byte) (int64, error) {
-	return -1, nil
+	return  api.Read(obj.BlockFile.File, data)
+}
+func (obj *Object) StoreMeta(api *fs_api.FsApi, fd *fs_api.FsFd) error {
+	b, err := json.Marshal(obj.bucket.Meta)
+	if err != nil {
+		return err
+	}
+	value := fmt.Sprintf("%s\n", string(b))
+	api.Write(fd, []byte(value))
+	return nil
+
 }

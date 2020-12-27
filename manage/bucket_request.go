@@ -30,7 +30,7 @@ func NewCreateBucketRequest(request *pb.CreateBucketRequest) *BucketRequest {
 		Info: &meta.BucketInfo{
 			Name:         request.Name,
 			MaxObjectCount:   request.MaxObjectCount,
-			CurrentObjectCount: uint64(0),
+			CurrentObjectCount: int64(0),
 			MaxStorageBytes:    request.MaxStorageBytes,
 			Status:       meta.ActiveBucket,
 		},
