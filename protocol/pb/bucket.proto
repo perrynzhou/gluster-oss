@@ -7,17 +7,17 @@ message CreateBucketRequest{
     //access privileges
     string key = 2;
     //request storage LimitBytes
-  uint64 max_storage_bytes = 3;
+  int64 max_storage_bytes = 3;
   //limit object count
-  uint64 max_object_count = 4;
+  int64 max_object_count = 4;
 }
 
 message CreateBucketResponse{
     string name = 1;
     //limit bytes for bucket
-  uint64 max_storage_bytes = 2;
+  int64 max_storage_bytes = 2;
   //limit object count
-  uint64 max_object_count = 3;
+  int64 max_object_count = 3;
     string bucket_dir=4;
     string message = 5;
 
@@ -32,26 +32,26 @@ message DeleteBucketResponse{
     string name = 1;
     string bucket_dir=2;
     string key = 3;
-    uint64 current_storage_bytes = 4;
+    int64 current_storage_bytes = 4;
     //obejcts limits
-    uint64 current_object_count = 5;
+    int64 current_object_count = 5;
     string message = 6;
 }
 
 message UpdateBucketRequest{
     string name = 1;
     string key = 2;
-    uint64 max_storage_bytes = 3;
+    int64 max_storage_bytes = 3;
   //limit object count
-   uint64 max_object_count = 4;
+   int64 max_object_count = 4;
 }
 
 message UpdateBucketResponse {
       string name = 1;
       string bucket_dir=2;
-  uint64 max_storage_bytes = 3;
+  int64 max_storage_bytes = 3;
   //limit object count
-  uint64 max_object_count = 4;
+  int64 max_object_count = 4;
       string message = 5;
 }
 
@@ -63,9 +63,9 @@ message StatusBucketRequest{
 message StatusBucketResponse {
   string name = 1;
   string bucket_dir=2;
-  uint64 max_storage_bytes = 3;
+  int64 max_storage_bytes = 3;
   //limit object count
-  uint64 max_object_count = 4;
+  int64 max_object_count = 4;
   string message = 5;
 }
 

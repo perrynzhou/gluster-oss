@@ -6,8 +6,9 @@ import (
 )
 
 const (
-	CreateObjectType = 1
-	DeleteObjectType = 2
+	PutObjectType = 1
+	GetObjectType = 2
+	DelObjectType = 3
 )
 const (
 	ObjectServiceName = "object"
@@ -17,12 +18,12 @@ type ObjectRequest struct {
 	RequestType uint8
 	Info        *meta.ObjectInfo
 	Done        chan *ObjectResponse
+	LocalFile   string
 }
 type ObjectResponse struct {
 	Reply interface{}
 	Err   error
 }
-
 
 func NewPutObjectRequest(request *pb.PutObjectRequest) *ObjectRequest {
 	return nil

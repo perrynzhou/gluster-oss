@@ -2,13 +2,16 @@ package meta
 
 import "time"
 
-
+const (
+	ActiveObjectStatus =0
+	InactiveObjectStatus=1
+)
 type ObjectInfo struct {
-	Id uint64
+	Key string
 	// Name of the bucket.
 	Bucket string
-    BlockId uint64
-	StartPos uint64
+    BlockId int64
+	StartPos int64
 	// Name of the object.
 	Name string
 	// Date and time when the object was last modified.
@@ -16,7 +19,7 @@ type ObjectInfo struct {
 	CreatTime time.Time
 	AccessTime time.Time
 	// Total object size.
-	Size uint64
+	Size int64
 	// A standard MIME type describing the format of the object.
 	ContentType string
 	// Date and time at which the object is no longer able to be cached
