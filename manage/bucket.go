@@ -28,7 +28,7 @@ type Bucket struct {
 	MaxIndex           int64
 	BlockCount         int
 	Meta               *meta.BucketInfo
-	BucketFile       *fs_api.FsFd
+	BucketMetaFile       *fs_api.FsFd
 	BlockFiles         map[int64]*meta.BlockFile
 	ObjectMetaFile     *fs_api.FsFd
 	BlockIndexFile *fs_api.FsFd
@@ -92,7 +92,7 @@ func (bucket *Bucket) Load(fsApi *fs_api.FsApi) (*Bucket, error) {
 	}
 	bucket.ObjectMetaFile = objectMetaFile
 	bucket.BlockIndexFile = blockIndexFile
-	bucket.BucketFile =bucketFile
+	bucket.BucketMetaFile =bucketFile
 	//to do
 	bucket.BlockMetaFile = blockMetaFile
 	return bucket, nil
@@ -110,7 +110,7 @@ func NewBucket(fsApi *fs_api.FsApi, bucketFile *fs_api.FsFd,cap, limit int64, bu
 		Meta:       meta.NewBucketInfo(cap, limit, bucketName, refDirName),
 		BlockFiles: make(map[int64]*meta.BlockFile),
 		Locker:&sync.Mutex{},
-		BucketFile:bucketFile,
+		BucketMetaFile:bucketFile,
 	}
 	// create bucket path
 	err = fsApi.Mkdir(fmt.Sprintf("/%s", bucket.Meta.RealDirName), os.ModePerm)
