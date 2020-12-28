@@ -1,6 +1,7 @@
 package meta
 
 import (
+	"encoding/json"
 	"fmt"
 	fs_api "glusterfs-storage-gateway/fs-api"
 	"os"
@@ -24,18 +25,22 @@ type BlockFile struct {
 	File   *fs_api.FsFd
 	Lock   *sync.Mutex
 	IsLock bool
+	MetaFile  *fs_api.FsFd
+	IndexFile  *fs_api.FsFd
 	Meta   *BlockFileInfo
 }
 type BlockFileInfo struct {
+	BucketName   string
+	BucketRefDir   string
 	Index             int64
-	TotalBytes        uint64
+	TotalBytes        int64
 	TotalObjectCount  int64
 	ActiveObjectCount int64
 	Status            uint8
 }
 
 
-func NewBlockFile(api *fs_api.FsApi,index uint64,bucketDirName string,isLoad bool) (*BlockFile,error) {
+func NewBlockFile(api *fs_api.FsApi,indexFile,metaFile *fs_api.FsFd,index int64,bucketName,bucketDirName string,isLoad bool) (*BlockFile,error) {
 	var blockFile *fs_api.FsFd
 	var err error
 	blockFilePath := fmt.Sprintf("/%s/block/%s.block.%d", bucketDirName, bucketDirName, index)
@@ -52,9 +57,13 @@ func NewBlockFile(api *fs_api.FsApi,index uint64,bucketDirName string,isLoad boo
 		Index:             int64(index),
 		TotalObjectCount:  int64(0),
 		ActiveObjectCount: int64(0),
+		BucketName:bucketName,
+		BucketRefDir  :bucketDirName,
 		Status:            BlockActive,
 	}
 	return &BlockFile{
+		MetaFile:metaFile,
+		IndexFile:indexFile,
 		File: blockFile,
 		Lock: &sync.Mutex{},
 		Meta: blockInfo,
@@ -69,9 +78,19 @@ func (blockFile *BlockFile) ModifyObjectCount(opType bool) {
 	atomic.AddInt64(&blockFile.Meta.ActiveObjectCount, value)
 	atomic.AddInt64(&blockFile.Meta.TotalObjectCount, value)
 }
-func (blockFile *BlockFile) AddBytes(n uint64) {
-	atomic.AddUint64(&blockFile.Meta.TotalBytes, n)
+func (blockFile *BlockFile) AddBytes(n int64) {
+	atomic.AddInt64(&blockFile.Meta.TotalBytes, n)
 }
 func (blockFile *BlockFile) ModifyStatusToInactive() {
 	blockFile.Meta.Status =BlockInactive
+}
+func (blockFile *BlockFile) StoreMeta(api *fs_api.FsApi) error {
+	b, err := json.Marshal(blockFile.Meta)
+	if err != nil {
+		return err
+	}
+	value := fmt.Sprintf("%s\n", string(b))
+	api.Write(blockFile.MetaFile, []byte(value))
+	return nil
+
 }

@@ -27,7 +27,7 @@ func (obj *Object) Write(api *fs_api.FsApi, data []byte) (int64, error) {
 	if err != nil {
 		return wbytes, err
 	}
-	obj.BlockFile.AddBytes(uint64(wbytes))
+	obj.BlockFile.AddBytes(wbytes)
 	if obj.TotalBytes == obj.Meta.Size {
 		obj.BlockFile.ModifyObjectCount(true)
 		b, err := json.Marshal(obj.Meta)
@@ -38,6 +38,7 @@ func (obj *Object) Write(api *fs_api.FsApi, data []byte) (int64, error) {
 		api.Write(obj.bucket.ObjectMetaFile, []byte(objValue))
 		if obj.BlockFile.Meta.TotalBytes >= meta.MaxBlockFileBytes {
 			obj.BlockFile.ModifyStatusToInactive()
+			obj.BlockFile.StoreMeta(api)
 			obj.bucket.AllocBlockFile()
 		}
 	}

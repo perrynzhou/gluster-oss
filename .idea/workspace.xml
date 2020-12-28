@@ -31,10 +31,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="060af402-b06a-4d15-8399-99878b891f46" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/manage/object/utils.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/manage/object/block.go" beforeDir="false" afterPath="$PROJECT_DIR$/manage/object/block.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/manage/object/manage.go" beforeDir="false" afterPath="$PROJECT_DIR$/manage/object/manage.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manage/bucket.go" beforeDir="false" afterPath="$PROJECT_DIR$/manage/bucket.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manage/bucket_manage.go" beforeDir="false" afterPath="$PROJECT_DIR$/manage/bucket_manage.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manage/object.go" beforeDir="false" afterPath="$PROJECT_DIR$/manage/object.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/meta/block.go" beforeDir="false" afterPath="$PROJECT_DIR$/meta/block.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/meta/bucket.go" beforeDir="false" afterPath="$PROJECT_DIR$/meta/bucket.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,7 +51,7 @@
       </list>
     </option>
   </component>
-  <component name="GOROOT" path="/usr/local/go" />
+  <component name="GOROOT" path="$USER_HOME$/App/go" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -64,12 +67,13 @@
     <property name="DefaultGoTemplateProperty" value="Go File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
     <property name="go.vendoring.notification.had.been.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/manage" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -139,28 +143,30 @@
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
+    <option name="version" value="1" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
   </component>
   <component name="WindowStateProjectService">
-    <state x="640" y="429" key="#GOROOT" timestamp="1608951377262">
-      <screen x="0" y="25" width="1680" height="933" />
+    <state x="731" y="209" width="800" height="671" key="#GOROOT" timestamp="1609145442798">
+      <screen x="0" y="0" width="1918" height="886" />
     </state>
     <state x="729" y="382" key="#GOROOT/0.0.1914.882@0.0.1914.882" timestamp="1606094391576" />
+    <state x="731" y="209" width="800" height="671" key="#GOROOT/0.0.1918.886@0.0.1918.886" timestamp="1609145442798" />
     <state x="640" y="430" key="#GOROOT/0.23.1680.940@0.23.1680.940" timestamp="1606003449750" />
     <state x="640" y="429" key="#GOROOT/0.25.1680.933@0.25.1680.933" timestamp="1608951377262" />
     <state x="673" y="305" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1608990255142">
