@@ -31,13 +31,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="060af402-b06a-4d15-8399-99878b891f46" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/manage/bucket.go" beforeDir="false" afterPath="$PROJECT_DIR$/manage/bucket.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/manage/bucket_manage.go" beforeDir="false" afterPath="$PROJECT_DIR$/manage/bucket_manage.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/manage/object.go" beforeDir="false" afterPath="$PROJECT_DIR$/manage/object.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/meta/block.go" beforeDir="false" afterPath="$PROJECT_DIR$/meta/block.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/meta/bucket.go" beforeDir="false" afterPath="$PROJECT_DIR$/meta/bucket.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
