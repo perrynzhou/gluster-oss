@@ -130,7 +130,7 @@ func (bucketManage *BucketManage) handleCreateBucketRequest(request *BucketReque
 	bucketDirName := fmt.Sprintf("%s-%s", request.Info.Name, uuid.New().String())
 	log.Infoln("create bucket dir:", bucketDirName)
 
-	if bucket, err = NewBucket(bucketManage.api, request.Info.MaxStorageBytes, request.Info.MaxObjectCount, request.Info.Name, bucketDirName); err != nil {
+	if bucket, err = NewBucket(bucketManage.api,bucketManage.bucketMetaFile, request.Info.MaxStorageBytes, request.Info.MaxObjectCount, request.Info.Name, bucketDirName); err != nil {
 		log.Errorln("NewBucket error:",err)
 		err = errors.New("create bucket faild")
 		return err
