@@ -31,6 +31,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="060af402-b06a-4d15-8399-99878b891f46" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmd/bucket/build.sh" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/bucket-client/build.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmd/bucket/conf.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/bucket-client/conf.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmd/bucket/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/bucket-client/main.go" afterDir="false" />
