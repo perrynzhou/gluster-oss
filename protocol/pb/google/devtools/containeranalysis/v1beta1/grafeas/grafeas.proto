@@ -17,7 +17,7 @@ syntax = "proto3";
 package grafeas.v1beta1;
 
 import "google/api/annotations.proto";
-import "google/api/client.proto";
+import "google/api/bucket.proto";
 import "google/devtools/containeranalysis/v1beta1/attestation/attestation.proto";
 import "google/devtools/containeranalysis/v1beta1/build/build.proto";
 import "google/devtools/containeranalysis/v1beta1/common/common.proto";

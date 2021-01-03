@@ -57,6 +57,20 @@ func (s *Service) UpdateBucket(ctx context.Context, updateBucketRequest *pb.Upda
 	return bucketService.UpdateBucket(ctx, updateBucketRequest)
 
 }
+func (s *Service) PutObject(ctx context.Context, putObjectRequest *pb.PutObjectRequest) (*pb.PutObjectResponse, error) {
+	objectService := s.services[manage.ObjectServiceName].(*ObjectService)
+	return objectService.PutObject(ctx, putObjectRequest)
+}
+func (s *Service) GetObject(ctx context.Context, getObjectRequest *pb.GetObjectRequest) (*pb.GetObjectReponse, error) {
+	objectService := s.services[manage.ObjectServiceName].(*ObjectService)
+	return objectService.GetObject(ctx, getObjectRequest)
+}
+func (s *Service) DeleteObject(ctx context.Context, delObjectRequest *pb.DeleteObjectRequest) (*pb.DeleteBucketResponse, error) {
+	objectService := s.services[manage.ObjectServiceName].(*ObjectService)
+	return objectService.DeleteObject(ctx, delObjectRequest)
+
+}
+
 func (s *Service) Stop() {
 	s.stopGrpcCh <- struct{}{}
 	s.stopHttpCh <- struct{}{}

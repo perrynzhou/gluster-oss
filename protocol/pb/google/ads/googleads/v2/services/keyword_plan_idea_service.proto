@@ -21,7 +21,7 @@ import "google/ads/googleads/v2/enums/keyword_plan_network.proto";
 import "google/api/annotations.proto";
 import "google/api/field_behavior.proto";
 import "google/protobuf/wrappers.proto";
-import "google/api/client.proto";
+import "google/api/bucket.proto";
 
 option csharp_namespace = "Google.Ads.GoogleAds.V2.Services";
 option go_package = "google.golang.org/genproto/googleapis/ads/googleads/v2/services;services";

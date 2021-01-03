@@ -156,7 +156,7 @@ import "google/ads/googleads/v3/services/shared_criterion_service.proto";
 import "google/ads/googleads/v3/services/shared_set_service.proto";
 import "google/ads/googleads/v3/services/user_list_service.proto";
 import "google/api/annotations.proto";
-import "google/api/client.proto";
+import "google/api/bucket.proto";
 import "google/api/field_behavior.proto";
 import "google/protobuf/field_mask.proto";
 import "google/rpc/status.proto";

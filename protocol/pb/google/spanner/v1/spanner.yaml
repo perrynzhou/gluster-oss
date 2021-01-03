@@ -1,6 +1,6 @@
-# This service config is currently set for generating client libraries for the
+# This service config is currently set for generating bucket libraries for the
 # non-admin API. Use the spanner_admin_*.yaml service configs to generate admin
-# client libraries.
+# bucket libraries.
 
 type: google.api.Service
 config_version: 3

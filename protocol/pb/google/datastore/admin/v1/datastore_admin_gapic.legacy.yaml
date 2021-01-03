@@ -55,7 +55,7 @@ interfaces:
   #
   #   flattening - Specifies the configuration for parameter flattening.
   #   Describes the parameter groups for which a generator should produce method
-  #   overloads which allow a client to directly pass request message fields as
+  #   overloads which allow a bucket to directly pass request message fields as
   #   method parameters. This information may or may not be used, depending on
   #   the target language.
   #   Consists of groups, which each represent a list of parameters to be
@@ -69,9 +69,9 @@ interfaces:
   #   response_field_name_patterns fields.
   #   UNSET: default value
   #   NONE: the collection configs will not be used by the generated code.
-  #   VALIDATE: string fields will be validated by the client against the
+  #   VALIDATE: string fields will be validated by the bucket against the
   #   specified resource name formats.
-  #   STATIC_TYPES: the client will use generated types for resource names.
+  #   STATIC_TYPES: the bucket will use generated types for resource names.
   #
   #   page_streaming - Specifies the configuration for paging.
   #   Describes information for generating a method which transforms a paging

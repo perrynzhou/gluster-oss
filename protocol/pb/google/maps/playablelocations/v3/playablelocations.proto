@@ -22,7 +22,7 @@ import "google/maps/playablelocations/v3/resources.proto";
 import "google/maps/playablelocations/v3/sample/resources.proto";
 import "google/maps/unity/clientinfo.proto";
 import "google/protobuf/duration.proto";
-import "google/api/client.proto";
+import "google/api/bucket.proto";
 
 option csharp_namespace = "Google.Maps.PlayableLocations.V3";
 option go_package = "google.golang.org/genproto/googleapis/maps/playablelocations/v3;playablelocations";

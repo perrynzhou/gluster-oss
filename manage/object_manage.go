@@ -25,12 +25,12 @@ type ObjectManage struct {
 	notifyBucketCh chan *Bucket
 }
 
-func NewObjectManage(api *fs_api.FsApi, bucketCache map[string]*Bucket, notifyCh chan *Bucket, objectRequestCh chan *ObjectRequest, wg *sync.WaitGroup) *ObjectManage {
+func NewObjectManage(api *fs_api.FsApi, bucketCache map[string]*Bucket, notifyBucketCh chan *Bucket, objectRequestCh chan *ObjectRequest, wg *sync.WaitGroup) *ObjectManage {
 	return &ObjectManage{
 		api:            api,
 		ReqCh:          objectRequestCh,
 		wg:             wg,
-		notifyBucketCh: notifyCh,
+		notifyBucketCh: notifyBucketCh,
 		doneCh:         make(chan struct{}),
 		notifyObjectCh: make(chan *Object),
 		ObjectCache:    make(map[string]*Object),

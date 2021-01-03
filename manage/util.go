@@ -25,9 +25,6 @@ func PutData(localFilePath string, api *fs_api.FsApi, obj *Object) (int64, error
 		n, err := r.Read(buf[:cap(buf)])
 		buf = buf[:n]
 		if n == 0 {
-			if err == nil {
-				continue
-			}
 			if err == io.EOF {
 				break
 			}

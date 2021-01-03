@@ -3,6 +3,7 @@ package pb;
 message PutObjectRequest{
     string bucket_name = 1;
     string object_name =2;
+    string local_file = 3;
     map<string, string> user_defined = 4;
    	string user_tags=5;
     int64 objects_size = 6;
@@ -33,7 +34,7 @@ message GetObjectRequest{
     string message = 3;
 }
 
-message GetObjectReponse{
+message GetObjectResponse{
     //bucket name
     string bucket_name = 1;
     int64 object_id = 2;

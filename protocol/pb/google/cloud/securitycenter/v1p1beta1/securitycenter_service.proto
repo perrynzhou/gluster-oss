@@ -20,7 +20,7 @@ package google.cloud.securitycenter.v1p1beta1;
 import public "google/cloud/securitycenter/v1p1beta1/run_asset_discovery_response.proto";
 
 import "google/api/annotations.proto";
-import "google/api/client.proto";
+import "google/api/bucket.proto";
 import "google/api/field_behavior.proto";
 import "google/api/resource.proto";
 import "google/cloud/securitycenter/v1p1beta1/asset.proto";

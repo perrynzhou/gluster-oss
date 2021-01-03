@@ -22,7 +22,7 @@ import "google/api/field_behavior.proto";
 import "google/api/resource.proto";
 import "google/cloud/datacatalog/v1beta1/policytagmanager.proto";
 import "google/iam/v1/policy.proto";
-import "google/api/client.proto";
+import "google/api/bucket.proto";
 
 option cc_enable_arenas = true;
 option go_package = "google.golang.org/genproto/googleapis/cloud/datacatalog/v1beta1;datacatalog";

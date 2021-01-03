@@ -25,7 +25,7 @@ import "google/devtools/resultstore/v2/download_metadata.proto";
 import "google/devtools/resultstore/v2/file_set.proto";
 import "google/devtools/resultstore/v2/invocation.proto";
 import "google/devtools/resultstore/v2/target.proto";
-import "google/api/client.proto";
+import "google/api/bucket.proto";
 
 option go_package = "google.golang.org/genproto/googleapis/devtools/resultstore/v2;resultstore";
 option java_multiple_files = true;

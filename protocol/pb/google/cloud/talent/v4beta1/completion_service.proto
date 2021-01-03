@@ -20,7 +20,7 @@ import "google/api/annotations.proto";
 import "google/api/field_behavior.proto";
 import "google/api/resource.proto";
 import "google/cloud/talent/v4beta1/common.proto";
-import "google/api/client.proto";
+import "google/api/bucket.proto";
 
 option go_package = "google.golang.org/genproto/googleapis/cloud/talent/v4beta1;talent";
 option java_multiple_files = true;

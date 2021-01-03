@@ -23,7 +23,7 @@ import "google/cloud/managedidentities/v1beta1/resource.proto";
 import "google/longrunning/operations.proto";
 import "google/protobuf/field_mask.proto";
 import "google/protobuf/timestamp.proto";
-import "google/api/client.proto";
+import "google/api/bucket.proto";
 
 option csharp_namespace = "Google.Cloud.ManagedIdentities.V1Beta1";
 option go_package = "google.golang.org/genproto/googleapis/cloud/managedidentities/v1beta1;managedidentities";

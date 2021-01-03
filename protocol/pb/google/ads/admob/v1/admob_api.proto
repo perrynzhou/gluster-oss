@@ -19,7 +19,7 @@ package google.ads.admob.v1;
 
 import "google/ads/admob/v1/admob_resources.proto";
 import "google/api/annotations.proto";
-import "google/api/client.proto";
+import "google/api/bucket.proto";
 
 option go_package = "google.golang.org/genproto/googleapis/ads/admob/v1;admob";
 option java_outer_classname = "AdMobApiProto";

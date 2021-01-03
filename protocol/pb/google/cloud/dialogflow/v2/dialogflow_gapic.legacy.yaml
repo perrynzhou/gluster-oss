@@ -61,7 +61,7 @@ interfaces:
   #   name - The simple name of the method.
   #   flattening - Specifies the configuration for parameter flattening.
   #       Describes the parameter groups for which a generator should produce
-  #       method overloads which allow a client to directly pass request message
+  #       method overloads which allow a bucket to directly pass request message
   #       fields as method parameters. This information may or may not be used,
   #       depending on the target language.
   #       Consists of groups, which each represent a list of parameters to be
@@ -277,7 +277,7 @@ interfaces:
   #   name - The simple name of the method.
   #   flattening - Specifies the configuration for parameter flattening.
   #       Describes the parameter groups for which a generator should produce
-  #       method overloads which allow a client to directly pass request message
+  #       method overloads which allow a bucket to directly pass request message
   #       fields as method parameters. This information may or may not be used,
   #       depending on the target language.
   #       Consists of groups, which each represent a list of parameters to be
@@ -440,7 +440,7 @@ interfaces:
   #   name - The simple name of the method.
   #   flattening - Specifies the configuration for parameter flattening.
   #       Describes the parameter groups for which a generator should produce
-  #       method overloads which allow a client to directly pass request message
+  #       method overloads which allow a bucket to directly pass request message
   #       fields as method parameters. This information may or may not be used,
   #       depending on the target language.
   #       Consists of groups, which each represent a list of parameters to be
@@ -731,7 +731,7 @@ interfaces:
   #   name - The simple name of the method.
   #   flattening - Specifies the configuration for parameter flattening.
   #       Describes the parameter groups for which a generator should produce
-  #       method overloads which allow a client to directly pass request message
+  #       method overloads which allow a bucket to directly pass request message
   #       fields as method parameters. This information may or may not be used,
   #       depending on the target language.
   #       Consists of groups, which each represent a list of parameters to be
@@ -938,7 +938,7 @@ interfaces:
   #   name - The simple name of the method.
   #   flattening - Specifies the configuration for parameter flattening.
   #       Describes the parameter groups for which a generator should produce
-  #       method overloads which allow a client to directly pass request message
+  #       method overloads which allow a bucket to directly pass request message
   #       fields as method parameters. This information may or may not be used,
   #       depending on the target language.
   #       Consists of groups, which each represent a list of parameters to be
@@ -1086,7 +1086,7 @@ interfaces:
   #   name - The simple name of the method.
   #   flattening - Specifies the configuration for parameter flattening.
   #       Describes the parameter groups for which a generator should produce
-  #       method overloads which allow a client to directly pass request message
+  #       method overloads which allow a bucket to directly pass request message
   #       fields as method parameters. This information may or may not be used,
   #       depending on the target language.
   #       Consists of groups, which each represent a list of parameters to be

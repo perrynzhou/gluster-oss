@@ -1,73 +1,97 @@
 package main
 
 import (
+	"context"
 	"flag"
+	"fmt"
 	"glusterfs-storage-gateway/conf"
-	fs_api "glusterfs-storage-gateway/fs-api"
-	"glusterfs-storage-gateway/manage"
-	"glusterfs-storage-gateway/service"
-	"glusterfs-storage-gateway/utils"
+	"glusterfs-storage-gateway/protocol/pb"
 	"os"
-	"os/signal"
-	"sync"
-	"syscall"
+	"path/filepath"
+	"time"
 
 	log "github.com/sirupsen/logrus"
+	"google.golang.org/grpc"
+)
+
+const (
+	bucketInfoFile = "/tmp/bucket.json"
 )
 
 var (
-	confFile    = flag.String("c", "conf.yaml", "glusterfs-storage-gateway conf file")
-	serviceName = flag.String("n", "glusterfs-storage-gateway", "glusterfs-storage-gateway name")
+	requestBucketType = flag.String("o", "c", "p-put,g-get,d-delete object")
+	confFile          = flag.String("c", "./conf.yaml", "default conf is ./conf.yaml")
 )
 
-func init() {
-	flag.Parse()
-	utils.InitLogFormat()
+type Client struct {
+	glusterStorageGatewayClient pb.GlusterStorageGatewayClient
+	timeout                     int
+	conn                        *grpc.ClientConn
 }
-func initStoreBackend(sc *conf.ServerConfig) (*fs_api.FsApi, error) {
-	log.Debugf("****volume:%s,addr:%s,port:%d*****\n",sc.StoreBackend.Volume,sc.StoreBackend.Addr,sc.StoreBackend.Port)
-	api, err := fs_api.NewFsApi(sc.StoreBackend.Volume, sc.StoreBackend.Addr, sc.StoreBackend.Port, true)
+
+func NewClient(path string) (*Client, error) {
+	config, err := conf.NewClientConf(path)
 	if err != nil {
-		log.Errorln("new metaApi failed")
+		log.Fatal("Load Config failed:", err)
 		return nil, err
 	}
-	return api, nil
+	diaOpt := grpc.WithDefaultCallOptions()
+	cnn, err := grpc.Dial(fmt.Sprintf("%s:%d", config.Conf.Addr, config.Conf.Port), grpc.WithInsecure(), diaOpt)
+	if err != nil {
+		log.Error("grpc.Dial Failed, err:", err)
+		return nil, nil
+	}
+	glusterStorageGatewayClient := pb.NewGlusterStorageGatewayClient(cnn)
+	return &Client{
+		glusterStorageGatewayClient: glusterStorageGatewayClient,
+		conn:                        cnn,
+		timeout:                     config.Conf.TimeOut,
+	}, nil
 }
+
+func (c *Client) Close() {
+	c.conn.Close()
+}
+
+func PutObject(c *Client, bucketName, localFile string) (*pb.PutObjectResponse, error) {
+	var fileInfo os.FileInfo
+	fileInfo, err := os.Stat(localFile)
+	if err != nil {
+		return &pb.PutObjectResponse{}, err
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(c.timeout)*time.Second)
+	defer cancel()
+
+	clientObjectRequest := &pb.PutObjectRequest{
+		BucketName:  bucketName,
+		LocalFile:   localFile,
+		ObjectName:  filepath.Base(localFile),
+		ObjectsSize: fileInfo.Size(),
+		ContentType: filepath.Ext(localFile),
+	}
+	resp, err := c.glusterStorageGatewayClient.PutObject(ctx, clientObjectRequest)
+	if err != nil {
+		log.Errorf("putObject err:%v", err)
+		return nil, err
+	}
+	log.Info("resp:", resp)
+	return resp, nil
+
+}
+
 func main() {
-
-	serverConf, err := conf.NewServerConf(*confFile)
-	log.Info("serverConf:", serverConf)
+	flag.Parse()
+	c, err := NewClient(*confFile)
 	if err != nil {
-		log.Fatal(err)
+		log.Error("NewClient:", err)
+		return
 	}
-	signals := make(chan os.Signal, 1)
-	signal.Notify(signals, os.Interrupt, syscall.SIGTERM, syscall.SIGINT)
-	wg := &sync.WaitGroup{}
-	/*
-	if _,err =utils.InitRedisClient(serverConf.MetaBacked.Addr, serverConf.MetaBacked.Port);err != nil {
-		log.Fatalln("conection redis erros:",err)
-	}
+	defer c.Close()
+	if *requestBucketType == "p" {
 
-	 */
-	fsApi, err := initStoreBackend(serverConf)
-	if err != nil {
-		log.Fatal("init fsApi failed:", err)
-	}
-	log.Info("init glusterfs-storage-gateway success")
-	bucketService := service.NewBucketSerivce(fsApi, manage.BucketServiceName, wg)
-	if bucketService == nil {
-		log.Fatalln("start gatway failed");
-	}
-	service := service.NewService(serverConf, wg)
-	service.RegisterService(bucketService.ServiceName, bucketService)
-	service.Run()
-	defer wg.Wait()
-	for {
-		select {
-		case <-signals:
-			service.Stop()
-			return
-		}
-	}
+	} else if *requestBucketType == "d" {
 
+	} else {
+
+	}
 }

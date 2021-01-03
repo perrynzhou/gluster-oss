@@ -17,7 +17,7 @@ syntax = "proto3";
 
 package google.cloud.bigquery.v2;
 
-import "google/api/client.proto";
+import "google/api/bucket.proto";
 import "google/api/field_behavior.proto";
 import "google/cloud/bigquery/v2/encryption_config.proto";
 import "google/cloud/bigquery/v2/model_reference.proto";

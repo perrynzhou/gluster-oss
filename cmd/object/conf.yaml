@@ -1,0 +1,4 @@
+storageGateway:
+  addr:  10.211.55.3
+  port: 5566
+  timeout: 1000

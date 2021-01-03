@@ -22,7 +22,7 @@ import "google/cloud/asset/v1p4beta1/assets.proto";
 import "google/iam/v1/policy.proto";
 import "google/longrunning/operations.proto";
 import "google/protobuf/duration.proto";
-import "google/api/client.proto";
+import "google/api/bucket.proto";
 
 option csharp_namespace = "Google.Cloud.Asset.V1P4Beta1";
 option go_package = "google.golang.org/genproto/googleapis/cloud/asset/v1p4beta1;asset";

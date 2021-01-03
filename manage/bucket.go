@@ -195,7 +195,7 @@ func (bucket *Bucket) StoreMeta(api *fs_api.FsApi, fd *fs_api.FsFd) error {
 		return err
 	}
 	value := fmt.Sprintf("%s\n", string(b))
-	api.Write(bucket.BucketFile, []byte(value))
+	api.Write(bucket.BlockMetaFile, []byte(value))
 	return nil
 
 }

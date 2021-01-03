@@ -18,7 +18,7 @@ syntax = "proto3";
 package google.cloud.osconfig.v1beta;
 
 import "google/api/annotations.proto";
-import "google/api/client.proto";
+import "google/api/bucket.proto";
 import "google/cloud/osconfig/v1beta/guest_policies.proto";
 import "google/cloud/osconfig/v1beta/patch_deployments.proto";
 import "google/cloud/osconfig/v1beta/patch_jobs.proto";

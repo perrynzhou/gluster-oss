@@ -27,7 +27,7 @@ type BlockFile struct {
 	IsLock bool
 	MetaFile  *fs_api.FsFd
 	IndexFile  *fs_api.FsFd
-	Meta   *BlockFileInfo
+	Meta     *BlockFileInfo
 }
 type BlockFileInfo struct {
 	BucketName   string
