@@ -56,6 +56,7 @@ func (objectManage *ObjectManage) handlePutObjectRequest(request *ObjectRequest)
 	}
 	objectKey := uuid.New().String()
 	blockFile := bucket.GetBlockFile()
+	log.Infof("#### bucket =%s,get block id=%d,bucket dir=%s\n",blockFile.Meta.BucketName,blockFile.Meta.Index,blockFile.Meta.BucketRefDir)
 	objectInfo, err := NewObject(objectManage.api, blockFile, bucket, request.Info)
 	objectInfo.Meta.BlockId = blockFile.Meta.Index
 	objectInfo.Meta.StartPos, err = blockFile.File.Size()

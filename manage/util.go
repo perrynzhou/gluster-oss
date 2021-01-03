@@ -16,8 +16,6 @@ func PutData(localFilePath string, api *fs_api.FsApi, obj *Object) (int64, error
 	obj.Meta.ContentType = filepath.Ext(localFilePath)
 	// Reset the read pointer if necessary.
 	localFile.Seek(0, 0)
-	fileInfo, err := localFile.Stat()
-	obj.Meta.Size = fileInfo.Size()
 	nBytes := int64(0)
 	r := bufio.NewReader(localFile)
 	buf := make([]byte, 0, 4*1024*1024)
