@@ -20,7 +20,7 @@ package google.maps.routes.v1;
 import "google/api/annotations.proto";
 import "google/maps/routes/v1/compute_routes_request.proto";
 import "google/maps/routes/v1/compute_routes_response.proto";
-import "google/api/bucket.proto";
+import "google/api/bucket-client.proto";
 
 option cc_enable_arenas = true;
 option csharp_namespace = "Google.Maps.Routes.V1";

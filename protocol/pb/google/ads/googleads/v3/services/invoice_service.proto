@@ -19,7 +19,7 @@ package google.ads.googleads.v3.services;
 import "google/ads/googleads/v3/enums/month_of_year.proto";
 import "google/ads/googleads/v3/resources/invoice.proto";
 import "google/api/annotations.proto";
-import "google/api/bucket.proto";
+import "google/api/bucket-client.proto";
 import "google/api/field_behavior.proto";
 
 option csharp_namespace = "Google.Ads.GoogleAds.V3.Services";

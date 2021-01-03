@@ -11,7 +11,7 @@ const (
 	UpdateBucketType = 3
 )
 const (
-	BucketServiceName = "bucket"
+	BucketServiceName = "bucket-client"
 )
 
 type BucketRequest struct {

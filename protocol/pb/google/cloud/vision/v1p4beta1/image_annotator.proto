@@ -18,7 +18,7 @@ syntax = "proto3";
 package google.cloud.vision.v1p4beta1;
 
 import "google/api/annotations.proto";
-import "google/api/bucket.proto";
+import "google/api/bucket-client.proto";
 import "google/api/field_behavior.proto";
 import "google/cloud/vision/v1p4beta1/face.proto";
 import "google/cloud/vision/v1p4beta1/geometry.proto";

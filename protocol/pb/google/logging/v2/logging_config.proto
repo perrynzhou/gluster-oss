@@ -16,7 +16,7 @@ syntax = "proto3";
 
 package google.logging.v2;
 
-import "google/api/bucket.proto";
+import "google/api/bucket-client.proto";
 import "google/api/field_behavior.proto";
 import "google/api/resource.proto";
 import "google/protobuf/duration.proto";
@@ -107,22 +107,22 @@ service ConfigServiceV2 {
   rpc UpdateBucket(UpdateBucketRequest) returns (LogBucket) {
     option (google.api.http) = {
       patch: "/v2/{name=*/*/locations/*/buckets/*}"
-      body: "bucket"
+      body: "bucket-client"
       additional_bindings {
         patch: "/v2/{name=projects/*/locations/*/buckets/*}"
-        body: "bucket"
+        body: "bucket-client"
       }
       additional_bindings {
         patch: "/v2/{name=organizations/*/locations/*/buckets/*}"
-        body: "bucket"
+        body: "bucket-client"
       }
       additional_bindings {
         patch: "/v2/{name=folders/*/locations/*/buckets/*}"
-        body: "bucket"
+        body: "bucket-client"
       }
       additional_bindings {
         patch: "/v2/{name=billingAccounts/*/locations/*/buckets/*}"
-        body: "bucket"
+        body: "bucket-client"
       }
     };
   }
@@ -421,10 +421,10 @@ service ConfigServiceV2 {
 message LogBucket {
   option (google.api.resource) = {
     type: "logging.googleapis.com/LogBucket"
-    pattern: "projects/{project}/locations/{location}/buckets/{bucket}"
-    pattern: "organizations/{organization}/locations/{location}/buckets/{bucket}"
-    pattern: "folders/{folder}/locations/{location}/buckets/{bucket}"
-    pattern: "billingAccounts/{billing_account}/locations/{location}/buckets/{bucket}"
+    pattern: "projects/{project}/locations/{location}/buckets/{bucket-client}"
+    pattern: "organizations/{organization}/locations/{location}/buckets/{bucket-client}"
+    pattern: "folders/{folder}/locations/{location}/buckets/{bucket-client}"
+    pattern: "billingAccounts/{billing_account}/locations/{location}/buckets/{bucket-client}"
   };
 
   // The resource name of the bucket.

@@ -17,17 +17,17 @@ import (
 )
 
 const (
-	bucketInfoFile = "/tmp/bucket.json"
+	bucketInfoFile = "/tmp/bucket-client.json"
 )
 
 var (
-	requestBucketType = flag.String("o", "c", "c-create,u-upate,d-delete bucket")
+	requestBucketType = flag.String("o", "c", "c-create,u-upate,d-delete bucket-client")
 	confFile          = flag.String("c", "./conf.yaml", "default conf is ./conf.yaml")
 	count             = flag.Int("n", 1, "defaiult count is 1")
 )
 
-type ClientBucketRequest struct {
-	Request []*pb.CreateBucketRequest
+type ClientRequest struct {
+	Request []*pb.PutObjectRequest
 }
 type Client struct {
 	glusterStorageGatewayClient pb.GlusterStorageGatewayClient
@@ -59,27 +59,27 @@ func (c *Client) Close() {
 	c.conn.Close()
 }
 
-func CreateBucket(c *Client, n int) (*ClientBucketRequest, error) {
+func PutObject(c *Client, n int) (*ClientRequest, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(c.timeout)*time.Second)
 	defer cancel()
 
-	ClientBucketRequest := &ClientBucketRequest{
-		Request: make([]*pb.CreateBucketRequest, n),
+	clientRequest := &ClientRequest{
+		Request: make([]*pb.PutObjectRequest, n),
 	}
 	for i := 0; i < n; i++ {
-		ClientBucketRequest.Request[i] = &pb.CreateBucketRequest{
-			Name:         fmt.Sprintf("bucket-%d", i),
+		clientRequest.Request[i] = &pb.CreateBucketRequest{
+			Name:         fmt.Sprintf("bucket-client-%d", i),
 			MaxStorageBytes:     100,
 			MaxObjectCount: 100,
 		}
-		resp, err := c.glusterStorageGatewayClient.CreateBucket(ctx, ClientBucketRequest.Request[i])
+		resp, err := c.glusterStorageGatewayClient.CreateBucket(ctx, clientRequest.Request[i])
 		if err != nil {
 			log.Errorf("CreateBucket err:%v", err)
 			return nil, err
 		}
 		log.Info("resp:", resp)
 	}
-	b, err := json.Marshal(&ClientBucketRequest)
+	b, err := json.Marshal(&clientRequest)
 	if err != nil {
 		log.Errorln("err:", err)
 	}
@@ -90,7 +90,7 @@ func CreateBucket(c *Client, n int) (*ClientBucketRequest, error) {
 		return nil,err
 	}
 	file.WriteString(string(b))
-	return ClientBucketRequest, nil
+	return clientRequest, nil
 }
 func UpdateBucket(c *Client, request *pb.UpdateBucketRequest) error {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(c.timeout)*time.Second)
@@ -116,33 +116,33 @@ func DeleteBucket(c *Client, request *pb.DeleteBucketRequest) error {
 func main() {
 	flag.Parse()
 	c, err := NewClient(*confFile)
-	var clientBucketRequest *ClientBucketRequest
+	var clientRequest *ClientRequest
 	if err != nil {
 		log.Error("NewClient:", err)
 		return
 	}
 	if *requestBucketType == "c" {
-		clientBucketRequest, err = CreateBucket(c, *count)
+		clientRequest, err = CreateBucket(c, *count)
 		if err != nil {
 			log.Error("CreateBucket:", err)
 		}
-		fmt.Printf("finish %v request\n", clientBucketRequest)
+		fmt.Printf("finish %v request\n", clientRequest)
 		return
 	}
-	clientBucketRequest = &ClientBucketRequest{}
+	clientRequest = &ClientRequest{}
 	b, err := ioutil.ReadFile(bucketInfoFile)
 	if err != nil {
 		log.Errorln(err)
 		return
 	}
-	if err = json.Unmarshal(b, clientBucketRequest); err != nil {
+	if err = json.Unmarshal(b, clientRequest); err != nil {
 		log.Errorln(err)
 		return
 	}
 	if *requestBucketType == "d" {
 		for i := 0; i < *count; i++ {
 			delBucketRequest := &pb.DeleteBucketRequest{
-				Name: clientBucketRequest.Request[i].Name,
+				Name: clientRequest.Request[i].Name,
 			}
 			DeleteBucket(c, delBucketRequest)
 		}
@@ -150,9 +150,9 @@ func main() {
 	} else {
 		for i := 0; i < *count; i++ {
 			updateBucketRequest := &pb.UpdateBucketRequest{
-				Name:         clientBucketRequest.Request[i].Name,
-				MaxStorageBytes:     clientBucketRequest.Request[i].MaxStorageBytes + rand.Int63(),
-				MaxObjectCount: clientBucketRequest.Request[i].MaxObjectCount + rand.Int63()%1024,
+				Name:         clientRequest.Request[i].Name,
+				MaxStorageBytes:     clientRequest.Request[i].MaxStorageBytes + rand.Uint64(),
+				MaxObjectCount: clientRequest.Request[i].MaxObjectCount + rand.Uint64()%1024,
 			}
 			UpdateBucket(c, updateBucketRequest)
 		}

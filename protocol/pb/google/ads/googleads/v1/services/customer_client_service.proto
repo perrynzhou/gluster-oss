@@ -18,7 +18,7 @@ package google.ads.googleads.v1.services;
 
 import "google/ads/googleads/v1/resources/customer_client.proto";
 import "google/api/annotations.proto";
-import "google/api/bucket.proto";
+import "google/api/bucket-client.proto";
 import "google/api/field_behavior.proto";
 import "google/api/resource.proto";
 

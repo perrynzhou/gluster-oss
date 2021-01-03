@@ -16,7 +16,7 @@ syntax = "proto3";
 
 package google.logging.v2;
 
-import "google/api/bucket.proto";
+import "google/api/bucket-client.proto";
 import "google/api/distribution.proto";
 import "google/api/field_behavior.proto";
 import "google/api/metric.proto";

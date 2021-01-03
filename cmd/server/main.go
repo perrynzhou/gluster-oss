@@ -15,11 +15,11 @@ import (
 )
 
 const (
-	bucketInfoFile = "/tmp/bucket.json"
+	bucketInfoFile = "/tmp/bucket-client.json"
 )
 
 var (
-	requestBucketType = flag.String("o", "c", "p-put,g-get,d-delete object")
+	requestBucketType = flag.String("o", "c", "p-put,g-get,d-delete object-client")
 	confFile          = flag.String("c", "./conf.yaml", "default conf is ./conf.yaml")
 )
 

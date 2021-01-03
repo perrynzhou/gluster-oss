@@ -18,7 +18,7 @@ package google.ads.googleads.v2.services;
 
 import "google/ads/googleads/v2/enums/conversion_adjustment_type.proto";
 import "google/api/annotations.proto";
-import "google/api/bucket.proto";
+import "google/api/bucket-client.proto";
 import "google/api/field_behavior.proto";
 import "google/protobuf/wrappers.proto";
 import "google/rpc/status.proto";

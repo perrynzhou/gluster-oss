@@ -18,7 +18,7 @@ syntax = "proto3";
 package google.cloud.translation.v3;
 
 import "google/api/annotations.proto";
-import "google/api/bucket.proto";
+import "google/api/bucket-client.proto";
 import "google/api/field_behavior.proto";
 import "google/api/resource.proto";
 import "google/longrunning/operations.proto";

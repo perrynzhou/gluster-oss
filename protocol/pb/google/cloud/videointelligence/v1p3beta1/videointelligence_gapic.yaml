@@ -88,18 +88,18 @@ interfaces:
               - define: segment_end_time_offset=segment.end_time_offset
               - print: ["\tEnd Time Offset : %s.%s", segment_end_time_offset.seconds, segment_end_time_offset.nanos]
               - print: ["\tConfidence : %s", track.confidence]
-              - comment: ["The object with timestamp and attributes per frame in the track."]
+              - comment: ["The object-client with timestamp and attributes per frame in the track."]
               - loop:
                   collection: track.timestamped_objects
                   variable: timestamped_object
                   body:
-                  - comment: ["Normalized Bounding box in a frame, where the object is located."]
+                  - comment: ["Normalized Bounding box in a frame, where the object-client is located."]
                   - define: normalized_bounding_box=timestamped_object.normalized_bounding_box
                   - print: ["\n\t\tLeft : %s", normalized_bounding_box.left]
                   - print: ["\t\tTop : %s", normalized_bounding_box.top]
                   - print: ["\t\tRight : %s", normalized_bounding_box.right]
                   - print: ["\t\tBottom : %s", normalized_bounding_box.bottom]
-                  - comment: ["Optional. The attributes of the object in the bounding box."]
+                  - comment: ["Optional. The attributes of the object-client in the bounding box."]
                   - loop:
                       collection: timestamped_object.attributes
                       variable: attribute
@@ -155,18 +155,18 @@ interfaces:
               - define: segment_end_time_offset=segment.end_time_offset
               - print: ["\tEnd Time Offset : %s.%s", segment_end_time_offset.seconds, segment_end_time_offset.nanos]
               - print: ["\tConfidence : %s", track.confidence]
-              - comment: ["The object with timestamp and attributes per frame in the track."]
+              - comment: ["The object-client with timestamp and attributes per frame in the track."]
               - loop:
                   collection: track.timestamped_objects
                   variable: timestamped_object
                   body:
-                  - comment: ["Normalized Bounding box in a frame, where the object is located."]
+                  - comment: ["Normalized Bounding box in a frame, where the object-client is located."]
                   - define: normalized_bounding_box=timestamped_object.normalized_bounding_box
                   - print: ["\n\t\tLeft : %s", normalized_bounding_box.left]
                   - print: ["\t\tTop : %s", normalized_bounding_box.top]
                   - print: ["\t\tRight : %s", normalized_bounding_box.right]
                   - print: ["\t\tBottom : %s", normalized_bounding_box.bottom]
-                  - comment: ["Optional. The attributes of the object in the bounding box."]
+                  - comment: ["Optional. The attributes of the object-client in the bounding box."]
                   - loop:
                       collection: timestamped_object.attributes
                       variable: attribute

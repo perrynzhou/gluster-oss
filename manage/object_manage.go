@@ -48,9 +48,9 @@ func (objectManage *ObjectManage) handlePutObjectRequest(request *ObjectRequest)
 	defer func(request *ObjectRequest, response *ObjectResponse) {
 		request.Done <- response
 	}(request, response)
-	log.Errorln("create object:", request.Info.Name)
+	log.Errorln("create object-client:", request.Info.Name)
 	if bucket, ok = objectManage.BucketCache[request.Info.Bucket]; !ok {
-		err = errors.New(fmt.Sprintf("bucket %s not  exists", request.Info.Name))
+		err = errors.New(fmt.Sprintf("bucket-client %s not  exists", request.Info.Name))
 		response.Err = err
 		return err
 	}
@@ -69,7 +69,7 @@ func (objectManage *ObjectManage) handlePutObjectRequest(request *ObjectRequest)
 	objectInfo.Meta.Status = meta.ActiveObjectStatus
 	objectManage.notifyObjectCh <- objectInfo
 	objectManage.notifyBucketCh <- bucket
-	log.Warningln("bucketManage.notifyCh <- bucket:", bucket)
+	log.Warningln("bucketManage.notifyCh <- bucket-client:", bucket)
 	return nil
 
 }
@@ -103,7 +103,7 @@ func (objectManage *ObjectManage) handleDeleteObjectRequest(request *ObjectReque
 		request.Done <- response
 	}(request, response)
 	if object, ok = objectManage.ObjectCache[request.Info.Key]; !ok {
-		err = errors.New(fmt.Sprintf("object %s not exists in bucket %s", request.Info.Key, request.Info.Bucket))
+		err = errors.New(fmt.Sprintf("object-client %s not exists in bucket-client %s", request.Info.Key, request.Info.Bucket))
 		response.Err = err
 		return err
 	}

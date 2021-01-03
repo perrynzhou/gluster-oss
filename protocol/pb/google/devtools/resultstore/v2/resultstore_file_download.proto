@@ -18,7 +18,7 @@ syntax = "proto3";
 package google.devtools.resultstore.v2;
 
 import "google/api/annotations.proto";
-import "google/api/bucket.proto";
+import "google/api/bucket-client.proto";
 
 option go_package = "google.golang.org/genproto/googleapis/devtools/resultstore/v2;resultstore";
 option java_multiple_files = true;

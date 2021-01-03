@@ -31,19 +31,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="060af402-b06a-4d15-8399-99878b891f46" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/cmd/object/build.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmd/object/conf.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmd/object/main.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/service/object.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/client/bucket_client.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/bucket/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/client/build.sh" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/bucket/build.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/client/conf.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/bucket/conf.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/bucket/build.sh" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/bucket-client/build.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/bucket/conf.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/bucket-client/conf.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/bucket/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/bucket-client/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/object/build.sh" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/object-client/build.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/object/conf.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/object-client/conf.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/object/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/object-client/main.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmd/server/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/server/main.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/manage/bucket.go" beforeDir="false" afterPath="$PROJECT_DIR$/manage/bucket.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manage/bucket_manage.go" beforeDir="false" afterPath="$PROJECT_DIR$/manage/bucket_manage.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manage/bucket_request.go" beforeDir="false" afterPath="$PROJECT_DIR$/manage/bucket_request.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/manage/object_manage.go" beforeDir="false" afterPath="$PROJECT_DIR$/manage/object_manage.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/manage/util.go" beforeDir="false" afterPath="$PROJECT_DIR$/manage/util.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/meta/block.go" beforeDir="false" afterPath="$PROJECT_DIR$/meta/block.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manage/object_request.go" beforeDir="false" afterPath="$PROJECT_DIR$/manage/object_request.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/meta/bucket.go" beforeDir="false" afterPath="$PROJECT_DIR$/meta/bucket.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/meta/object.go" beforeDir="false" afterPath="$PROJECT_DIR$/meta/object.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/pb/bucket.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/protocol/pb/bucket.pb.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/protocol/pb/google/ads/admob/v1/admob_api.proto" beforeDir="false" afterPath="$PROJECT_DIR$/protocol/pb/google/ads/admob/v1/admob_api.proto" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/protocol/pb/google/ads/admob/v1/admob_gapic.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/protocol/pb/google/ads/admob/v1/admob_gapic.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/protocol/pb/google/ads/googleads/v1/services/account_budget_proposal_service.proto" beforeDir="false" afterPath="$PROJECT_DIR$/protocol/pb/google/ads/googleads/v1/services/account_budget_proposal_service.proto" afterDir="false" />
@@ -537,8 +539,11 @@
       <change beforePath="$PROJECT_DIR$/protocol/pb/google/cloud/videointelligence/v1p1beta1/video_intelligence.proto" beforeDir="false" afterPath="$PROJECT_DIR$/protocol/pb/google/cloud/videointelligence/v1p1beta1/video_intelligence.proto" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/protocol/pb/google/cloud/videointelligence/v1p2beta1/video_intelligence.proto" beforeDir="false" afterPath="$PROJECT_DIR$/protocol/pb/google/cloud/videointelligence/v1p2beta1/video_intelligence.proto" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/protocol/pb/google/cloud/videointelligence/v1p3beta1/video_intelligence.proto" beforeDir="false" afterPath="$PROJECT_DIR$/protocol/pb/google/cloud/videointelligence/v1p3beta1/video_intelligence.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/pb/google/cloud/videointelligence/v1p3beta1/videointelligence_gapic.legacy.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/protocol/pb/google/cloud/videointelligence/v1p3beta1/videointelligence_gapic.legacy.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/pb/google/cloud/videointelligence/v1p3beta1/videointelligence_gapic.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/protocol/pb/google/cloud/videointelligence/v1p3beta1/videointelligence_gapic.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/protocol/pb/google/cloud/vision/v1/image_annotator.proto" beforeDir="false" afterPath="$PROJECT_DIR$/protocol/pb/google/cloud/vision/v1/image_annotator.proto" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/protocol/pb/google/cloud/vision/v1/product_search_service.proto" beforeDir="false" afterPath="$PROJECT_DIR$/protocol/pb/google/cloud/vision/v1/product_search_service.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/pb/google/cloud/vision/v1/vision_gapic.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/protocol/pb/google/cloud/vision/v1/vision_gapic.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/protocol/pb/google/cloud/vision/v1p1beta1/image_annotator.proto" beforeDir="false" afterPath="$PROJECT_DIR$/protocol/pb/google/cloud/vision/v1p1beta1/image_annotator.proto" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/protocol/pb/google/cloud/vision/v1p2beta1/image_annotator.proto" beforeDir="false" afterPath="$PROJECT_DIR$/protocol/pb/google/cloud/vision/v1p2beta1/image_annotator.proto" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/protocol/pb/google/cloud/vision/v1p3beta1/image_annotator.proto" beforeDir="false" afterPath="$PROJECT_DIR$/protocol/pb/google/cloud/vision/v1p3beta1/image_annotator.proto" afterDir="false" />
@@ -622,11 +627,7 @@
       <change beforePath="$PROJECT_DIR$/protocol/pb/google/spanner/v1/spanner.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/protocol/pb/google/spanner/v1/spanner.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/protocol/pb/google/storage/v1/storage.proto" beforeDir="false" afterPath="$PROJECT_DIR$/protocol/pb/google/storage/v1/storage.proto" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/protocol/pb/object.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/protocol/pb/object.pb.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/protocol/pb/object.proto" beforeDir="false" afterPath="$PROJECT_DIR$/protocol/pb/object.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/protocol/pb/service.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/protocol/pb/service.pb.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/protocol/pb/service.pb.gw.go" beforeDir="false" afterPath="$PROJECT_DIR$/protocol/pb/service.pb.gw.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/protocol/pb/service.proto" beforeDir="false" afterPath="$PROJECT_DIR$/protocol/pb/service.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/service.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

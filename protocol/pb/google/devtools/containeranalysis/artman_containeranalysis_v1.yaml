@@ -19,7 +19,7 @@ artifacts:
   publish_targets:
   - name: staging
     type: GITHUB
-    location: git@github.com:googleapis/api-bucket-staging.git
+    location: git@github.com:googleapis/api-bucket-client-staging.git
     directory_mappings:
     - dest: generated/java/gapic-google-cloud-containeranalysis-v1
     - name: grpc
@@ -43,7 +43,7 @@ artifacts:
   publish_targets:
   - name: staging
     type: GITHUB
-    location: git@github.com:googleapis/api-bucket-staging.git
+    location: git@github.com:googleapis/api-bucket-client-staging.git
     directory_mappings:
     - dest: generated/php/google-cloud-containeranalysis-v1
 - name: go_gapic

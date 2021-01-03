@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.23.0
 // 	protoc        v3.13.0
-// source: object.proto
+// source: object-client.proto
 
 package pb
 
@@ -252,9 +252,9 @@ type GetObjectRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//bucket name
+	//bucket-client name
 	BucketName string `protobuf:"bytes,1,opt,name=bucket_name,json=bucketName,proto3" json:"bucket_name,omitempty"`
-	//format: {bucket-name}.id
+	//format: {bucket-client-name}.id
 	ObjectId int64  `protobuf:"varint,2,opt,name=object_id,json=objectId,proto3" json:"object_id,omitempty"`
 	Message  string `protobuf:"bytes,3,opt,name=message,proto3" json:"message,omitempty"`
 }
@@ -317,7 +317,7 @@ type GetObjectResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//bucket name
+	//bucket-client name
 	BucketName  string            `protobuf:"bytes,1,opt,name=bucket_name,json=bucketName,proto3" json:"bucket_name,omitempty"`
 	ObjectId    int64             `protobuf:"varint,2,opt,name=object_id,json=objectId,proto3" json:"object_id,omitempty"`
 	UserDefined map[string]string `protobuf:"bytes,3,rep,name=user_defined,json=userDefined,proto3" json:"user_defined,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`

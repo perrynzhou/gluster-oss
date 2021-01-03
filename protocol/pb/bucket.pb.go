@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.23.0
 // 	protoc        v3.13.0
-// source: bucket.proto
+// source: bucket-client.proto
 
 package pb
 
@@ -31,13 +31,13 @@ type CreateBucketRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//request bucket name
+	//request bucket-client name
 	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	//access privileges
 	Key string `protobuf:"bytes,2,opt,name=key,proto3" json:"key,omitempty"`
 	//request storage LimitBytes
 	MaxStorageBytes int64 `protobuf:"varint,3,opt,name=max_storage_bytes,json=maxStorageBytes,proto3" json:"max_storage_bytes,omitempty"`
-	//limit object count
+	//limit object-client count
 	MaxObjectCount int64 `protobuf:"varint,4,opt,name=max_object_count,json=maxObjectCount,proto3" json:"max_object_count,omitempty"`
 }
 
@@ -107,9 +107,9 @@ type CreateBucketResponse struct {
 	unknownFields protoimpl.UnknownFields
 
 	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	//limit bytes for bucket
+	//limit bytes for bucket-client
 	MaxStorageBytes int64 `protobuf:"varint,2,opt,name=max_storage_bytes,json=maxStorageBytes,proto3" json:"max_storage_bytes,omitempty"`
-	//limit object count
+	//limit object-client count
 	MaxObjectCount int64  `protobuf:"varint,3,opt,name=max_object_count,json=maxObjectCount,proto3" json:"max_object_count,omitempty"`
 	BucketDir      string `protobuf:"bytes,4,opt,name=bucket_dir,json=bucketDir,proto3" json:"bucket_dir,omitempty"`
 	Message        string `protobuf:"bytes,5,opt,name=message,proto3" json:"message,omitempty"`
@@ -187,7 +187,7 @@ type DeleteBucketRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//bucket name
+	//bucket-client name
 	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 }
 
@@ -326,7 +326,7 @@ type UpdateBucketRequest struct {
 	Name            string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	Key             string `protobuf:"bytes,2,opt,name=key,proto3" json:"key,omitempty"`
 	MaxStorageBytes int64  `protobuf:"varint,3,opt,name=max_storage_bytes,json=maxStorageBytes,proto3" json:"max_storage_bytes,omitempty"`
-	//limit object count
+	//limit object-client count
 	MaxObjectCount int64 `protobuf:"varint,4,opt,name=max_object_count,json=maxObjectCount,proto3" json:"max_object_count,omitempty"`
 }
 
@@ -398,7 +398,7 @@ type UpdateBucketResponse struct {
 	Name            string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	BucketDir       string `protobuf:"bytes,2,opt,name=bucket_dir,json=bucketDir,proto3" json:"bucket_dir,omitempty"`
 	MaxStorageBytes int64  `protobuf:"varint,3,opt,name=max_storage_bytes,json=maxStorageBytes,proto3" json:"max_storage_bytes,omitempty"`
-	//limit object count
+	//limit object-client count
 	MaxObjectCount int64  `protobuf:"varint,4,opt,name=max_object_count,json=maxObjectCount,proto3" json:"max_object_count,omitempty"`
 	Message        string `protobuf:"bytes,5,opt,name=message,proto3" json:"message,omitempty"`
 }
@@ -533,7 +533,7 @@ type StatusBucketResponse struct {
 	Name            string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	BucketDir       string `protobuf:"bytes,2,opt,name=bucket_dir,json=bucketDir,proto3" json:"bucket_dir,omitempty"`
 	MaxStorageBytes int64  `protobuf:"varint,3,opt,name=max_storage_bytes,json=maxStorageBytes,proto3" json:"max_storage_bytes,omitempty"`
-	//limit object count
+	//limit object-client count
 	MaxObjectCount int64  `protobuf:"varint,4,opt,name=max_object_count,json=maxObjectCount,proto3" json:"max_object_count,omitempty"`
 	Message        string `protobuf:"bytes,5,opt,name=message,proto3" json:"message,omitempty"`
 }

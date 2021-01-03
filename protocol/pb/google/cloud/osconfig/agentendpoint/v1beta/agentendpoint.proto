@@ -20,7 +20,7 @@ package google.cloud.osconfig.agentendpoint.v1beta;
 import "google/api/field_behavior.proto";
 import "google/cloud/osconfig/agentendpoint/v1beta/guest_policies.proto";
 import "google/cloud/osconfig/agentendpoint/v1beta/tasks.proto";
-import "google/api/bucket.proto";
+import "google/api/bucket-client.proto";
 
 option go_package = "google.golang.org/genproto/googleapis/cloud/osconfig/agentendpoint/v1beta;agentendpoint";
 option java_multiple_files = true;

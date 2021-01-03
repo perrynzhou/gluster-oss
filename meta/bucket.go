@@ -5,9 +5,9 @@ const (
 	InactiveBucket = 1
 )
 
-// BucketInfo - represents bucket metadata.
+// BucketInfo - represents bucket-client metadata.
 type BucketInfo struct {
-	// Name of the bucket.
+	// Name of the bucket-client.
 	Name                string
 	RealDirName         string
 	Status              uint8

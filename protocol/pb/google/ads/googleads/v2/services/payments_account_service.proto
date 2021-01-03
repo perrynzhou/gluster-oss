@@ -18,7 +18,7 @@ package google.ads.googleads.v2.services;
 
 import "google/ads/googleads/v2/resources/payments_account.proto";
 import "google/api/annotations.proto";
-import "google/api/bucket.proto";
+import "google/api/bucket-client.proto";
 import "google/api/field_behavior.proto";
 
 option csharp_namespace = "Google.Ads.GoogleAds.V2.Services";

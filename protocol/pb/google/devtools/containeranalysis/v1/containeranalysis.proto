@@ -18,7 +18,7 @@ syntax = "proto3";
 package google.devtools.containeranalysis.v1;
 
 import "google/api/annotations.proto";
-import "google/api/bucket.proto";
+import "google/api/bucket-client.proto";
 import "google/iam/v1/iam_policy.proto";
 import "google/iam/v1/policy.proto";
 import "google/protobuf/timestamp.proto";

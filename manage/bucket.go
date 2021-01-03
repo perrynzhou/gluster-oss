@@ -19,7 +19,7 @@ import (
 
 const (
 	BucketBlockIndexFileSuffix  = "block.index"
-	BucketObjectMetaFileSuffix = "object.meta"
+	BucketObjectMetaFileSuffix = "object-client.meta"
 	BucketBlockMetaFileSuffix = "block.meta"
 	BucketDefauleBlockCount      = 32
 )
@@ -48,12 +48,12 @@ func (bucket *Bucket) Load(fsApi *fs_api.FsApi) (*Bucket, error) {
 	fsApi.Read(blockIndexFile, buf)
 	bucket.MaxIndex, err = strconv.ParseInt(string(buf), 10, 64)
 
-	// load  object meta file
+	// load  object-client meta file
 	objectMetaFile, err := fsApi.Open(fmt.Sprintf("/%s/%s.%s", bucket.Meta.Name, bucket.Meta.Name, BucketObjectMetaFileSuffix), os.O_RDONLY)
 	if err != nil {
 		return nil, err
 	}
-	// load  object meta file
+	// load  object-client meta file
 	blockMetaFile, err := fsApi.Open(fmt.Sprintf("/%s/%s.%s", bucket.Meta.Name, bucket.Meta.Name, BucketBlockMetaFileSuffix), os.O_RDWR|os.O_APPEND)
 	if err != nil {
 		return nil, err
@@ -112,13 +112,13 @@ func NewBucket(fsApi *fs_api.FsApi, bucketFile *fs_api.FsFd,cap, limit int64, bu
 		Locker:&sync.Mutex{},
 		BucketMetaFile:bucketFile,
 	}
-	// create bucket path
+	// create bucket-client path
 	err = fsApi.Mkdir(fmt.Sprintf("/%s", bucket.Meta.RealDirName), os.ModePerm)
 	if err != nil {
 		return nil, err
 	}
 
-	// create bucket block path
+	// create bucket-client block path
 	err = fsApi.Mkdir(fmt.Sprintf("/%s/block", bucket.Meta.RealDirName), os.ModePerm)
 	if err != nil {
 		return nil, err
@@ -135,7 +135,7 @@ func NewBucket(fsApi *fs_api.FsApi, bucketFile *fs_api.FsFd,cap, limit int64, bu
 	}
 	// fsApi.Close(blockIndexFile)
 
-	// create object meta file
+	// create object-client meta file
 	objectMetaFile, err := fsApi.Creat(fmt.Sprintf("/%s/%s.%s", bucket.Meta.RealDirName, bucket.Meta.RealDirName, BucketObjectMetaFileSuffix), os.O_RDWR|os.O_APPEND, os.ModePerm)
 	if err != nil {
 		return nil, err
@@ -159,7 +159,7 @@ func NewBucket(fsApi *fs_api.FsApi, bucketFile *fs_api.FsFd,cap, limit int64, bu
 }
 func (bucket *Bucket) checkStatus() error {
 	if bucket.Meta.Status == meta.InactiveBucket {
-		return errors.New(fmt.Sprintf("bucket  %s   inactive", bucket.Meta.Name))
+		return errors.New(fmt.Sprintf("bucket-client  %s   inactive", bucket.Meta.Name))
 	}
 	return nil
 }

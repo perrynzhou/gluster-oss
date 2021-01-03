@@ -11,7 +11,7 @@ const (
 	DelObjectType = 3
 )
 const (
-	ObjectServiceName = "object"
+	ObjectServiceName = "object-client"
 )
 
 type ObjectRequest struct {

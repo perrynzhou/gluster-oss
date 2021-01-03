@@ -18,7 +18,7 @@ syntax = "proto3";
 package google.cloud.binaryauthorization.v1beta1;
 
 import "google/api/annotations.proto";
-import "google/api/bucket.proto";
+import "google/api/bucket-client.proto";
 import "google/api/field_behavior.proto";
 import "google/api/resource.proto";
 import "google/cloud/binaryauthorization/v1beta1/resources.proto";

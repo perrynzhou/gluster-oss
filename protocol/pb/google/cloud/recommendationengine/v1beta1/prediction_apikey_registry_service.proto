@@ -19,7 +19,7 @@ package google.cloud.recommendationengine.v1beta1;
 import "google/api/annotations.proto";
 import "google/api/field_behavior.proto";
 import "google/protobuf/empty.proto";
-import "google/api/bucket.proto";
+import "google/api/bucket-client.proto";
 
 option csharp_namespace = "Google.Cloud.RecommendationEngine.V1Beta1";
 option go_package = "google.golang.org/genproto/googleapis/cloud/recommendationengine/v1beta1;recommendationengine";

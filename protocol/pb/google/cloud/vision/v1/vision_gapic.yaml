@@ -83,7 +83,7 @@ interfaces:
         attributes:
         - parameter: requests[0].input_config.gcs_source.uri
           sample_argument_name: storage_uri
-          description: "Cloud Storage URI to source image in the format gs://[bucket]/[file]"
+          description: "Cloud Storage URI to source image in the format gs://[bucket-client]/[file]"
         - parameter: requests[0].pages[0]
           description: |
             The service can process up to 5 pages per document file.
@@ -100,11 +100,11 @@ interfaces:
               body:
               - loop:
                   collection: page.blocks
-                  variable: object
+                  variable: object-client
                   body:
-                  - print: ["\nBlock confidence: %s", object.confidence]
+                  - print: ["\nBlock confidence: %s", object-client.confidence]
                   - loop:
-                      collection: object.paragraphs
+                      collection: object-client.paragraphs
                       variable: par
                       body:
                       - print: ["\tParagraph confidence: %s", par.confidence]
@@ -149,11 +149,11 @@ interfaces:
               body:
               - loop:
                   collection: page.blocks
-                  variable: object
+                  variable: object-client
                   body:
-                  - print: ["\nBlock confidence: %s", object.confidence]
+                  - print: ["\nBlock confidence: %s", object-client.confidence]
                   - loop:
-                      collection: object.paragraphs
+                      collection: object-client.paragraphs
                       variable: par
                       body:
                       - print: ["\tParagraph confidence: %s", par.confidence]
@@ -199,7 +199,7 @@ interfaces:
         - requests[0].image.source.image_uri=gs://cloud-samples-data/vision/label/wakeupcat.jpg
         - requests[0].features[0].type=LABEL_DETECTION
         - requests[0].features[1].type=IMAGE_PROPERTIES
-        - output_config.gcs_destination.uri=gs://your-bucket/prefix/
+        - output_config.gcs_destination.uri=gs://your-bucket-client/prefix/
         - output_config.batch_size=2
         attributes:
         - parameter: requests[0].image.source.image_uri

@@ -19,7 +19,7 @@ import (
 )
 
 const (
-	bucketMetaFilePath = "/bucket.meta"
+	bucketMetaFilePath = "/bucket-client.meta"
 )
 
 type BucketManage struct {
@@ -99,10 +99,10 @@ func (bucketManage *BucketManage) refreshCache() {
 	for {
 		select {
 		case bucket := <-bucketManage.notifyCh:
-			log.Warningln("refreshCache name:",bucket.Meta.Name,",bucket:",bucket)
+			log.Warningln("refreshCache name:",bucket.Meta.Name,",bucket-client:",bucket)
 			bucketManage.BucketCache[bucket.Meta.Name] = bucket
 			if err :=bucket.StoreMeta(bucketManage.api, bucketManage.bucketMetaFile);err !=nil {
-				log.Errorln("bucket.StoreMeta Err:",err)
+				log.Errorln("bucket-client.StoreMeta Err:",err)
 			}
 		case <-bucketManage.doneCh:
 			return
@@ -119,24 +119,24 @@ func (bucketManage *BucketManage) handleCreateBucketRequest(request *BucketReque
 	defer func(request *BucketRequest) {
 		request.Done <- response
 	}(request)
-	log.Errorln("create bucket:",request.Info.Name)
+	log.Errorln("create bucket-client:",request.Info.Name)
 	if bucket, ok = bucketManage.BucketCache[request.Info.Name]; ok {
-		err = errors.New(fmt.Sprintf("bucket %s  exists", request.Info.Name))
+		err = errors.New(fmt.Sprintf("bucket-client %s  exists", request.Info.Name))
 		response.Err = err
 		return err
 	}
-//	log.Errorln("create bucket:",request.Info.Name," exits bucket:",bucket.Meta.Name)
+//	log.Errorln("create bucket-client:",request.Info.Name," exits bucket-client:",bucket-client.Meta.Name)
 
 	bucketDirName := fmt.Sprintf("%s-%s", request.Info.Name, uuid.New().String())
-	log.Infoln("create bucket dir:", bucketDirName)
+	log.Infoln("create bucket-client dir:", bucketDirName)
 
 	if bucket, err = NewBucket(bucketManage.api,bucketManage.bucketMetaFile, request.Info.MaxStorageBytes, request.Info.MaxObjectCount, request.Info.Name, bucketDirName); err != nil {
 		log.Errorln("NewBucket error:",err)
-		err = errors.New("create bucket faild")
+		err = errors.New("create bucket-client faild")
 		return err
 	}
 	bucketManage.notifyCh <- bucket
-	log.Warningln("bucketManage.notifyCh <- bucket:",bucket)
+	log.Warningln("bucketManage.notifyCh <- bucket-client:",bucket)
 	return nil
 
 }
@@ -161,18 +161,18 @@ func (bucketManage *BucketManage) handleUpdateBucketRequest(request *BucketReque
 		request.Done <- response
 	}(request)
 	if bucket, ok = bucketManage.BucketCache[request.Info.Name]; !ok {
-		err = errors.New(fmt.Sprintf("bucket %s not exists", request.Info.Name))
+		err = errors.New(fmt.Sprintf("bucket-client %s not exists", request.Info.Name))
 		response.Err = err
 		return err
 	}
 
 	if err = bucket.checkStatus(); err != nil {
-		err = errors.New(fmt.Sprintf("bucket %s is  inactive", request.Info.Name))
+		err = errors.New(fmt.Sprintf("bucket-client %s is  inactive", request.Info.Name))
 		response.Err = err
 		return err
 	}
 	if err = bucket.CheckLimit(); err != nil {
-		err = errors.New(fmt.Sprintf("bucket %s over limits", request.Info.Name))
+		err = errors.New(fmt.Sprintf("bucket-client %s over limits", request.Info.Name))
 		response.Err = err
 		return err
 	}
@@ -201,7 +201,7 @@ func (bucketManage *BucketManage) handleDeleteBucketRequest(request *BucketReque
 		request.Done <- response
 	}(request)
 	if bucket, ok = bucketManage.BucketCache[request.Info.Name]; !ok {
-		err = errors.New(fmt.Sprintf("bucket %s not exists", request.Info.Name))
+		err = errors.New(fmt.Sprintf("bucket-client %s not exists", request.Info.Name))
 		response.Err = err
 		return err
 	}

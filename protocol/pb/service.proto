@@ -1,7 +1,7 @@
 syntax = "proto3";
 import "google/api/annotations.proto";
-import "bucket.proto";
-import "object.proto";
+import "bucket-client.proto";
+import "object-client.proto";
 package pb;
 service  GlusterStorageGateway {
     rpc CreateBucket(CreateBucketRequest) returns (CreateBucketResponse){

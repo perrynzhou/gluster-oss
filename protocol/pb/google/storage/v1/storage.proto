@@ -23,7 +23,7 @@ import "google/protobuf/empty.proto";
 import "google/protobuf/field_mask.proto";
 import "google/protobuf/wrappers.proto";
 import "google/storage/v1/storage_resources.proto";
-import "google/api/bucket.proto";
+import "google/api/bucket-client.proto";
 
 option go_package = "google.golang.org/genproto/googleapis/storage/v1;storage";
 option java_multiple_files = true;
