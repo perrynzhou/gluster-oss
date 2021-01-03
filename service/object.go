@@ -58,7 +58,7 @@ func (s *ObjectService) PutObject(ctx context.Context, putObjectRequest *pb.PutO
 	}
 	return putObjectResponse, resp.Err
 }
-func (s *ObjectService) GetObject(ctx context.Context, getObjectRequest *pb.GetObjectRequest) (*pb.GetObjectReponse, error) {
+func (s *ObjectService) GetObject(ctx context.Context, getObjectRequest *pb.GetObjectRequest) (*pb.GetObjectResponse, error) {
 	req := manage.NewGetbjectRequest(getObjectRequest)
 	log.Infoln("get putObjectRequest request:", getObjectRequest)
 	s.objectRequestCh <- req
@@ -66,7 +66,7 @@ func (s *ObjectService) GetObject(ctx context.Context, getObjectRequest *pb.GetO
 
 	objectInfo := resp.Reply.(*meta.ObjectInfo)
 	log.Infoln("finish putObject request:", objectInfo, ",err:", resp.Err)
-	getObjectResponse := &pb.GetObjectReponse{
+	getObjectResponse := &pb.GetObjectResponse{
 		Message: "success",
 	}
 	if resp.Err != nil {
