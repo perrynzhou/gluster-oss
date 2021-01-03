@@ -15,12 +15,14 @@ import (
 )
 
 const (
-	bucketInfoFile = "/tmp/bucket-client.json"
+	objectInfoFile = "/tmp/object-client.json"
 )
 
 var (
-	requestBucketType = flag.String("o", "c", "p-put,g-get,d-delete object-client")
+	requestObjectType = flag.String("o", "c", "p-put,g-get,d-delete object-client")
 	confFile          = flag.String("c", "./conf.yaml", "default conf is ./conf.yaml")
+	requestObjectFile = flag.String("f", "./test", "default upload file is ./test")
+	requestBucketName = flag.String("b", "test", "default bucket  is test")
 )
 
 type Client struct {
@@ -87,11 +89,17 @@ func main() {
 		return
 	}
 	defer c.Close()
-	if *requestBucketType == "p" {
 
-	} else if *requestBucketType == "d" {
+	if *requestObjectType == "p" {
+
+	} else if *requestObjectType == "d" {
 
 	} else {
-
+		resp, err := PutObject(c, *requestBucketName, *requestObjectFile)
+		if err != nil {
+			log.Println(resp)
+			return
+		}
 	}
+
 }
